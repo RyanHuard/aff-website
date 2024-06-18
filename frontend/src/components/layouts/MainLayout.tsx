@@ -13,19 +13,17 @@ function NavBar() {
   const navbarRoutes = ["Standings", "Schedule", "Stats", "Teams"];
 
   return (
-    <div className="bg-aff-blue">
-      <NavigationMenu>
-        <NavigationMenuList>
-          {navbarRoutes.map((route) => (
-            <NavigationMenuItem>
-              <NavLink to={`/${route.toLowerCase()}`}>
-                <NavigationMenuLink>{route}</NavigationMenuLink>
-              </NavLink>
-            </NavigationMenuItem>
-          ))}
-        </NavigationMenuList>
-      </NavigationMenu>
-    </div>
+    <NavigationMenu className="max-w-full bg-aff-blue h-16 justify-start px-16">
+      <NavigationMenuList className="gap-4 font-semibold">
+        {navbarRoutes.map((route) => (
+          <NavigationMenuItem className="text-white font-sans">
+            <NavLink to={`/${route.toLowerCase()}`}>
+              <NavigationMenuLink>{route}</NavigationMenuLink>
+            </NavLink>
+          </NavigationMenuItem>
+        ))}
+      </NavigationMenuList>
+    </NavigationMenu>
   );
 }
 
