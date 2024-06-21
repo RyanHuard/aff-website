@@ -34,10 +34,10 @@ def get_game_details(game_id):
 def get_game_stats(game_id):
     db = get_db()
 
-    db.execute("SELECT * FROM player_stats WHERE game_id = %s AND team_id = away_team_id", (game_id,))
+    db.execute("SELECT * FROM player_stats WHERE game_id = %s", (game_id,))
     away_team_stats = db.fetchall()
 
-    db.execute("SELECT * FROM player_stats WHERE game_id = %s AND team_id = home_team_id", (game_id,))
+    db.execute("SELECT * FROM player_stats WHERE game_id = %s", (game_id,))
     home_team_stats = db.fetchall()
 
     db.execute("SELECT * FROM player_stats WHERE game_id = %s", (game_id,))

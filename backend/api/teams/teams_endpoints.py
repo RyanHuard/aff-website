@@ -16,5 +16,6 @@ def list_teams():
 def list_team_stats(season_id):
     db = get_db()
     db.execute("SELECT * FROM team_standings WHERE season_id = %s", season_id)
+    
     return db.fetchall()
 
