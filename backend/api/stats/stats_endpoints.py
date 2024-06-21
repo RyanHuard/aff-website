@@ -1,0 +1,23 @@
+from flask import Blueprint, request
+
+from api.db import get_db
+from .stats_handler import query_season_stats, handle_stats
+
+stats_bp = Blueprint("player_stats", __name__, url_prefix="/player-stats")
+
+
+@stats_bp.route("/<season_id>")
+def get_season_stats(season_id):
+    team_city = request.args.get("teamCity")
+
+    player_stats = query_season_stats(season_id, team_city)
+    organized_player_stats = handle_stats(player_stats)
+
+    return organized_player_stats
+    
+
+
+
+
+
+

@@ -1,0 +1,47 @@
+from flask import Blueprint, request
+
+from api.db import get_db
+
+games_bp = Blueprint("games", __name__, url_prefix="/games")
+
+@games_bp.route("/schedule/<season_id>")
+def get_schedule(season_id):
+    team_id = request.args.get("teamId")
+
+    db = get_db()
+
+    query = "SELECT * FROM games WHERE season_id = %s"
+
+    params = [season_id]
+    if team_id is not None:
+        query += " AND away_team_id = %s OR home_team_id = %s"
+        params.extend([team_id, team_id])
+
+    db.execute(query, params)
+
+    return db.fetchall()
+
+
+@games_bp.route("/details/<int:game_id>")
+def get_game_details(game_id):
+    db = get_db()
+
+    db.execute("SELECT * FROM games WHERE game_id = %s", (game_id,))
+    return db.fetchone()
+
+
+@games_bp.route("/stats/<int:game_id>")
+def get_game_stats(game_id):
+    db = get_db()
+
+    db.execute("SELECT * FROM player_stats WHERE game_id = %s AND team_id = away_team_id", (game_id,))
+    away_team_stats = db.fetchall()
+
+    db.execute("SELECT * FROM player_stats WHERE game_id = %s AND team_id = home_team_id", (game_id,))
+    home_team_stats = db.fetchall()
+
+    db.execute("SELECT * FROM player_stats WHERE game_id = %s", (game_id,))
+    return {
+        "away_team_stats": away_team_stats,
+        "home_team_stats": home_team_stats
+    }
