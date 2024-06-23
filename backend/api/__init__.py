@@ -1,6 +1,7 @@
 import os
 
 from flask import Flask
+from flask_cors import CORS, cross_origin
 
 
 def create_app(test_config=None):
@@ -9,20 +10,16 @@ def create_app(test_config=None):
         DATABASE=os.environ.get("DATABASE_URL")
     )
 
+    CORS(app, resources={r"/*": {"origins": "*"}})
+
     from .teams.teams_endpoints import teams_bp
     from .stats.stats_endpoints import stats_bp
     from .games.games_endpoints import games_bp
+    from .home.home_endpoints import home_bp
     app.register_blueprint(teams_bp)
     app.register_blueprint(stats_bp)
     app.register_blueprint(games_bp)
+    app.register_blueprint(home_bp)
 
-    from api.db import get_db
-
-    @app.route("/hello")
-    def test():
-        db = get_db()
-
-        db.execute("SELECT * FROM teams")
-        return db.fetchall()
-        
     return app
+
