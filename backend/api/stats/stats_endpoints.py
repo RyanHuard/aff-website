@@ -3,7 +3,7 @@ from flask import Blueprint, request
 from api.db import get_db
 from .stats_handler import query_season_stats, handle_stats
 
-stats_bp = Blueprint("player_stats", __name__, url_prefix="/player-stats")
+stats_bp = Blueprint("player_stats", __name__, url_prefix="/api/player-stats")
 
 
 @stats_bp.route("/<season_id>")

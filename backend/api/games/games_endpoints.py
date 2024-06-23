@@ -1,8 +1,11 @@
 from flask import Blueprint, request
 
 from api.db import get_db
+from .games_handler import handle_stats
 
-games_bp = Blueprint("games", __name__, url_prefix="/games")
+
+games_bp = Blueprint("games", __name__, url_prefix="/api/games")
+
 
 @games_bp.route("/schedule/<season_id>")
 def get_schedule(season_id):
@@ -34,14 +37,33 @@ def get_game_details(game_id):
 def get_game_stats(game_id):
     db = get_db()
 
-    db.execute("SELECT * FROM player_stats WHERE game_id = %s", (game_id,))
+    db.execute(
+        """
+    SELECT player_stats.*
+    FROM player_stats
+    JOIN games ON player_stats.game_id = games.game_id
+    JOIN teams ON games.away_team_id = teams.team_id
+    WHERE games.game_id = %s
+    AND player_stats.team_city = teams.abbreviation
+    """,
+        (game_id,),
+    )
     away_team_stats = db.fetchall()
 
-    db.execute("SELECT * FROM player_stats WHERE game_id = %s", (game_id,))
+    db.execute(
+        """
+    SELECT player_stats.*
+    FROM player_stats
+    JOIN games ON player_stats.game_id = games.game_id
+    JOIN teams ON games.home_team_id = teams.team_id
+    WHERE games.game_id = %s
+    AND player_stats.team_city = teams.abbreviation
+    """,
+        (game_id,),
+    )
     home_team_stats = db.fetchall()
 
-    db.execute("SELECT * FROM player_stats WHERE game_id = %s", (game_id,))
     return {
-        "away_team_stats": away_team_stats,
-        "home_team_stats": home_team_stats
+        "away_team_stats": handle_stats(away_team_stats),
+        "home_team_stats": handle_stats(home_team_stats),
     }

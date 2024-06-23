@@ -2,7 +2,7 @@ from flask import Blueprint
 
 from api.db import get_db
 
-teams_bp = Blueprint("teams", __name__, url_prefix="/teams")
+teams_bp = Blueprint("teams", __name__, url_prefix="/api/teams")
 
 
 @teams_bp.route("")
