@@ -6,6 +6,7 @@ import {
 import { NavLink, Outlet } from "react-router-dom";
 
 import { useStatLeadersWeekly } from "./api/get-stat-leaders";
+import WeeklyStatLeaderBox from "./components/weekly-stat-leaders";
 
 function TeamLogosHeader() {
   return <div className="bg-black h-14"></div>;
@@ -32,10 +33,13 @@ function NavBar() {
 }
 
 function StatLeadersHeader() {
-  const statLeadersWeekly = useStatLeadersWeekly();
-  console.log(statLeadersWeekly.data);
+  const statLeadersWeeklyQuery = useStatLeadersWeekly();
+  console.log(statLeadersWeeklyQuery);
+  if (statLeadersWeeklyQuery.isLoading) {
+    return <div>Loading...</div>
+  }
 
-  return <div className="h-24 bg-slate-50"></div>;
+  return <WeeklyStatLeaderBox category="Passing Yards" players={statLeadersWeeklyQuery?.data?.["passing_yards"]}/>;
 }
 
 export default function MainLayout() {
