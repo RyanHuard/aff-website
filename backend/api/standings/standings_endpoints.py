@@ -1,6 +1,6 @@
 from flask import Blueprint
 
-from ..db import get_db
+from ..db import get_db, close_db
 
 standings_bp = Blueprint("standings", __name__, url_prefix="/api/standings")
 
@@ -14,4 +14,7 @@ JOIN teams ON team_standings.team_id = teams.team_id
 WHERE season_id = %s
 ORDER BY team_standings.season_id, team_standings.wins DESC, (team_standings.points_for - team_standings.points_against) DESC""", season_id)
     
-    return db.fetchall()
+    standings = db.fetchall()
+    close_db()
+
+    return standings

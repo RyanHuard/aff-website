@@ -1,4 +1,4 @@
-from api.db import get_db
+from api.db import get_db, close_db
 
 def query_season_stats(season_id, team_city=None):
     db = get_db()
@@ -76,7 +76,11 @@ def query_season_stats(season_id, team_city=None):
     player_stats_query += "AND first_name <> 'BACKUP' GROUP BY first_name, last_name, position, team_city"
 
     db.execute(player_stats_query, params)
-    return db.fetchall()
+    player_stats = db.fetchall()
+    
+    close_db()
+
+    return player_stats
 
 
 def handle_stats(player_stats):

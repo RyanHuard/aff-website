@@ -10,7 +10,6 @@ def get_db():
     if "db" not in g:
         g.db = psycopg2.connect(os.environ.get("DATABASE_URL"), cursor_factory=extras.RealDictCursor)
  
-
     return g.db.cursor()
 
 

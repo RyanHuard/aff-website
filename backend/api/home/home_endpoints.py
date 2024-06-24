@@ -1,6 +1,6 @@
 from flask import Blueprint
 
-from ..db import get_db
+from ..db import get_db, close_db
 from .home_handler import handle_stats
 
 home_bp = Blueprint("home", __name__, url_prefix="/api/home")
@@ -18,7 +18,9 @@ def get_weekly_stat_leaders():
         LIMIT 5
     )""")
     player_stats = db.fetchall()
-    organized_player_stats = handle_stats(player_stats)
 
+    close_db()
+
+    organized_player_stats = handle_stats(player_stats)
 
     return organized_player_stats
