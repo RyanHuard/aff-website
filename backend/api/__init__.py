@@ -16,10 +16,12 @@ def create_app(test_config=None):
     from .stats.stats_endpoints import stats_bp
     from .games.games_endpoints import games_bp
     from .home.home_endpoints import home_bp
+    from .standings.standings_endpoints import standings_bp
     app.register_blueprint(teams_bp)
     app.register_blueprint(stats_bp)
     app.register_blueprint(games_bp)
     app.register_blueprint(home_bp)
+    app.register_blueprint(standings_bp)
 
     return app
 
