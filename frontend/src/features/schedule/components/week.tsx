@@ -42,7 +42,7 @@ export default function Week({ schedule, seasonIdString, weekId }: WeekProps) {
   }
 
   return (
-    <div className="md:px-4 px-2 sm:pt-0 pt-4">
+    <div className="lg:px-4 xl:px-0 px-2 sm:pt-0 pt-4">
       <h1 className="md:text-2xl text-xl font-bold pb-3 sm:pb-6">
         Season {seasonId} - Week {weekId}
       </h1>

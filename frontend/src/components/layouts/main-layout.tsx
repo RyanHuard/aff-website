@@ -35,7 +35,7 @@ function NavBar() {
   const navbarRoutes = ["Standings", "Schedule", "Stats", "Teams"];
 
   return (
-    <div className="max-w-full bg-aff-blue h-16 px-16">
+    <div className="max-w-full bg-aff-blue h-16 2xl:px-16 px-6">
       <NavigationMenu className="justify-start h-full max-w-7xl mx-auto">
         <NavigationMenuList className="gap-6 font-semibold">
           <img src="aff-logo.png" className="h-10" />
