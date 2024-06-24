@@ -46,7 +46,7 @@ const Table = (props: any) => {
         striped={true}
         customStyles={affStyles}
         responsive="true"
-        progressComponent={<LoadingSpinner />}
+        progressComponent={<LoadingSpinner className="m-36" />}
         defaultSortAsc={false}
         {...props}
       />

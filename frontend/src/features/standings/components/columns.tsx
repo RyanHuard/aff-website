@@ -14,11 +14,12 @@ const columns = [
     cell: (row: any) => {
       let location = row.team?.split(" ")[0];
       let name = row.team?.split(" ")[1];
+      console.log(row);
 
       return (
         // <TeamLink name={name} location={location} teamId={row.team_id}>
         <div className="flex">
-          <img src={`./logos/${row.team_logo}`} alt="Team Logo" width={30} />
+          <img src={`/logos/${row.team_logo}`} alt="Team Logo" width={30} />
           <span className="my-auto hidden pl-2 sm:block">{row.team}</span>
           <span className="my-auto pl-2 sm:hidden">{row.stats_team_city}</span>
         </div>

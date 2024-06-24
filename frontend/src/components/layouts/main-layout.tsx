@@ -40,7 +40,16 @@ function NavBar() {
         <NavigationMenuList className="gap-6 font-semibold ">
           {navbarRoutes.map((route, i) => (
             <NavigationMenuItem className="text-white font-sans" key={i}>
-              <NavLink to={`/${route.toLowerCase()}`}>{route}</NavLink>
+              <NavLink
+                className={({ isActive }) =>
+                  isActive
+                    ? "decoration-2 underline-offset-4 underline"
+                    : "hover:decoration-2 hover:underline-offset-4 hover:underline "
+                }
+                to={`/${route.toLowerCase()}`}
+              >
+                {route}
+              </NavLink>
             </NavigationMenuItem>
           ))}
         </NavigationMenuList>

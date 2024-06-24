@@ -20,7 +20,7 @@ const router = createBrowserRouter([
         element: <App />,
       },
       {
-        path: "/standings",
+        path: "/standings/:seasonId?",
         element: <Standings />,
       },
     ],
