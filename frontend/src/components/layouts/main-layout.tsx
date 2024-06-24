@@ -9,7 +9,26 @@ import { useStatLeadersWeekly } from "./api/get-stat-leaders";
 import WeeklyStatLeaderBox from "./components/weekly-stat-leaders";
 
 function TeamLogosHeader() {
-  return <div className="bg-black h-14"></div>;
+  const logos = [
+    "alaracers.png",
+    "farfrost.png",
+    "kencluck.png",
+    "memrhythm.png",
+    "okbison.png",
+    "orlvoyagers.png",
+    "sacannons.png",
+    "shrsteamboats.png",
+    "scseacows.png",
+    "stlknights.png",
+  ];
+
+  return (
+    <div className="bg-black h-14 flex justify-center gap-6">
+      {logos.map((team, id) => (
+        <img src={`/logos/${team}`} className="h-10 my-auto" />
+      ))}
+    </div>
+  );
 }
 
 function NavBar() {
@@ -21,9 +40,7 @@ function NavBar() {
         <NavigationMenuList className="gap-6 font-semibold ">
           {navbarRoutes.map((route, i) => (
             <NavigationMenuItem className="text-white font-sans" key={i}>
-              <NavLink to={`/${route.toLowerCase()}`}>
-                {route}
-              </NavLink>
+              <NavLink to={`/${route.toLowerCase()}`}>{route}</NavLink>
             </NavigationMenuItem>
           ))}
         </NavigationMenuList>
@@ -36,10 +53,29 @@ function StatLeadersHeader() {
   const statLeadersWeeklyQuery = useStatLeadersWeekly();
   console.log(statLeadersWeeklyQuery);
   if (statLeadersWeeklyQuery.isLoading) {
-    return <div>Loading...</div>
+    return <div>Loading...</div>;
   }
 
-  return <WeeklyStatLeaderBox category="Passing Yards" players={statLeadersWeeklyQuery?.data?.["passing_yards"]}/>;
+  return (
+    <div className="flex">
+      <WeeklyStatLeaderBox
+        category="Passing Yards"
+        players={statLeadersWeeklyQuery?.data?.["passing_yards"]}
+      />
+      <WeeklyStatLeaderBox
+        category="Passing TDs"
+        players={statLeadersWeeklyQuery?.data?.["passing_tds"]}
+      />
+      <WeeklyStatLeaderBox
+        category="Rushing Yards"
+        players={statLeadersWeeklyQuery?.data?.["rushing"]}
+      />
+      <WeeklyStatLeaderBox
+        category="Receiving Yards"
+        players={statLeadersWeeklyQuery?.data?.["receiving"]}
+      />
+    </div>
+  );
 }
 
 export default function MainLayout() {
