@@ -6,6 +6,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import App from "./App";
 import "./index.css";
 import MainLayout from "./components/layouts/main-layout";
+import Standings from "./features/standings/standings";
 
 const queryClient = new QueryClient();
 
@@ -17,6 +18,10 @@ const router = createBrowserRouter([
       {
         path: "",
         element: <App />,
+      },
+      {
+        path: "/standings",
+        element: <Standings />,
       },
     ],
   },
