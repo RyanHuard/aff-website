@@ -9,7 +9,7 @@ type WeeklyStatLeaderBoxProps = {
 
 function WeeklyStatLeaderBox({ category, players }: WeeklyStatLeaderBoxProps) {
   return (
-    <div className="h-24 py-3 px-4 flex">
+    <div className="h-24 py-3 px-4 flex bg-slate-50">
       <div>
         <h1 className="font-semibold text-sm ">{category} this week</h1>
         <div className="flex pt-[2px]">
@@ -32,7 +32,8 @@ function WeeklyStatLeaderBox({ category, players }: WeeklyStatLeaderBoxProps) {
             if (index >= 1) {
               return (
                 <li key={index} className="text-xs mt-[2px]">
-                  {index}. {player.first_name[0]}. {player.last_name} {player.match_pass_yards}
+                  {index}. {player.first_name[0]}. {player.last_name}{" "}
+                  {player.match_pass_yards}
                 </li>
               );
             }

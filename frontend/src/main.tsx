@@ -37,7 +37,7 @@ const router = createBrowserRouter([
         element: <Standings />,
       },
       {
-        path: "/schedule",
+        path: "/schedule/:seasonId?/:weekId?",
         element: <Schedule />,
       },
     ],

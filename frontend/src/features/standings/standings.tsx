@@ -10,6 +10,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useNavigate, useParams } from "react-router-dom";
+import ContentLayout from "@/components/layouts/wrapper/content-layout";
 
 type HeaderActionsProps = {
   handleSeasonSelect: (e: string) => void;
@@ -59,7 +60,9 @@ export default function Standings() {
           />
         }
       />
-      <Tables seasonIdString={selectedSeasonId} />;
+      <ContentLayout>
+        <Tables seasonIdString={selectedSeasonId} />
+      </ContentLayout>
     </>
   );
 }

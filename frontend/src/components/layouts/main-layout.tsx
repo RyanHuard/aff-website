@@ -23,7 +23,7 @@ function TeamLogosHeader() {
   ];
 
   return (
-    <div className="bg-black h-14 flex justify-center gap-6">
+    <div className="bg-black h-14 justify-center gap-6 md:flex hidden">
       {logos.map((team, id) => (
         <img src={`/logos/${team}`} className="h-10 my-auto" key={id} />
       ))}
@@ -93,9 +93,7 @@ export default function MainLayout() {
       <TeamLogosHeader />
       <StatLeadersHeader />
       <NavBar />
-      <div className="mx-auto max-w-7xl">
-        <Outlet />
-      </div>
+      <Outlet />
     </>
   );
 }
