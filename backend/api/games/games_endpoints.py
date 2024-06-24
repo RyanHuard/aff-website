@@ -15,7 +15,7 @@ def get_schedule(season_id):
     return schedule
 
 
-@games_bp.route("/details/<int:game_id>")
+@games_bp.route("/details/<game_id>")
 def get_game_details(game_id):
     db = get_db()
 
@@ -27,7 +27,7 @@ def get_game_details(game_id):
     return game_details
 
 
-@games_bp.route("/stats/<int:game_id>")
+@games_bp.route("/stats/<game_id>")
 def get_game_stats(game_id):
     db = get_db()
 
