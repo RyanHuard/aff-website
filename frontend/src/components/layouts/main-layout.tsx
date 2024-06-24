@@ -37,7 +37,8 @@ function NavBar() {
   return (
     <div className="max-w-full bg-aff-blue h-16 px-16">
       <NavigationMenu className="justify-start h-full max-w-7xl mx-auto">
-        <NavigationMenuList className="gap-6 font-semibold ">
+        <NavigationMenuList className="gap-6 font-semibold">
+          <img src="aff-logo.png" className="h-10" />
           {navbarRoutes.map((route, i) => (
             <NavigationMenuItem className="text-white font-sans" key={i}>
               <NavLink

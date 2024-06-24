@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 export default function Game({ ...game }) {
   return (
     <Link to={`/game/${game.season_id}/${game.game_id}`}>
-      <div className="mx-2 lg:mx-0 mb-4 flex h-14 items-center justify-center rounded-sm bg-white drop-shadow">
+      <div className="lg:mx-0 mb-4 flex h-14 items-center justify-center rounded-sm bg-white drop-shadow">
         <div className="flex  w-64 items-center justify-end">
           <span className="hidden px-1 sm:block">
             ({game.away_team_wins}-{game.away_team_loss})
