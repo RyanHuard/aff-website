@@ -1,7 +1,7 @@
 from flask import Blueprint, request
 
 from api.db import get_db, close_db
-from .games_handler import handle_stats
+from .games_handler import handle_stats, query_season_schedule
 
 
 games_bp = Blueprint("games", __name__, url_prefix="/api/games")
@@ -10,20 +10,7 @@ games_bp = Blueprint("games", __name__, url_prefix="/api/games")
 @games_bp.route("/schedule/<season_id>")
 def get_schedule(season_id):
     team_id = request.args.get("teamId")
-
-    db = get_db()
-
-    query = "SELECT * FROM games WHERE season_id = %s"
-
-    params = [season_id]
-    if team_id is not None:
-        query += " AND away_team_id = %s OR home_team_id = %s"
-        params.extend([team_id, team_id])
-
-    db.execute(query, params)
-    schedule = db.fetchall()
-
-    close_db()
+    schedule = query_season_schedule(season_id, team_id)
 
     return schedule
 

@@ -25,7 +25,7 @@ function TeamLogosHeader() {
   return (
     <div className="bg-black h-14 flex justify-center gap-6">
       {logos.map((team, id) => (
-        <img src={`/logos/${team}`} className="h-10 my-auto" />
+        <img src={`/logos/${team}`} className="h-10 my-auto" key={id} />
       ))}
     </div>
   );
@@ -60,7 +60,7 @@ function NavBar() {
 
 function StatLeadersHeader() {
   const statLeadersWeeklyQuery = useStatLeadersWeekly();
-  console.log(statLeadersWeeklyQuery);
+
   if (statLeadersWeeklyQuery.isLoading) {
     return <div>Loading...</div>;
   }
