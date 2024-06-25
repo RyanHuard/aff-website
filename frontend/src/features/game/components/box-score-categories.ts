@@ -82,9 +82,13 @@ export const boxScoreCategories = {
       {
         label: "AVG",
         getValue: (player: PlayerStats) =>
-          (
+          isNaN(
             player.match_receiving_yards / player.match_receiving_receptions
-          ).toFixed(1),
+          )
+            ? 0
+            : (
+                player.match_receiving_yards / player.match_receiving_receptions
+              ).toFixed(1),
       },
       {
         label: "TD",
