@@ -8,8 +8,6 @@ type BoxScoreProps = {
 };
 
 const BoxScore = ({ boxScore, game }: BoxScoreProps) => {
-  console.log(game);
-
   if (game?.season_id < 4) {
     return (
       <div className="mx-auto h-[500px] max-w-4xl rounded bg-white drop-shadow">

@@ -105,6 +105,7 @@ export const columns = [
         const playerName = `${row.first_name}_${row.last_name}`;
         const src = `/players/${playerName}.png`;
         const fallbackSrc = "/players/player_placeholder.png";
+        console.log(playerName);
 
         return (
           <Link

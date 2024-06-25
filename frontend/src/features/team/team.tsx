@@ -16,7 +16,6 @@ const Team = () => {
 
   let teamQuery = useTeam(teamId!);
   let team = teamQuery?.data?.[0];
-  console.log(team?.abbreviation);
 
   const handleTabChange = (e: string) => {
     setTab(e);

@@ -34,7 +34,6 @@ const Stats = ({ teamCity, seasonId }: StatsProps) => {
     const playerWithMaxRushYards = playerStatsData?.rushing.find(
       (player) => player.season_rush_yards === maxRushYards
     );
-    console.log(playerWithMaxPassingYards);
 
     // Find the player with the highest receiving yards
     const maxReceivingYards = Math.max(

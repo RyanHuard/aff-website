@@ -6,7 +6,6 @@ type HeaderProps = {
 };
 
 const Header = ({ game }: HeaderProps) => {
-  console.log(game);
   let awayWin;
   if (game?.away_team_score > game?.home_team_score) {
     awayWin = true;

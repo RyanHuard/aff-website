@@ -1,6 +1,7 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 import SeasonSelect from "@/components/ui/season-select";
+import { useState } from "react";
 
 type HeaderProps = {
   team: any;
@@ -15,6 +16,8 @@ const Header = ({
   seasonId,
   handleTabChange,
 }: HeaderProps) => {
+  const [tabValue, setTabValue] = useState<string>("Schedule");
+
   const background = { borderColor: `${team?.primary_color}` };
 
   return (
@@ -36,7 +39,12 @@ const Header = ({
       <div className="mx-auto max-w-7xl">
         <div className="py-2 xl:px-0 px-2">
           <Tabs defaultValue="schedule">
-            <TabsList onFocus={(e) => handleTabChange(e.target.textContent!)}>
+            <TabsList
+              onFocus={(e) => {
+                handleTabChange(e.target.textContent!);
+                setTabValue(e.target.textContent!);
+              }}
+            >
               <TabsTrigger value="schedule">Schedule</TabsTrigger>
               <TabsTrigger value="stats">Stats</TabsTrigger>
             </TabsList>
@@ -46,6 +54,7 @@ const Header = ({
           <SeasonSelect
             value={seasonId}
             handleSeasonSelect={handleSeasonSelect}
+            statYearsOnly={tabValue === "Stats" ? true : false}
           />
         </div>
       </div>

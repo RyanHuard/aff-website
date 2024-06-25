@@ -35,7 +35,6 @@ const BoxScoreCategory = ({
       );
       break;
   }
-  console.log(stats);
 
   return (
     <div className="pt-6 text-black">

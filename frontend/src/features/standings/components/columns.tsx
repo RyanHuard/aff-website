@@ -14,7 +14,6 @@ const columns = [
     cell: (row: any) => {
       let location = row.team?.split(" ")[0];
       let name = row.team?.split(" ")[1];
-      console.log(row);
 
       return (
         <TeamLink teamId={row.team_id}>
