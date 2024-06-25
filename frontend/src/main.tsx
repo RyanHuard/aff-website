@@ -14,6 +14,7 @@ import Game from "./features/game/game";
 import PlayerStats from "./features/stats/player-stats";
 import Team from "./features/team/team";
 import Teams from "./features/teams/teams";
+import Player from "./features/player/player";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -59,6 +60,10 @@ const router = createBrowserRouter([
       {
         path: "/game/:gameId",
         element: <Game />,
+      },
+      {
+        path: "/players/:name",
+        element: <Player />,
       },
     ],
   },

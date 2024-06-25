@@ -7,10 +7,11 @@ player_bp = Blueprint("players", __name__, url_prefix="/api/players")
 
 @player_bp.route("/<first_name>/<last_name>")
 def get_player_details(first_name, last_name):
-    db = get_db
+    db = get_db()
 
     db.execute(
-        "SELECT * FROM rosters WHERE fname = %s AND lname = %s ORDER BY season_id LIMIT 1"
+        "SELECT * FROM rosters WHERE fname ILIKE %s AND lname ILIKE %s ORDER BY season_id LIMIT 1",
+        (first_name, last_name),
     )
 
     player_details = db.fetchone()
