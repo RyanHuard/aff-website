@@ -7,6 +7,7 @@ import { Link, NavLink, Outlet } from "react-router-dom";
 
 import { useStatLeadersWeekly } from "./api/get-stat-leaders";
 import WeeklyStatLeaderBox from "./components/weekly-stat-leaders";
+import TeamLink from "../ui/team-link";
 
 function TeamLogosHeader() {
   const logos = [

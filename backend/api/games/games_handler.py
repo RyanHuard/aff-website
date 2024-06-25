@@ -2,6 +2,7 @@ from flask import request
 
 from api.db import get_db, close_db
 
+
 def handle_stats(player_stats):
     passing_stats = []
     rushing_stats = []
@@ -17,9 +18,15 @@ def handle_stats(player_stats):
             passing_stats.append(player)
         if player["match_rush_attempts"] > 0:
             rushing_stats.append(player)
-        if player["match_receiving_targets"] > 0 or player["match_receiving_receptions"] > 0:
+        if (
+            player["match_receiving_targets"] > 0
+            or player["match_receiving_receptions"] > 0
+        ):
             receiving_stats.append(player)
-        if player["match_defense_tackles"] > 0 or player["match_defense_deflections"] > 0:
+        if (
+            player["match_defense_tackles"] > 0
+            or player["match_defense_deflections"] > 0
+        ):
             defense_stats.append(player)
         if player["match_kick_fg_attempts"] > 0 or player["match_kick_xp_attempts"] > 0:
             kicking_stats.append(player)
@@ -29,7 +36,7 @@ def handle_stats(player_stats):
             kick_returning_stats.append(player)
         if player["match_punt_return_count"] > 0:
             punt_returning_stats.append(player)
-    
+
     stats_dict = {
         "passing": passing_stats,
         "rushing": rushing_stats,
@@ -38,10 +45,11 @@ def handle_stats(player_stats):
         "kicking": kicking_stats,
         "punting": punting_stats,
         "kick_returning": kick_returning_stats,
-        "punt_returning": punt_returning_stats
+        "punt_returning": punt_returning_stats,
     }
 
     return stats_dict
+
 
 def query_season_schedule(season_id, team_id=None):
     db = get_db()
@@ -82,7 +90,9 @@ WHERE games.season_id = %s
 
     params = [season_id]
     if team_id is not None:
-        query += " AND away_team_id = %s OR home_team_id = %s"
+        query += (
+            " AND (away_team_id = %s OR home_team_id = %s) ORDER BY games.game_id ASC"
+        )
         params.extend([team_id, team_id])
 
     db.execute(query, params)

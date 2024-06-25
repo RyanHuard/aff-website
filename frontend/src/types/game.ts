@@ -15,8 +15,11 @@ export type TeamDetails = {
   name: string;
   location: string;
   logo: string;
-  abbreivation: string;
+  abbreviation: string;
   current_season?: TeamStandings;
+  team_id?: string;
+  primary_color?: string;
+  secondary_color?: string;
 };
 
 export type TeamStandings = {

@@ -9,7 +9,7 @@ games_bp = Blueprint("games", __name__, url_prefix="/api/games")
 
 @games_bp.route("/schedule/<season_id>")
 def get_schedule(season_id):
-    team_id = request.args.get("teamId")
+    team_id = request.args.get("team-id")
     schedule = query_season_schedule(season_id, team_id)
 
     return schedule

@@ -8,16 +8,9 @@ stats_bp = Blueprint("player_stats", __name__, url_prefix="/api/player-stats")
 
 @stats_bp.route("/<season_id>")
 def get_season_stats(season_id):
-    team_city = request.args.get("teamCity")
+    team_city = request.args.get("team-city")
 
     player_stats = query_season_stats(season_id, team_city)
     organized_player_stats = handle_stats(player_stats)
 
     return organized_player_stats
-    
-
-
-
-
-
-
