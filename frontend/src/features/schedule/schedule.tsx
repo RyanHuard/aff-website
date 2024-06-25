@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import { LoadingSpinner } from "@/components/ui/loading-spinner";
 import Week from "./components/week";
@@ -13,6 +13,7 @@ import {
 } from "@/components/ui/select";
 import ContentLayout from "@/components/layouts/wrapper/content-layout";
 import { useNavigate, useParams } from "react-router-dom";
+import SeasonSelect from "@/components/ui/season-select";
 
 type HeaderActionsProps = {
   handleSeasonSelect: (e: string) => void;
@@ -29,22 +30,9 @@ function HeaderActions({
 }: HeaderActionsProps) {
   return (
     <>
-      <Select defaultValue={seasonId} onValueChange={handleSeasonSelect}>
-        <SelectTrigger className="w-48">
-          <SelectValue />
-        </SelectTrigger>
-        <SelectContent>
-          <SelectItem value="1">2022</SelectItem>
-          <SelectItem value="2">2023</SelectItem>
-          <SelectItem value="3">2024</SelectItem>
-          <SelectItem value="4">2025</SelectItem>
-          <SelectItem value="5">2026</SelectItem>
-          <SelectItem value="6">2027</SelectItem>
-          <SelectItem value="7">2028</SelectItem>
-        </SelectContent>
-      </Select>
+      <SeasonSelect value={seasonId} handleSeasonSelect={handleSeasonSelect} />
 
-      <Select defaultValue={weekId} onValueChange={handleWeekSelect}>
+      <Select value={weekId} onValueChange={handleWeekSelect}>
         <SelectTrigger className="w-48">
           <SelectValue />
         </SelectTrigger>
@@ -78,6 +66,11 @@ export default function Schedule() {
     seasonId ?? "7"
   );
   const [selectedWeekId, setSelectedWeekId] = useState<string>(weekId ?? "1");
+
+  useEffect(() => {
+    setSelectedSeasonId(seasonId ?? "7");
+    setSelectedWeekId(weekId ?? "1");
+  }, [seasonId, weekId]);
 
   const handleSeasonSelect = (e: string) => {
     setSelectedSeasonId(e);

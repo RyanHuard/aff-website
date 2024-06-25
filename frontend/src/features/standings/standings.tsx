@@ -11,38 +11,21 @@ import {
 } from "@/components/ui/select";
 import { useNavigate, useParams } from "react-router-dom";
 import ContentLayout from "@/components/layouts/wrapper/content-layout";
+import SeasonSelect from "@/components/ui/season-select";
 
 type HeaderActionsProps = {
   handleSeasonSelect: (e: string) => void;
   defaultValue: string;
 };
 
-function HeaderActions({
-  handleSeasonSelect,
-  defaultValue,
-}: HeaderActionsProps) {
-  return (
-    <Select defaultValue={defaultValue} onValueChange={handleSeasonSelect}>
-      <SelectTrigger className="w-48">
-        <SelectValue />
-      </SelectTrigger>
-      <SelectContent>
-        <SelectItem value="1">2022</SelectItem>
-        <SelectItem value="2">2023</SelectItem>
-        <SelectItem value="3">2024</SelectItem>
-        <SelectItem value="4">2025</SelectItem>
-        <SelectItem value="5">2026</SelectItem>
-        <SelectItem value="6">2027</SelectItem>
-        <SelectItem value="7">2028</SelectItem>
-      </SelectContent>
-    </Select>
-  );
-}
-
 export default function Standings() {
   const navigate = useNavigate();
   const { seasonId } = useParams<{ seasonId?: string }>();
   const [selectedSeasonId, setSelectedSeasonId] = useState<string>("7");
+
+  useEffect(() => {
+    setSelectedSeasonId(seasonId ?? "7");
+  }, [seasonId]);
 
   function handleSeasonSelect(e: string) {
     setSelectedSeasonId(e);
@@ -54,9 +37,9 @@ export default function Standings() {
       <Header
         title={`AFF Standings - ${parseInt(selectedSeasonId) + 2021}`}
         children={
-          <HeaderActions
+          <SeasonSelect
             handleSeasonSelect={handleSeasonSelect}
-            defaultValue={seasonId ?? "7"}
+            value={seasonId ?? "7"}
           />
         }
       />

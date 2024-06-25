@@ -16,7 +16,7 @@ export type TeamDetails = {
   location: string;
   logo: string;
   abbreivation: string;
-  current_season: TeamStandings;
+  current_season?: TeamStandings;
 };
 
 export type TeamStandings = {

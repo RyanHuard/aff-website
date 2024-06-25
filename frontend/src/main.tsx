@@ -11,6 +11,7 @@ import MainLayout from "./components/layouts/main-layout";
 import Standings from "./features/standings/standings";
 import Schedule from "./features/schedule/schedule";
 import Game from "./features/game/game";
+import PlayerStats from "./features/stats/player-stats";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -40,6 +41,10 @@ const router = createBrowserRouter([
       {
         path: "/schedule/:seasonId?/:weekId?",
         element: <Schedule />,
+      },
+      {
+        path: "/stats/:seasonId?",
+        element: <PlayerStats />,
       },
       {
         path: "/game/:gameId",
