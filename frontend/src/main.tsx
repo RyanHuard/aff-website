@@ -13,6 +13,7 @@ import Schedule from "./features/schedule/schedule";
 import Game from "./features/game/game";
 import PlayerStats from "./features/stats/player-stats";
 import Team from "./features/team/team";
+import Teams from "./features/teams/teams";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -46,6 +47,10 @@ const router = createBrowserRouter([
       {
         path: "/stats/:seasonId?",
         element: <PlayerStats />,
+      },
+      {
+        path: "/teams",
+        element: <Teams />,
       },
       {
         path: "/teams/:teamId",

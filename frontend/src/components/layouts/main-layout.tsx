@@ -23,10 +23,14 @@ function TeamLogosHeader() {
     "stlknights.png",
   ];
 
+  const ids = [0, 6, 4, 1, 5, 7, 2, 8, 9, 3];
+
   return (
-    <div className="bg-black h-14 justify-center gap-6 md:flex hidden">
+    <div className="bg-black h-14 justify-center gap-6 md:flex hidden ">
       {logos.map((team, id) => (
-        <img src={`/logos/${team}`} className="h-10 my-auto" key={id} />
+        <TeamLink teamId={ids[id]} className="my-auto">
+          <img src={`/logos/${team}`} className="h-10" key={id} />
+        </TeamLink>
       ))}
     </div>
   );
@@ -47,8 +51,8 @@ function NavBar() {
               <NavLink
                 className={({ isActive }) =>
                   isActive
-                    ? "decoration-2 underline-offset-4 underline"
-                    : "hover:decoration-2 hover:underline-offset-4 hover:underline "
+                    ? "decoration-2 underline-offset-[6px] underline"
+                    : "hover:decoration-2 hover:underline-offset-[6px] hover:underline "
                 }
                 to={`/${route.toLowerCase()}`}
               >

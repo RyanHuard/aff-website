@@ -17,6 +17,8 @@ def list_teams():
         query += " WHERE team_id = %s"
         params.append(team_id)
 
+    query += " ORDER BY team_location ASC"
+
     db.execute(query, params)
 
     teams = db.fetchall()
