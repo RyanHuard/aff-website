@@ -8,16 +8,7 @@ type BoxScoreProps = {
 };
 
 const BoxScore = ({ boxScore, game }: BoxScoreProps) => {
-  let awayIndex = 0;
-  let homeIndex = 1;
-
-  //   if (game?.away_team_abb == teams[0]) {
-  //     awayIndex = 0;
-  //     homeIndex = 1;
-  //   } else {
-  //     awayIndex = 1;
-  //     homeIndex = 0;
-  //   }
+  console.log(game);
 
   if (game?.season_id < 4) {
     return (
@@ -41,8 +32,8 @@ const BoxScore = ({ boxScore, game }: BoxScoreProps) => {
                   position={position}
                   playerStats={boxScore?.away_team_stats[position]}
                   stats={category.stats}
-                  teamName="Cannons"
-                  teamLogo="sacannons.png"
+                  teamName={game?.away_team?.name}
+                  teamLogo={game?.away_team?.logo}
                   key={index}
                 />
                 <div className="ml-4 border-l border-neutral-300 pl-4">
@@ -51,8 +42,8 @@ const BoxScore = ({ boxScore, game }: BoxScoreProps) => {
                     position={position}
                     playerStats={boxScore?.home_team_stats[position]}
                     stats={category.stats}
-                    teamName="Cannons"
-                    teamLogo="sacannons.png"
+                    teamName={game?.home_team?.name}
+                    teamLogo={game?.home_team?.logo}
                     key={index}
                   />
                 </div>
@@ -73,8 +64,8 @@ const BoxScore = ({ boxScore, game }: BoxScoreProps) => {
                   position={position}
                   stats={category["stats"]}
                   playerStats={boxScore?.away_team_stats[position]}
-                  teamName="Cannons"
-                  teamLogo="sacannons.png"
+                  teamName={game?.away_team?.name}
+                  teamLogo={game?.away_team?.logo}
                   key={index}
                 />
               </div>
@@ -94,8 +85,8 @@ const BoxScore = ({ boxScore, game }: BoxScoreProps) => {
                   position={position}
                   stats={category["stats"]}
                   playerStats={boxScore?.home_team_stats[position]}
-                  teamName="Cannons"
-                  teamLogo="sacannons.png"
+                  teamName={game?.home_team?.name}
+                  teamLogo={game?.home_team?.logo}
                   key={index}
                 />
               </div>

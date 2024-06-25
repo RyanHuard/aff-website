@@ -5,7 +5,7 @@ export const boxScoreCategories = {
     title: "Passing",
     stats: [
       {
-        label: "Name",
+        label: "",
         getValue: (player: PlayerStats) =>
           `${player.first_name} ${player.last_name}`,
       },
@@ -36,7 +36,7 @@ export const boxScoreCategories = {
     title: "Rushing",
     stats: [
       {
-        label: "Name",
+        label: "",
         getValue: (player: PlayerStats) =>
           `${player.first_name} ${player.last_name}`,
       },
@@ -67,7 +67,7 @@ export const boxScoreCategories = {
     title: "Receiving",
     stats: [
       {
-        label: "Name",
+        label: "",
         getValue: (player: PlayerStats) =>
           `${player.first_name} ${player.last_name}`,
       },
@@ -104,7 +104,7 @@ export const boxScoreCategories = {
     title: "Defense",
     stats: [
       {
-        label: "Name",
+        label: "",
         getValue: (player: PlayerStats) =>
           `${player.first_name} ${player.last_name}`,
       },
@@ -135,7 +135,7 @@ export const boxScoreCategories = {
     title: "Kicking",
     stats: [
       {
-        label: "Name",
+        label: "",
         getValue: (player: PlayerStats) =>
           `${player.first_name} ${player.last_name}`,
       },
@@ -167,7 +167,7 @@ export const boxScoreCategories = {
     title: "Punting",
     stats: [
       {
-        label: "Name",
+        label: "",
         getValue: (player: PlayerStats) =>
           `${player.first_name} ${player.last_name}`,
       },
@@ -193,7 +193,7 @@ export const boxScoreCategories = {
     title: "Kick Returns",
     stats: [
       {
-        label: "Name",
+        label: "",
         getValue: (player: PlayerStats) =>
           `${player.first_name} ${player.last_name}`,
       },
@@ -219,7 +219,7 @@ export const boxScoreCategories = {
     title: "Punt Returns",
     stats: [
       {
-        label: "Name",
+        label: "",
         getValue: (player: PlayerStats) =>
           `${player.first_name} ${player.last_name}`,
       },

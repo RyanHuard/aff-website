@@ -6,6 +6,7 @@ type HeaderProps = {
 };
 
 const Header = ({ game }: HeaderProps) => {
+  console.log(game);
   let awayWin;
   if (game?.away_team_score > game?.home_team_score) {
     awayWin = true;
@@ -15,7 +16,7 @@ const Header = ({ game }: HeaderProps) => {
 
   let awayTeamLink, homeTeamLink;
   awayTeamLink = (
-    game?.away_team_location.replace(".", "") +
+    game?.away_team_location?.replace(".", "") +
     "-" +
     game?.away_team_name
   )
@@ -23,7 +24,7 @@ const Header = ({ game }: HeaderProps) => {
     .toLowerCase();
 
   homeTeamLink = (
-    game?.home_team_location.replace(".", "") +
+    game?.home_team_location?.replace(".", "") +
     "-" +
     game?.home_team_name
   )
@@ -31,7 +32,7 @@ const Header = ({ game }: HeaderProps) => {
     .toLowerCase();
 
   return (
-    <div className="whitespace-nowrap border-b border-aff-blue bg-white pt-6 sm:-mt-6 sm:mt-0">
+    <div className="whitespace-nowrap border-b border-aff-blue bg-white pt-6 sm:mb-12">
       <div className="m-auto px-2 sm:px-6">
         <header className="flex justify-center border-b border-neutral-300 pb-4">
           <Link
@@ -40,21 +41,23 @@ const Header = ({ game }: HeaderProps) => {
           >
             <img
               className="my-auto h-12 w-12 sm:h-24 sm:w-24"
-              src={`/assets/logos/${game?.away_team_logo}`}
+              src={`/logos/${game?.away_team?.logo}`}
             />
             <div className="my-auto hidden px-4 lg:block ">
               <div className="text-neutral-500">
                 <span className="font-normal">
-                  {game?.away_team_location} ({game?.away_team_wins}-
-                  {game?.away_team_loss})
+                  {game?.away_team?.location} (
+                  {game?.away_team?.current_season.wins}-
+                  {game?.away_team?.current_season.loss})
                 </span>
               </div>
-              <span>{game?.away_team_name}</span>
+              <span>{game?.away_team?.name}</span>
             </div>
             <div className="my-auto block pl-2 sm:pl-4 lg:hidden">
-              <div>{game?.away_team_abb}</div>
+              <div>{game?.away_team?.abbreivation}</div>
               <div className="text-neutral-500 ">
-                ({game?.away_team_wins}-{game?.away_team_loss})
+                ({game?.away_team.current_season?.wins}-
+                {game?.away_team.current_season?.loss})
               </div>
             </div>
           </Link>
@@ -88,34 +91,27 @@ const Header = ({ game }: HeaderProps) => {
           >
             <img
               className="my-auto h-12 w-12 sm:h-24 sm:w-24"
-              src={`/assets/logos/${game?.home_team_logo}`}
+              src={`/logos/${game?.home_team.logo}`}
             />
             <div className="my-auto hidden px-4 lg:block">
               <div className="text-neutral-500">
                 <span className="font-normal">
-                  {game?.home_team_location} ({game?.home_team_wins}-
-                  {game?.home_team_loss})
+                  {game?.home_team.location} (
+                  {game?.home_team.current_season.wins}-
+                  {game?.home_team.current_season.loss})
                 </span>
               </div>
-              <span>{game?.home_team_name}</span>
+              <span>{game?.home_team.name}</span>
             </div>
             <div className="my-auto block pr-2 sm:pr-4 lg:hidden">
-              <div>{game?.home_team_abb}</div>
+              <div>{game?.home_team.abbreivation}</div>
               <div className="text-neutral-500">
-                ({game?.home_team_wins}-{game?.home_team_loss})
+                ({game?.home_team.current_season.wins}-
+                {game?.home_team.current_season.loss})
               </div>
             </div>
           </Link>
         </header>
-        {/*    
-        <div className="max-w-[960px] mx-auto pt-1">
-          <Tabs>
-            <TabList>
-              <Tab>Box Score</Tab>
-              <Tab>Team Stats</Tab>
-            </TabList>
-          </Tabs>
-        </div> */}
       </div>
     </div>
   );

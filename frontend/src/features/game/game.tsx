@@ -6,6 +6,7 @@ import { useGameStats } from "./api/get-game-stats";
 import { useGameDetails } from "./api/get-game-details";
 import { LoadingSpinner } from "@/components/ui/loading-spinner";
 import BoxScore from "./components/box-score";
+import Header from "./components/header";
 
 const Game = () => {
   let { gameId } = useParams();
@@ -17,24 +18,29 @@ const Game = () => {
   let gameDetailsQuery = useGameDetails(gameId);
   let gameStatsQuery = useGameStats(gameId);
 
-  let isCompleted;
+  if (
+    gameStatsQuery.isLoading ||
+    gameDetailsQuery.isLoading ||
+    gameDetailsQuery.isFetching ||
+    gameStatsQuery.isFetching
+  ) {
+    return (
+      <div className="flex h-screen items-center justify-center bg-[#edeef2]">
+        <LoadingSpinner size="lg" className="relative bottom-64 sm:bottom-86" />
+      </div>
+    );
+  }
 
   return (
-    <ContentLayout>
-      {gameStatsQuery?.isLoading || gameDetailsQuery?.isLoading ? (
-        <div className="flex h-screen items-center justify-center bg-[#edeef2]">
-          <LoadingSpinner
-            size="lg"
-            className="relative bottom-64 sm:bottom-86"
-          />
-        </div>
-      ) : (
+    <>
+      <Header game={gameDetailsQuery?.data} />
+      <ContentLayout>
         <BoxScore
           boxScore={gameStatsQuery?.data}
           game={gameDetailsQuery?.data}
         />
-      )}
-    </ContentLayout>
+      </ContentLayout>
+    </>
   );
 };
 
