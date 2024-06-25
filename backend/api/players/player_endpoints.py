@@ -2,7 +2,7 @@ from flask import Blueprint
 
 from ..db import get_db, close_db
 
-player_bp = Blueprint("player", __name__, url_prefix="/api/players")
+player_bp = Blueprint("players", __name__, url_prefix="/api/players")
 
 
 @player_bp.route("/<first_name>/<last_name>")
