@@ -1,4 +1,4 @@
-from flask import Blueprint, request
+from flask import Blueprint, request, jsonify
 
 from api.db import get_db, close_db
 from .games_handler import handle_stats, query_season_schedule
@@ -94,6 +94,7 @@ def get_game_stats(game_id):
     JOIN teams ON games.away_team_id = teams.team_id
     WHERE games.game_id = %s
     AND player_stats.team_city = teams.abbreviation
+    AND player_stats.first_name <> 'BACKUP'
     """,
         (game_id,),
     )
@@ -107,6 +108,7 @@ def get_game_stats(game_id):
     JOIN teams ON games.home_team_id = teams.team_id
     WHERE games.game_id = %s
     AND player_stats.team_city = teams.abbreviation
+    AND player_stats.first_name <> 'BACKUP'
     """,
         (game_id,),
     )
