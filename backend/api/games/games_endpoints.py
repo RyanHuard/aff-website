@@ -19,12 +19,67 @@ def get_schedule(season_id):
 def get_game_details(game_id):
     db = get_db()
 
-    db.execute("SELECT * FROM games WHERE game_id = %s", (game_id,))
+    db.execute(
+        """SELECT games.game_id, games.season_id, games.away_team_id, games.home_team_id, 
+                  games.away_team_score, games.home_team_score, 
+                  away.team_location AS away_team_location, away.team_name AS away_team_name,
+                  away.abbreviation AS away_team_abbreviation, away.team_logo AS away_team_logo,
+                  home.team_location AS home_team_location, home.team_name AS home_team_name, 
+                  home.abbreviation AS home_team_abbreviation, home.team_logo AS home_team_logo,
+                  away_standings.wins AS away_team_wins, away_standings.loss AS away_team_loss,
+                  away_standings.points_for AS away_team_points_for, away_standings.points_against AS away_team_points_against,
+                  home_standings.wins AS home_team_wins, home_standings.loss AS home_team_loss,
+                  home_standings.points_for AS home_team_points_for, home_standings.points_against AS home_team_points_against
+           FROM games
+           JOIN teams AS away ON away.team_id = games.away_team_id
+           JOIN teams AS home ON home.team_id = games.home_team_id
+           LEFT JOIN team_standings AS away_standings ON away_standings.team_id = games.away_team_id AND away_standings.season_id = games.season_id
+           LEFT JOIN team_standings AS home_standings ON home_standings.team_id = games.home_team_id AND home_standings.season_id = games.season_id
+           WHERE games.game_id = %s""",
+        (game_id,),
+    )
     game_details = db.fetchone()
 
     close_db()
 
-    return game_details
+    if game_details is None:
+        return jsonify({"error": "Game not found"}), 404
+
+    # Construct GameDetails object
+    game = {
+        "game_id": game_details["game_id"],
+        "season_id": game_details["season_id"],
+        "away_team_id": game_details["away_team_id"],
+        "home_team_id": game_details["home_team_id"],
+        "away_team_score": game_details["away_team_score"],
+        "home_team_score": game_details["home_team_score"],
+        "away_team": {
+            "name": game_details["away_team_name"],
+            "location": game_details["away_team_location"],
+            "logo": game_details["away_team_logo"],
+            "abbreviation": game_details["away_team_abbreviation"],
+            "current_season": {
+                "wins": game_details["away_team_wins"],
+                "loss": game_details["away_team_loss"],
+                "points_for": game_details["away_team_points_for"],
+                "points_against": game_details["away_team_points_against"],
+            },
+        },
+        "home_team": {
+            "name": game_details["home_team_name"],
+            "location": game_details["home_team_location"],
+            "logo": game_details["home_team_logo"],
+            "abbreviation": game_details["home_team_abbreviation"],
+            "current_season": {
+                "wins": game_details["home_team_wins"],
+                "loss": game_details["home_team_loss"],
+                "points_for": game_details["home_team_points_for"],
+                "points_against": game_details["home_team_points_against"],
+            },
+        },
+    }
+
+    return game
 
 
 @games_bp.route("/stats/<game_id>")
