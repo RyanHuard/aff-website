@@ -1,5 +1,6 @@
 from api.db import get_db, close_db
 
+
 def query_season_stats(season_id, team_city=None):
     db = get_db()
 
@@ -8,7 +9,11 @@ def query_season_stats(season_id, team_city=None):
         first_name,
         last_name,
         position,
+        COUNT(*) AS games_played,
         team_city,
+        teams.team_location,
+        teams.team_name,
+        teams.team_logo,
         SUM(fantasy_points) AS total_fantasy_points,
         SUM(match_defense_deflections) AS season_defense_deflections,
         SUM(match_defense_int) AS season_defense_int,
@@ -65,6 +70,7 @@ def query_season_stats(season_id, team_city=None):
         SUM(match_two_point_conversions) AS season_two_point_conversions
     FROM 
         player_stats
+    JOIN teams ON teams.abbreviation = player_stats.team_city
     WHERE season_id = %s
     """
 
@@ -72,12 +78,14 @@ def query_season_stats(season_id, team_city=None):
     if team_city is not None:
         player_stats_query += " AND team_city ILIKE %s"
         params.append(team_city)
-    
-    player_stats_query += "AND first_name <> 'BACKUP' GROUP BY first_name, last_name, position, team_city"
+
+    player_stats_query += """AND first_name <> 'BACKUP' 
+    GROUP BY first_name, last_name, position, team_city, 
+    teams.team_location, teams.team_name, teams.team_logo"""
 
     db.execute(player_stats_query, params)
     player_stats = db.fetchall()
-    
+
     close_db()
 
     return player_stats
@@ -94,15 +102,36 @@ def handle_stats(player_stats):
     punt_returning_stats = []
 
     for player in player_stats:
+        # Makes the team details object
+        player["team"] = {
+            "name": player["team_name"],
+            "location": player["team_location"],
+            "abbreivation": player["team_city"],
+            "logo": player["team_logo"],
+        }
+        del player["team_name"]
+        del player["team_location"]
+        del player["team_city"]
+        del player["team_logo"]
+
         if player["season_pass_attempts"] > 0:
             passing_stats.append(player)
         if player["season_rush_attempts"] > 0:
             rushing_stats.append(player)
-        if player["season_receiving_targets"] > 0 or player["season_receiving_receptions"] > 0:
+        if (
+            player["season_receiving_targets"] > 0
+            or player["season_receiving_receptions"] > 0
+        ):
             receiving_stats.append(player)
-        if player["season_defense_tackles"] > 0 or player["season_defense_deflections"] > 0:
+        if (
+            player["season_defense_tackles"] > 0
+            or player["season_defense_deflections"] > 0
+        ):
             defense_stats.append(player)
-        if player["season_kick_fg_attempts"] > 0 or player["season_kick_xp_attempts"] > 0:
+        if (
+            player["season_kick_fg_attempts"] > 0
+            or player["season_kick_xp_attempts"] > 0
+        ):
             kicking_stats.append(player)
         if player["season_punt_count"] > 0:
             punting_stats.append(player)
@@ -110,7 +139,7 @@ def handle_stats(player_stats):
             kick_returning_stats.append(player)
         if player["season_punt_return_count"] > 0:
             punt_returning_stats.append(player)
-    
+
     stats_dict = {
         "passing": passing_stats,
         "rushing": rushing_stats,
@@ -119,7 +148,7 @@ def handle_stats(player_stats):
         "kicking": kicking_stats,
         "punting": punting_stats,
         "kick_returning": kick_returning_stats,
-        "punt_returning": punt_returning_stats
+        "punt_returning": punt_returning_stats,
     }
 
     return stats_dict
