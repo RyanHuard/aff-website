@@ -1,4 +1,4 @@
-//import TeamLink from "../../../lib/TeamLink";
+import TeamLink from "@/components/ui/team-link";
 
 const columns = [
   {
@@ -17,13 +17,15 @@ const columns = [
       console.log(row);
 
       return (
-        // <TeamLink name={name} location={location} teamId={row.team_id}>
-        <div className="flex">
-          <img src={`/logos/${row.team_logo}`} alt="Team Logo" width={30} />
-          <span className="my-auto hidden pl-2 sm:block">{row.team}</span>
-          <span className="my-auto pl-2 sm:hidden">{row.stats_team_city}</span>
-        </div>
-        // </TeamLink>
+        <TeamLink teamId={row.team_id}>
+          <div className="flex">
+            <img src={`/logos/${row.team_logo}`} alt="Team Logo" width={30} />
+            <span className="my-auto hidden pl-2 sm:block">{row.team}</span>
+            <span className="my-auto pl-2 sm:hidden">
+              {row.stats_team_city}
+            </span>
+          </div>
+        </TeamLink>
       );
     },
     width: () => {

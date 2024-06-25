@@ -14,29 +14,12 @@ const Header = ({ game }: HeaderProps) => {
     awayWin = false;
   }
 
-  let awayTeamLink, homeTeamLink;
-  awayTeamLink = (
-    game?.away_team_location?.replace(".", "") +
-    "-" +
-    game?.away_team_name
-  )
-    .replace(" ", "-")
-    .toLowerCase();
-
-  homeTeamLink = (
-    game?.home_team_location?.replace(".", "") +
-    "-" +
-    game?.home_team_name
-  )
-    .replace(" ", "-")
-    .toLowerCase();
-
   return (
     <div className="whitespace-nowrap border-b border-aff-blue bg-white pt-6 sm:mb-12">
       <div className="m-auto px-2 sm:px-6">
         <header className="flex justify-center border-b border-neutral-300 pb-4">
           <Link
-            to={`/teams/${game?.away_team_id}/${awayTeamLink}`}
+            to={`/teams/${game?.away_team_id}`}
             className="flex font-semibold xl:w-64"
           >
             <img
@@ -86,7 +69,7 @@ const Header = ({ game }: HeaderProps) => {
           </div>
 
           <Link
-            to={`/teams/${game?.home_team_id}/${homeTeamLink}`}
+            to={`/teams/${game?.home_team_id}`}
             className="flex flex-row-reverse font-semibold xl:w-64"
           >
             <img
