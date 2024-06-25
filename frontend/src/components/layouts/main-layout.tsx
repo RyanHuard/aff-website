@@ -3,7 +3,7 @@ import {
   NavigationMenuItem,
   NavigationMenuList,
 } from "@/components/ui/navigation-menu";
-import { NavLink, Outlet } from "react-router-dom";
+import { Link, NavLink, Outlet } from "react-router-dom";
 
 import { useStatLeadersWeekly } from "./api/get-stat-leaders";
 import WeeklyStatLeaderBox from "./components/weekly-stat-leaders";
@@ -38,7 +38,9 @@ function NavBar() {
     <div className="max-w-full bg-aff-blue h-16 2xl:px-16 px-6">
       <NavigationMenu className="justify-start h-full max-w-7xl mx-auto">
         <NavigationMenuList className="gap-6 font-semibold">
-          <img src="aff-logo.png" className="h-10" />
+          <Link to={"/"}>
+            <img src="aff-logo.png" className="h-10" />
+          </Link>
           {navbarRoutes.map((route, i) => (
             <NavigationMenuItem className="text-white font-sans" key={i}>
               <NavLink
