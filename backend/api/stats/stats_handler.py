@@ -165,3 +165,43 @@ def handle_stats(player_stats):
     }
 
     return stats_dict
+
+
+def query_season_stat_leaders(season_id):
+    db = get_db()
+
+    pass_yards_query = "SELECT first_name, last_name, position, SUM(match_pass_yards) as season_pass_yards FROM player_stats WHERE season_id = %s GROUP BY first_name, last_name, position ORDER BY season_pass_yards DESC LIMIT 5"
+    pass_tds_query = "SELECT first_name, last_name, position, SUM(match_pass_tds) as season_pass_tds FROM player_stats WHERE season_id = %s GROUP BY first_name, last_name, position ORDER BY season_pass_tds DESC LIMIT 5"
+    rush_yards_query = "SELECT first_name, last_name, position, SUM(match_rush_yards) as season_rush_yards FROM player_stats WHERE season_id = %s GROUP BY first_name, last_name, position ORDER BY season_rush_yards DESC LIMIT 5"
+    receiving_yards_query = "SELECT first_name, last_name, position, SUM(match_receiving_yards) as season_receiving_yards FROM player_stats WHERE season_id = %s GROUP BY first_name, last_name, position ORDER BY season_receiving_yards DESC LIMIT 5"
+    total_touchdowns_query = "SELECT first_name, last_name, position, (SUM(match_receiving_tds) + SUM(match_rush_tds)) as season_total_touchdowns_yards FROM player_stats WHERE season_id = %s GROUP BY first_name, last_name, position ORDER BY season_total_touchdowns_yards DESC LIMIT 5"
+    defense_sacks_query = "SELECT first_name, last_name, position, SUM(match_defense_sacks) as season_defense_sacks FROM player_stats WHERE season_id = %s GROUP BY first_name, last_name, position ORDER BY season_defense_sacks DESC LIMIT 5"
+
+    db.execute(pass_yards_query, season_id)
+    pass_yards = db.fetchall()
+
+    db.execute(pass_tds_query, season_id)
+    pass_tds = db.fetchall()
+
+    db.execute(rush_yards_query, season_id)
+    rush_yards = db.fetchall()
+
+    db.execute(receiving_yards_query, season_id)
+    receiving_yards = db.fetchall()
+
+    db.execute(total_touchdowns_query, season_id)
+    total_touchdowns = db.fetchall()
+
+    db.execute(defense_sacks_query, season_id)
+    defense_sacks = db.fetchall()
+
+    season_stat_leaders = {
+        "pass_yards": pass_yards,
+        "pass_tds": pass_tds,
+        "rush_yards": rush_yards,
+        "receiving_yards": receiving_yards,
+        "total_touchdowns": total_touchdowns,
+        "defense_sacks": defense_sacks,
+    }
+
+    return season_stat_leaders
