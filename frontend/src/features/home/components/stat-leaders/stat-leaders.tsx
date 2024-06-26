@@ -2,6 +2,7 @@ import Card from "@/components/layouts/components/card";
 import { usePlayerStats } from "@/features/stats/api/get-player-stats";
 import { CURRENT_SEASON_ID } from "@/lib/utils";
 import { PlayerStats } from "@/types/player";
+import { useStatLeaders } from "./api/get-stat-leaders";
 
 type StatLeaderProps = {
   category: Category[];
@@ -10,58 +11,78 @@ type StatLeaderProps = {
 
 type Category = {
   name: string;
-  stat: string | string[];
+  stat: string;
 };
 
 function StatLeader({ category, players }: StatLeaderProps) {
-  const leader: PlayerStats = players[0];
-  players.shift();
+  const leader: PlayerStats = players?.[0];
+  players?.shift();
+  console.log(players);
 
   return (
     <div>
-      <img
-        src={`/players/${leader.first_name}_${leader.last_name}`}
-        className="h-16"
-      />
+      <div className="flex">
+        <img
+          src={`/players/${leader?.first_name}_${leader?.last_name}.png`}
+          className="h-16"
+        />
+        <div>
+          {leader?.first_name} {leader?.last_name}
+        </div>
+      </div>
+      <div>
+        {players?.map((player, rank) => {
+          return (
+            <div>
+              {player?.first_name} {player?.last_name}
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 }
 
 function StatLeadersCard() {
-  const statsQuery = usePlayerStats(CURRENT_SEASON_ID.toString());
+  const statsQuery = useStatLeaders(CURRENT_SEASON_ID.toString());
   const statsData = statsQuery?.data;
 
   const categories: Category = [
     {
       name: "Passing Yards",
-      stat: "season_pass_yards",
+      stat: "pass_yards",
     },
     {
       name: "Passing TDs",
-      stat: "season_pass_tds",
+      stat: "pass_tds",
     },
     {
       name: "Rushing Yards",
-      stat: "season_rush_yards",
+      stat: "rush_yards",
     },
     {
       name: "Receiving Yards",
-      stat: "season_receiving_yards",
+      stat: "receiving_yards",
     },
     {
       name: "Total TDs",
-      stat: ["season_receiving_tds", "season_rushing_tds"],
+      stat: "total_touchdowns",
     },
     {
       name: "Sacks",
-      stat: "season_defense_sacks",
+      stat: "defense_sacks",
     },
   ];
 
   return (
     <Card>
       {categories.map((category, index) => {
-        return <StatLeader category={category} players={} />;
+        return (
+          <StatLeader
+            category={category}
+            players={statsData?.[category.stat]!}
+          />
+        );
       })}
     </Card>
   );

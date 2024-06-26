@@ -2,6 +2,7 @@ import CreateAPlayerCard from "./components/create-player-card";
 import SocialsCard from "./components/socials-card";
 import ContentLayout from "@/components/layouts/wrapper/content-layout";
 import HomeLayout from "./components/home-layout";
+import StatLeadersCard from "./components/stat-leaders/stat-leaders";
 
 const Header = () => {
   return <img className="w-full" src={"/assets/welcome-banner.png"} />;
@@ -17,6 +18,7 @@ const Home = () => {
             <div className="col-span-6 flex-col space-y-6">
               {/* <JoinCommunity />
               <ArticleCard /> */}
+              <StatLeadersCard />
             </div>
 
             <div className="col-span-3 space-y-6">
