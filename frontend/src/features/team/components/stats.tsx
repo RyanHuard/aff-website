@@ -179,6 +179,7 @@ const Stats = ({ teamCity, seasonId }: StatsProps) => {
           defaultSortFieldId={2}
           data={playerStatsData?.passing}
           columns={columns[0]}
+          progressPending={playerStatsQuery.isLoading}
         />
 
         <Table
@@ -187,6 +188,7 @@ const Stats = ({ teamCity, seasonId }: StatsProps) => {
           defaultSortFieldId={2}
           data={playerStatsData?.rushing}
           columns={columns[1]}
+          rogressPending={playerStatsQuery.isLoading}
         />
 
         <Table
@@ -195,6 +197,7 @@ const Stats = ({ teamCity, seasonId }: StatsProps) => {
           defaultSortFieldId={2}
           data={playerStatsData?.receiving}
           columns={columns[2]}
+          progressPending={playerStatsQuery.isLoading}
         />
 
         <Table
@@ -203,6 +206,7 @@ const Stats = ({ teamCity, seasonId }: StatsProps) => {
           defaultSortFieldId={2}
           data={playerStatsData?.defense}
           columns={columns[3]}
+          progressPending={playerStatsQuery.isLoading}
         />
       </div>
     </div>

@@ -1,6 +1,7 @@
 import Table from "@/components/table/table";
 import { columns } from "./columns";
 import { usePlayerStats } from "../api/get-player-stats";
+import { LoadingSpinner } from "@/components/ui/loading-spinner";
 
 type StatsProps = {
   firstName: string;
@@ -10,10 +11,6 @@ type StatsProps = {
 const Stats = ({ firstName, lastName }: StatsProps) => {
   const playerStatsQuery = usePlayerStats(firstName, lastName);
   const playerStats = playerStatsQuery?.data;
-
-  if (playerStatsQuery.isLoading) {
-    return <></>;
-  }
 
   const categories = ["Passing", "Rushing", "Receiving", "Defense"];
 
@@ -35,6 +32,7 @@ const Stats = ({ firstName, lastName }: StatsProps) => {
                 title={category}
                 columns={columns[index]}
                 data={nonEmptySeasons}
+                progressPending={playerStatsQuery.isLoading}
                 dense
               />
             </div>

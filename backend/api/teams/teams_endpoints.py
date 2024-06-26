@@ -14,10 +14,10 @@ def list_teams():
     params = []
     query = "SELECT * FROM teams"
     if team_id is not None:
-        query += " WHERE team_id = %s"
+        query += " JOIN team_standings ON team_standings.team_id = teams.team_id WHERE teams.team_id = %s ORDER BY team_standings.season_id DESC LIMIT 1"
         params.append(team_id)
-
-    query += " ORDER BY team_location ASC"
+    else:
+        query += " ORDER BY team_location ASC"
 
     db.execute(query, params)
 

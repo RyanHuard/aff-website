@@ -16,12 +16,12 @@ export const getColumns = (teamId) => {
 
         let opponent, helmet, location;
         if (!isHome) {
-          opponent = row.home_team_name;
-          helmet = row.home_team_helmet;
+          opponent = row.home_team?.name;
+          helmet = row.home_team?.helmet;
           location = "@";
         } else {
-          opponent = row.away_team_name;
-          helmet = row.away_team_helmet;
+          opponent = row.away_team?.name;
+          helmet = row.away_team?.helmet;
           location = "vs";
         }
 

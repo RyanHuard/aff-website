@@ -31,7 +31,11 @@ const Header = ({
                 {team?.team_location}{" "}
                 <span className="font-bold">{team?.team_name}</span>
               </div>
-              <div>{/* ({team?.wins}-{team?.loss}) */}</div>
+              <div>
+                ({team?.wins}-{team?.loss}) ·{" "}
+                {team?.division?.[0].toUpperCase()}
+                {team?.division?.slice(1)}
+              </div>
             </div>
           </header>
         </div>

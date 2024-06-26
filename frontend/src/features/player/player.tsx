@@ -5,6 +5,7 @@ import Header from "./components/header";
 import { useTeam } from "../team/api/get-team";
 import ContentLayout from "@/components/layouts/wrapper/content-layout";
 import Stats from "./components/stats";
+import { LoadingSpinner } from "@/components/ui/loading-spinner";
 
 const Player = () => {
   const [tabIndex, setTabIndex] = useState(0);
@@ -18,10 +19,14 @@ const Player = () => {
   const playerDetails = playerDetailsQuery?.data;
 
   if (playerDetailsQuery.isLoading) {
-    return <div></div>;
+    return (
+      <div className="flex h-24 w-full items-center justify-center bg-[#edeef2]">
+        <LoadingSpinner size="lg" />
+      </div>
+    );
   }
 
-  const handleTabChange = (e) => {
+  const handleTabChange = (e: any) => {
     setTabIndex(e);
   };
 
