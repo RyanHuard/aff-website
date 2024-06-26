@@ -28,8 +28,8 @@ function TeamLogosHeader() {
   return (
     <div className="bg-black h-14 justify-center gap-6 md:flex hidden ">
       {logos.map((team, id) => (
-        <TeamLink teamId={ids[id]} className="my-auto">
-          <img src={`/logos/${team}`} className="h-10" key={id} />
+        <TeamLink teamId={ids[id]} className="my-auto" key={id}>
+          <img src={`/logos/${team}`} className="h-10" />
         </TeamLink>
       ))}
     </div>
