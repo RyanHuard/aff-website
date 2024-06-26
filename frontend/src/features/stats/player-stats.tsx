@@ -93,8 +93,11 @@ const PlayerStats = () => {
         </div>
       </div> */}
       <ContentLayout>
-        <div className="bg-white py-2 flex">
-          <Tabs defaultValue={categories[0]} className="max-w-7xl">
+        <div className="bg-white py-2 lg:flex block">
+          <Tabs
+            defaultValue={categories[0]}
+            className="max-w-7xl overflow-x-auto lg:pb-0 pb-1"
+          >
             <TabsList className="rounded-none mx-2">
               {categories.map((name, index) => {
                 return (
@@ -109,7 +112,7 @@ const PlayerStats = () => {
               })}
             </TabsList>
           </Tabs>
-          <div className="ml-auto mx-2">
+          <div className="ml-auto mx-2 lg:mt-0 pt-1 px-2 lg:p-0">
             <PositionFilter value={filterValue} setValue={setFilterValue} />
           </div>
         </div>
