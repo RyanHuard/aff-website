@@ -5,9 +5,8 @@ import {
 } from "@/components/ui/navigation-menu";
 import { Link, NavLink, Outlet } from "react-router-dom";
 
-import { useStatLeadersWeekly } from "./api/get-stat-leaders";
-import WeeklyStatLeaderBox from "./components/weekly-stat-leaders";
 import TeamLink from "../ui/team-link";
+import Ticker from "./components/schedule-ticker";
 
 function TeamLogosHeader() {
   const logos = [
@@ -44,7 +43,7 @@ function NavBar() {
       <NavigationMenu className="justify-start h-full max-w-7xl mx-auto">
         <NavigationMenuList className="gap-6 font-semibold">
           <Link to={"/"}>
-            <img src="aff-logo.png" className="h-10" />
+            <img src="/aff-logo.png" className="h-10" />
           </Link>
           {navbarRoutes.map((route, i) => (
             <NavigationMenuItem className="text-white font-sans" key={i}>
@@ -67,39 +66,14 @@ function NavBar() {
 }
 
 function StatLeadersHeader() {
-  const statLeadersWeeklyQuery = useStatLeadersWeekly();
-
-  if (statLeadersWeeklyQuery.isLoading) {
-    return <div>Loading...</div>;
-  }
-
-  return (
-    <div className="flex">
-      <WeeklyStatLeaderBox
-        category="Passing Yards"
-        players={statLeadersWeeklyQuery?.data?.["passing_yards"]}
-      />
-      <WeeklyStatLeaderBox
-        category="Passing TDs"
-        players={statLeadersWeeklyQuery?.data?.["passing_tds"]}
-      />
-      <WeeklyStatLeaderBox
-        category="Rushing Yards"
-        players={statLeadersWeeklyQuery?.data?.["rushing"]}
-      />
-      <WeeklyStatLeaderBox
-        category="Receiving Yards"
-        players={statLeadersWeeklyQuery?.data?.["receiving"]}
-      />
-    </div>
-  );
+  return <div className="flex overflow-clip h-24"></div>;
 }
 
 export default function MainLayout() {
   return (
     <>
       <TeamLogosHeader />
-      <StatLeadersHeader />
+      <Ticker />
       <NavBar />
       <Outlet />
     </>

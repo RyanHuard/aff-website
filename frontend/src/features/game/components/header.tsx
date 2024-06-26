@@ -36,7 +36,7 @@ const Header = ({ game }: HeaderProps) => {
               <span>{game?.away_team?.name}</span>
             </div>
             <div className="my-auto block pl-2 sm:pl-4 lg:hidden">
-              <div>{game?.away_team?.abbreivation}</div>
+              <div>{game?.away_team?.abbreviation}</div>
               <div className="text-neutral-500 ">
                 ({game?.away_team.current_season?.wins}-
                 {game?.away_team.current_season?.loss})
@@ -86,7 +86,7 @@ const Header = ({ game }: HeaderProps) => {
               <span>{game?.home_team.name}</span>
             </div>
             <div className="my-auto block pr-2 sm:pr-4 lg:hidden">
-              <div>{game?.home_team.abbreivation}</div>
+              <div>{game?.home_team.abbreviation}</div>
               <div className="text-neutral-500">
                 ({game?.home_team.current_season.wins}-
                 {game?.home_team.current_season.loss})

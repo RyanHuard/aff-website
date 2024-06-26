@@ -7,16 +7,19 @@ export default function Game({ ...game }) {
       <div className="lg:mx-0 mb-4 flex h-14 items-center justify-center rounded-sm bg-white drop-shadow">
         <div className="flex  w-64 items-center justify-end">
           <span className="hidden px-1 sm:block">
-            ({game.away_team_wins}-{game.away_team_loss})
+            ({game.away_team.current_season.wins}-
+            {game.away_team.current_season.loss})
           </span>
           <span className="hidden px-1 text-lg sm:block">
-            {game.away_team_name}
+            {game.away_team.name}
           </span>
           <div className="flex-col-reverse flex text-center mt-2">
-            <span className="text-md px-2 sm:hidden">{game.away_team_abb}</span>
+            <span className="text-md px-2 sm:hidden">
+              {game.away_team.abbreviation}
+            </span>
             <img
               className="mx-3 w-7 sm:w-11"
-              src={`/helmets/${game.away_team_helmet}`}
+              src={`/helmets/${game.away_team.helmet}`}
             />
           </div>
           <span
@@ -32,16 +35,19 @@ export default function Game({ ...game }) {
 
         <div className="flex  w-64 flex-row-reverse items-center justify-end">
           <span className="hidden px-1 sm:block">
-            ({game.home_team_wins}-{game.home_team_loss})
+            ({game.home_team.current_season.wins}-
+            {game.home_team.current_season.loss})
           </span>
           <span className="hidden px-1 text-lg sm:block">
-            {game.home_team_name}
+            {game.home_team.name}
           </span>
           <div className="flex-col-reverse flex text-center mt-2">
-            <span className="text-md px-2 sm:hidden">{game.home_team_abb}</span>
+            <span className="text-md px-2 sm:hidden">
+              {game.home_team.abbreviation}
+            </span>
             <img
               className="mx-3 w-7 sm:w-11"
-              src={`/helmets/${game.home_team_helmet}`}
+              src={`/helmets/${game.home_team.helmet}`}
             />
           </div>
           <span

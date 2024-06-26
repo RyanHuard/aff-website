@@ -1,7 +1,7 @@
 from flask import Blueprint, request, jsonify
 
 from api.db import get_db, close_db
-from .games_handler import handle_stats, query_season_schedule
+from .games_handler import handle_stats, query_season_schedule, handle_schedule
 
 
 games_bp = Blueprint("games", __name__, url_prefix="/api/games")
@@ -12,7 +12,7 @@ def get_schedule(season_id):
     team_id = request.args.get("team-id")
     schedule = query_season_schedule(season_id, team_id)
 
-    return schedule
+    return handle_schedule(schedule)
 
 
 @games_bp.route("/details/<game_id>")
@@ -45,41 +45,7 @@ def get_game_details(game_id):
     if game_details is None:
         return jsonify({"error": "Game not found"}), 404
 
-    # Construct GameDetails object
-    game = {
-        "game_id": game_details["game_id"],
-        "season_id": game_details["season_id"],
-        "away_team_id": game_details["away_team_id"],
-        "home_team_id": game_details["home_team_id"],
-        "away_team_score": game_details["away_team_score"],
-        "home_team_score": game_details["home_team_score"],
-        "away_team": {
-            "name": game_details["away_team_name"],
-            "location": game_details["away_team_location"],
-            "logo": game_details["away_team_logo"],
-            "abbreviation": game_details["away_team_abbreviation"],
-            "current_season": {
-                "wins": game_details["away_team_wins"],
-                "loss": game_details["away_team_loss"],
-                "points_for": game_details["away_team_points_for"],
-                "points_against": game_details["away_team_points_against"],
-            },
-        },
-        "home_team": {
-            "name": game_details["home_team_name"],
-            "location": game_details["home_team_location"],
-            "logo": game_details["home_team_logo"],
-            "abbreviation": game_details["home_team_abbreviation"],
-            "current_season": {
-                "wins": game_details["home_team_wins"],
-                "loss": game_details["home_team_loss"],
-                "points_for": game_details["home_team_points_for"],
-                "points_against": game_details["home_team_points_against"],
-            },
-        },
-    }
-
-    return game
+    return handle_schedule([game_details])[0]
 
 
 @games_bp.route("/stats/<game_id>")
