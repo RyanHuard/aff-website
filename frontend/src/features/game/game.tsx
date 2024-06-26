@@ -18,12 +18,7 @@ const Game = () => {
   let gameDetailsQuery = useGameDetails(gameId);
   let gameStatsQuery = useGameStats(gameId);
 
-  if (
-    gameStatsQuery.isLoading ||
-    gameDetailsQuery.isLoading ||
-    gameDetailsQuery.isFetching ||
-    gameStatsQuery.isFetching
-  ) {
+  if (gameStatsQuery.isLoading || gameDetailsQuery.isLoading) {
     return (
       <div className="flex h-screen items-center justify-center bg-[#edeef2]">
         <LoadingSpinner size="lg" className="relative bottom-64 sm:bottom-86" />

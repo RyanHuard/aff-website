@@ -125,7 +125,7 @@ const Stats = ({ teamCity, seasonId }: StatsProps) => {
             const playerData = player[category];
             const playerName = `${playerData.firstName}_${playerData.lastName}`;
             const src = `/players/${playerName}.png`;
-            const fallbackSrc = "/assets/players/player_placeholder.png";
+            const fallbackSrc = "/players/player_placeholder.png";
 
             return (
               <div className="flex-shrink-0 flex-grow border border-neutral-200 px-3 py-2 text-sm ">
