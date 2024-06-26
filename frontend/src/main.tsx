@@ -15,6 +15,7 @@ import PlayerStats from "./features/stats/player-stats";
 import Team from "./features/team/team";
 import Teams from "./features/teams/teams";
 import Player from "./features/player/player";
+import Home from "./features/home/home";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -35,7 +36,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: "",
-        element: <App />,
+        element: <Home />,
       },
       {
         path: "/standings/:seasonId?",
