@@ -39,7 +39,6 @@ const PlayerStats = () => {
 
   const handleSeasonSelect = (e: string) => {
     setSelectedSeasonId(e);
-    setFilterValue("");
     navigate(`/stats/${e}`);
   };
 
