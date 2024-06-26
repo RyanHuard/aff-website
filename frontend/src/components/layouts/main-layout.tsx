@@ -1,12 +1,9 @@
-import {
-  NavigationMenu,
-  NavigationMenuItem,
-  NavigationMenuList,
-} from "@/components/ui/navigation-menu";
 import { Link, NavLink, Outlet } from "react-router-dom";
 
 import TeamLink from "../ui/team-link";
 import Ticker from "./components/schedule-ticker";
+import MobileNavbar from "./components/mobile-navbar";
+import DesktopNavbar from "./components/desktop-navbar";
 
 function TeamLogosHeader() {
   const logos = [
@@ -36,32 +33,11 @@ function TeamLogosHeader() {
 }
 
 function NavBar() {
-  const navbarRoutes = ["Standings", "Schedule", "Stats", "Teams"];
-
   return (
-    <div className="max-w-full bg-aff-blue h-16 2xl:px-16 px-6">
-      <NavigationMenu className="justify-start h-full max-w-7xl mx-auto">
-        <NavigationMenuList className="gap-6 font-semibold">
-          <Link to={"/"}>
-            <img src="/aff-logo.png" className="h-10" />
-          </Link>
-          {navbarRoutes.map((route, i) => (
-            <NavigationMenuItem className="text-white font-sans" key={i}>
-              <NavLink
-                className={({ isActive }) =>
-                  isActive
-                    ? "decoration-2 underline-offset-[6px] underline"
-                    : "hover:decoration-2 hover:underline-offset-[6px] hover:underline "
-                }
-                to={`/${route.toLowerCase()}`}
-              >
-                {route}
-              </NavLink>
-            </NavigationMenuItem>
-          ))}
-        </NavigationMenuList>
-      </NavigationMenu>
-    </div>
+    <nav className="h-14 bg-[#013369] lg:h-16">
+      <MobileNavbar />
+      <DesktopNavbar />
+    </nav>
   );
 }
 
