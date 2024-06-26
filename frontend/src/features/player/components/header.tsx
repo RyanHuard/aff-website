@@ -3,10 +3,9 @@ import { calculateOverall, formatSalary } from "./helpers";
 
 type HeaderProps = {
   playerDetails: any;
-  team: TeamDetails;
 };
 
-const Header = ({ playerDetails, team }) => {
+const Header = ({ playerDetails }: HeaderProps) => {
   const overall = calculateOverall(
     playerDetails?.position,
     playerDetails?.skill,
@@ -16,9 +15,9 @@ const Header = ({ playerDetails, team }) => {
   );
 
   return (
-    <div className="border-b border-aff-blue bg-white sm:pt-6 pt-4 sm:mt-0">
-      <div className="m-auto max-w-7xl border-b border-neutral-300 lg:px-6">
-        <header className="mx-auto flex h-full max-w-7xl py-2 ">
+    <div className="border-b border-aff-blue bg-white sm:pt-6 pt-4 sm:mb-12 px-6">
+      <div className="m-auto max-w-7xl border-b border-neutral-300 pb-6">
+        <header className="flex">
           <img
             className="h-full w-48 md:w-56"
             src={`/players/${playerDetails?.fname}_${playerDetails?.lname}.png`}
@@ -32,11 +31,11 @@ const Header = ({ playerDetails, team }) => {
               <div className="flex sm:py-4 py-2 text-sm md:text-base">
                 <img
                   className="-ml-1 w-6 md:w-8"
-                  src={`/logos/${team?.team_logo}.`}
+                  src={`/logos/${playerDetails?.team_details?.team_logo}`}
                 />
-                {console.log(team)}
                 <span className="my-auto ml-1">
-                  {team?.team_location} · {playerDetails?.position}
+                  {playerDetails?.team_details?.team_location} ·{" "}
+                  {playerDetails?.position}
                 </span>
               </div>
             </div>

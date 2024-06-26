@@ -1,7 +1,7 @@
 from api.db import get_db, close_db
 
 
-def query_season_stats(season_id, team_city=None):
+def query_season_stats(season_id=None, team_city=None, first_name=None, last_name=None):
     db = get_db()
 
     player_stats_query = """
@@ -10,6 +10,7 @@ def query_season_stats(season_id, team_city=None):
         last_name,
         position,
         COUNT(*) AS games_played,
+        season_id,
         team_city,
         teams.team_location,
         teams.team_name,
@@ -71,16 +72,28 @@ def query_season_stats(season_id, team_city=None):
     FROM 
         player_stats
     JOIN teams ON teams.abbreviation = player_stats.team_city
-    WHERE season_id = %s
     """
 
-    params = [season_id]
+    params = []
+
+    if season_id is not None:
+        player_stats_query += " WHERE season_id = %s"
+        params.append(season_id)
+
     if team_city is not None:
         player_stats_query += " AND team_city ILIKE %s"
         params.append(team_city)
 
+    if first_name is not None:
+        player_stats_query += " AND first_name ILIKE %s"
+        params.append(first_name)
+
+    if last_name is not None:
+        player_stats_query += " AND last_name ILIKE %s"
+        params.append(last_name)
+
     player_stats_query += """AND first_name <> 'BACKUP' 
-    GROUP BY first_name, last_name, position, team_city, 
+    GROUP BY first_name, last_name, position, team_city, season_id,
     teams.team_location, teams.team_name, teams.team_logo"""
 
     db.execute(player_stats_query, params)
@@ -106,7 +119,7 @@ def handle_stats(player_stats):
         player["team"] = {
             "name": player["team_name"],
             "location": player["team_location"],
-            "abbreivation": player["team_city"],
+            "abbreviation": player["team_city"],
             "logo": player["team_logo"],
         }
         del player["team_name"]

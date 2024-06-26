@@ -7,7 +7,7 @@ export function getPlayerStats(
   teamCity: string
 ): Promise<Record<string, PlayerStats[]>> {
   return api
-    .get(`/player-stats/${seasonId}?team-city=${teamCity}`)
+    .get(`/player-stats?season-id=${seasonId}&team-city=${teamCity}`)
     .then((res) => res.data);
 }
 

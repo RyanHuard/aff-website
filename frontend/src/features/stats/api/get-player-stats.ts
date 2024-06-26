@@ -5,7 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 export function getPlayerStats(
   seasonId: string
 ): Promise<Record<string, PlayerStats[]>> {
-  return api.get(`/player-stats/${seasonId}`).then((res) => res.data);
+  return api.get(`/player-stats?season-id=${seasonId}`).then((res) => res.data);
 }
 
 export const usePlayerStats = (seasonId: string) => {

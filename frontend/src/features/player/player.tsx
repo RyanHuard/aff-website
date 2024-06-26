@@ -3,6 +3,8 @@ import { useParams } from "react-router-dom";
 import { usePlayerDetails } from "./api/get-player-details";
 import Header from "./components/header";
 import { useTeam } from "../team/api/get-team";
+import ContentLayout from "@/components/layouts/wrapper/content-layout";
+import Stats from "./components/stats";
 
 const Player = () => {
   const [tabIndex, setTabIndex] = useState(0);
@@ -15,6 +17,10 @@ const Player = () => {
   const playerDetailsQuery = usePlayerDetails(firstName, lastName);
   const playerDetails = playerDetailsQuery?.data;
 
+  if (playerDetailsQuery.isLoading) {
+    return <div></div>;
+  }
+
   const handleTabChange = (e) => {
     setTabIndex(e);
   };
@@ -22,6 +28,9 @@ const Player = () => {
   return (
     <div>
       <Header playerDetails={playerDetails} />
+      <ContentLayout>
+        <Stats firstName={firstName} lastName={lastName} />
+      </ContentLayout>
     </div>
   );
 };
