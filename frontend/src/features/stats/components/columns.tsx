@@ -51,7 +51,10 @@ export const columns = [
     {
       name: "Comp %",
       selector: (row: PlayerStats) =>
-        (row.season_pass_completions / row.season_pass_attempts).toFixed(1),
+        (
+          (row.season_pass_completions / row.season_pass_attempts) *
+          100
+        ).toFixed(1),
       sortable: true,
     },
     {
@@ -324,7 +327,7 @@ export const columns = [
       sortable: true,
     },
     {
-      name: "FG %",
+      name: "XP %",
       selector: (row: PlayerStats) =>
         (row.season_kick_xp_made / row.season_kick_xp_attempts) * 100,
       sortable: true,

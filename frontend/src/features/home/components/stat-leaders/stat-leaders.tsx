@@ -3,38 +3,39 @@ import { usePlayerStats } from "@/features/stats/api/get-player-stats";
 import { CURRENT_SEASON_ID } from "@/lib/utils";
 import { PlayerStats } from "@/types/player";
 import { useStatLeaders } from "./api/get-stat-leaders";
+import { LoadingSpinner } from "@/components/ui/loading-spinner";
 
 type StatLeaderProps = {
-  category: Category[];
+  category: any;
   players: PlayerStats[];
-};
-
-type Category = {
-  name: string;
-  stat: string;
 };
 
 function StatLeader({ category, players }: StatLeaderProps) {
   const leader: PlayerStats = players?.[0];
-  players?.shift();
-  console.log(players);
+
+  players = players?.slice(1);
+  const statColumn = "season_" + category.stat;
 
   return (
-    <div>
-      <div className="flex">
+    <div className="">
+      <h2 className="px-2 py-2 font-semibold border-y border-black">
+        {category.name} this season
+      </h2>
+      <div className="flex pt-2">
         <img
           src={`/players/${leader?.first_name}_${leader?.last_name}.png`}
           className="h-16"
         />
         <div>
-          {leader?.first_name} {leader?.last_name}
+          1. {leader?.first_name} {leader?.last_name} {leader?.[statColumn]}
         </div>
       </div>
       <div>
         {players?.map((player, rank) => {
           return (
             <div>
-              {player?.first_name} {player?.last_name}
+              {rank + 2}. {player?.first_name} {player?.last_name}{" "}
+              {player?.[statColumn]}
             </div>
           );
         })}
@@ -74,13 +75,25 @@ function StatLeadersCard() {
     },
   ];
 
+  if (statsQuery.isLoading) {
+    return (
+      <div className="flex h-screen items-center justify-center bg-[#edeef2]">
+        <LoadingSpinner size="lg" className="relative bottom-64 sm:bottom-86" />
+      </div>
+    );
+  }
+
   return (
-    <Card>
-      {categories.map((category, index) => {
+    <Card className="grid grid-cols-2 ">
+      <h1 className="py-3 px-4 bg-aff-blue col-span-2 text-white font-semibold">
+        SEASONAL STAT LEADERS
+      </h1>
+      {categories.map((category: any, index: number) => {
         return (
           <StatLeader
             category={category}
             players={statsData?.[category.stat]!}
+            key={index}
           />
         );
       })}
