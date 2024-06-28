@@ -16,6 +16,7 @@ def create_app(test_config=None):
     from .home.home_endpoints import home_bp
     from .standings.standings_endpoints import standings_bp
     from .players.player_endpoints import player_bp
+    from .trade.trade_endpoints import trade_bp
 
     app.register_blueprint(teams_bp)
     app.register_blueprint(stats_bp)
@@ -23,5 +24,6 @@ def create_app(test_config=None):
     app.register_blueprint(home_bp)
     app.register_blueprint(standings_bp)
     app.register_blueprint(player_bp)
+    app.register_blueprint(trade_bp)
 
     return app
