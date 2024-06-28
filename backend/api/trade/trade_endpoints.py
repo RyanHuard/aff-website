@@ -43,7 +43,7 @@ def respond_to_trade_offer():
 
         if response not in ["accepted", "rejected"]:
             return (
-                jsonify(error="Invalid response. Expected 'accepted' or 'rejected'"),
+                jsonify(error="Invalid response. Expected 'accepted' or 'rejected'."),
                 400,
             )
 
@@ -51,12 +51,12 @@ def respond_to_trade_offer():
             trade_offer_response = handle_trade_offer_response(data)
             if response == "accepted":
                 return (
-                    jsonify(data=trade_offer_response, message="Trade offer accepted"),
+                    jsonify(data=trade_offer_response, message="Trade offer accepted."),
                     200,
                 )
             elif response == "rejected":
                 return (
-                    jsonify(data=trade_offer_response, message="Trade offer rejected"),
+                    jsonify(data=trade_offer_response, message="Trade offer rejected."),
                     200,
                 )
 
