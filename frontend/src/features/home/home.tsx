@@ -5,7 +5,12 @@ import HomeLayout from "./components/home-layout";
 import StatLeadersCard from "./components/stat-leaders/stat-leaders";
 
 const Header = () => {
-  return <img className="w-full" src={"/assets/welcome-banner.png"} />;
+  return (
+    <img
+      className="w-full lg:block hidden"
+      src={"/assets/welcome-banner.png"}
+    />
+  );
 };
 const Home = () => {
   // Different component order for mobile vs desktop

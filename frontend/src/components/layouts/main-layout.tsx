@@ -34,7 +34,7 @@ function TeamLogosHeader() {
 
 function NavBar() {
   return (
-    <nav className="h-14 bg-[#013369] lg:h-16">
+    <nav className="h-14 bg-[#013369] md:h-16">
       <MobileNavbar />
       <DesktopNavbar />
     </nav>
