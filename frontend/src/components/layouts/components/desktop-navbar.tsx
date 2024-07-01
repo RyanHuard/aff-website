@@ -3,10 +3,33 @@ import {
   NavigationMenuItem,
   NavigationMenuList,
 } from "@/components/ui/navigation-menu";
+import { MdAccountBox } from "react-icons/md";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 import React from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
+import { Button } from "@/components/ui/button";
+import { auth, signInWithGoogle, signOutWithGoogle } from "@/firebase";
+import { Auth, User } from "firebase/auth";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
-function DesktopNavbar() {
+type DesktopNavbarProps = {
+  userTeam: any | null;
+  currentUser: User | null;
+};
+
+function DesktopNavbar({ userTeam, currentUser }: DesktopNavbarProps) {
+  const navigate = useNavigate();
+
+  console.log(currentUser);
   const navbarRoutes = ["Standings", "Schedule", "Stats", "Teams"];
   return (
     <div className="max-w-full bg-aff-blue h-16 2xl:px-16 px-6 hidden md:block">
@@ -15,6 +38,7 @@ function DesktopNavbar() {
           <Link to={"/"}>
             <img src="/aff-logo.png" className="h-10" />
           </Link>
+
           {navbarRoutes.map((route, i) => (
             <NavigationMenuItem className="text-white font-sans" key={i}>
               <NavLink
@@ -30,6 +54,29 @@ function DesktopNavbar() {
             </NavigationMenuItem>
           ))}
         </NavigationMenuList>
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild className="ml-auto">
+            <Button className="bg-transparent hover:bg-transparent" size="icon">
+              <MdAccountBox color="white" size="32px" />
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent className="rounded-sm">
+            <DropdownMenuItem
+              onClick={currentUser ? signOutWithGoogle : signInWithGoogle}
+              className=" hover:cursor-grab"
+            >
+              {!currentUser ? <>Sign In</> : <>Sign Out</>}
+            </DropdownMenuItem>
+            {userTeam && (
+              <DropdownMenuItem
+                className=" hover:cursor-grab"
+                onClick={() => navigate(`/teams/${userTeam.teamId}`)}
+              >
+                My Team
+              </DropdownMenuItem>
+            )}
+          </DropdownMenuContent>
+        </DropdownMenu>
       </NavigationMenu>
     </div>
   );

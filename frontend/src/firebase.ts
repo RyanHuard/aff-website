@@ -14,13 +14,12 @@ import {
   getDocs,
   getFirestore,
 } from "firebase/firestore";
-import { api } from "./lib/api";
+
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 // Your web app's Firebase configuration
-
 const firebaseConfig = {
-  apiKey: process.env.FIREBASE_API_KEY,
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
   authDomain: "aff-website-890ce.firebaseapp.com",
   databaseURL: "https://aff-website-890ce-default-rtdb.firebaseio.com",
   projectId: "aff-website-890ce",
@@ -37,22 +36,26 @@ const provider = new GoogleAuthProvider();
 
 export const auth = getAuth(app);
 
-export function signInWithGoogle() {
-  signInWithPopup(auth, provider).then((result) => {
-    const user = result.user;
-    if (user) {
-      const role = await getUserRole(user.uid);
-      if (role === "general_manager") {
-      }
+export async function signInWithGoogle() {
+  const result = await signInWithPopup(auth, provider);
+  const user = result.user;
+  if (user) {
+    const team = await getUserTeam(user.uid);
+    if (team) {
+    } else {
     }
-  });
+  }
 }
 
-async function getUserRole(uid: string) {
+export function signOutWithGoogle() {
+  auth.signOut();
+}
+
+export async function getUserTeam(uid: string) {
   const userRef = doc(db, "managers", uid);
   const docSnap = await getDoc(userRef);
   if (docSnap.exists()) {
-    return docSnap.data().role;
+    return { teamName: docSnap.data().team, teamId: docSnap.data().team_id };
   } else {
     return null;
   }

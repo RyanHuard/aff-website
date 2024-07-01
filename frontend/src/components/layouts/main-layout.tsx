@@ -4,6 +4,8 @@ import TeamLink from "../ui/team-link";
 import Ticker from "./components/schedule-ticker";
 import MobileNavbar from "./components/mobile-navbar";
 import DesktopNavbar from "./components/desktop-navbar";
+import { useEffect, useState } from "react";
+import { auth, getUserTeam } from "@/firebase";
 
 function TeamLogosHeader() {
   const logos = [
@@ -33,16 +35,26 @@ function TeamLogosHeader() {
 }
 
 function NavBar() {
+  const [userTeam, setUserTeam] = useState(null);
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged(async (user) => {
+      if (user) {
+        const role = await getUserTeam(user.uid);
+        setUserTeam(role);
+      } else {
+        setUserTeam(null);
+      }
+    });
+
+    return () => unsubscribe();
+  }, []);
+
   return (
     <nav className="h-14 bg-[#013369] md:h-16">
-      <MobileNavbar />
-      <DesktopNavbar />
+      <MobileNavbar userTeam={userTeam} />
+      <DesktopNavbar userTeam={userTeam} currentUser={auth.currentUser} />
     </nav>
   );
-}
-
-function StatLeadersHeader() {
-  return <div className="flex overflow-clip h-24"></div>;
 }
 
 export default function MainLayout() {
