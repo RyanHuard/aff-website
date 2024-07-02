@@ -2,6 +2,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 import SeasonSelect from "@/components/ui/season-select";
 import { useState } from "react";
+import { auth } from "@/firebase";
+import { useUserTeam } from "@/hooks/use-user-team";
 
 type HeaderProps = {
   team: any;
@@ -17,9 +19,10 @@ const Header = ({
   handleTabChange,
 }: HeaderProps) => {
   const [tabValue, setTabValue] = useState<string>("Schedule");
+  const userTeam = useUserTeam();
 
   const background = { borderColor: `${team?.primary_color}` };
-
+  console.log(tabValue)
   return (
     <div className="bg-white sm:mb-12">
       <div style={background} className={`whitespace-nowrap border-b-2 pt-6`}>
@@ -51,16 +54,18 @@ const Header = ({
             >
               <TabsTrigger value="schedule">Schedule</TabsTrigger>
               <TabsTrigger value="stats">Stats</TabsTrigger>
+              {userTeam && <TabsTrigger value="trades">Trades</TabsTrigger>}
             </TabsList>
           </Tabs>
         </div>
+        {tabValue !== "Trades" && 
         <div className="py-3 bg-white border-t-2 border-gray-300 xl:px-0 px-2">
           <SeasonSelect
             value={seasonId}
             handleSeasonSelect={handleSeasonSelect}
             statYearsOnly={tabValue === "Stats" ? true : false}
           />
-        </div>
+        </div>}
       </div>
     </div>
   );

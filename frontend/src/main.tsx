@@ -16,6 +16,7 @@ import Team from "./features/team/team";
 import Teams from "./features/teams/teams";
 import Player from "./features/player/player";
 import Home from "./features/home/home";
+import Trades from "./features/trades/trades";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -65,7 +66,7 @@ const router = createBrowserRouter([
       {
         path: "/players/:name",
         element: <Player />,
-      },
+      }
     ],
   },
 ]);

@@ -6,6 +6,7 @@ import MobileNavbar from "./components/mobile-navbar";
 import DesktopNavbar from "./components/desktop-navbar";
 import { useEffect, useState } from "react";
 import { auth, getUserTeam } from "@/firebase";
+import { useUserTeam } from "@/hooks/use-user-team";
 
 function TeamLogosHeader() {
   const logos = [
@@ -35,19 +36,7 @@ function TeamLogosHeader() {
 }
 
 function NavBar() {
-  const [userTeam, setUserTeam] = useState(null);
-  useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged(async (user) => {
-      if (user) {
-        const role = await getUserTeam(user.uid);
-        setUserTeam(role);
-      } else {
-        setUserTeam(null);
-      }
-    });
-
-    return () => unsubscribe();
-  }, []);
+ const userTeam = useUserTeam();
 
   return (
     <nav className="h-14 bg-[#013369] md:h-16">

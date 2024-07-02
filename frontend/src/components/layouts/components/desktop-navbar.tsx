@@ -28,8 +28,7 @@ type DesktopNavbarProps = {
 
 function DesktopNavbar({ userTeam, currentUser }: DesktopNavbarProps) {
   const navigate = useNavigate();
-
-  console.log(currentUser);
+  
   const navbarRoutes = ["Standings", "Schedule", "Stats", "Teams"];
   return (
     <div className="max-w-full bg-aff-blue h-16 2xl:px-16 px-6 hidden md:block">
@@ -68,12 +67,20 @@ function DesktopNavbar({ userTeam, currentUser }: DesktopNavbarProps) {
               {!currentUser ? <>Sign In</> : <>Sign Out</>}
             </DropdownMenuItem>
             {userTeam && (
+              <>
               <DropdownMenuItem
                 className=" hover:cursor-grab"
                 onClick={() => navigate(`/teams/${userTeam.teamId}`)}
               >
                 My Team
               </DropdownMenuItem>
+               <DropdownMenuItem
+               className=" hover:cursor-grab"
+               onClick={() => navigate(`/trades`)}
+             >
+               Trades
+             </DropdownMenuItem>
+             </>
             )}
           </DropdownMenuContent>
         </DropdownMenu>
