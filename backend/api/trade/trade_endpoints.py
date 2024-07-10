@@ -9,6 +9,40 @@ from .models import TradeSchema
 trade_bp = Blueprint("trades", __name__, url_prefix="/api/trades")
 
 
+@trade_bp.route("", methods=["GET"])
+def get_trade_offers():
+    team_id = request.args.get("team-id")
+    db = get_db()
+
+    params = []
+    query = """SELECT 
+    trade_offers.*,
+    json_agg(
+        json_build_object(
+            'item_type', trade_offer_details.item_type,
+            'player_first_name', trade_offer_details.player_first_name,
+            'player_last_name', trade_offer_details.player_last_name,
+            'draft_pick_id', trade_offer_details.draft_pick_id,
+            'direction', trade_offer_details.direction
+        )
+        ) AS details
+    FROM 
+        trade_offers 
+    JOIN 
+        trade_offer_details 
+    ON 
+        trade_offer_details.trade_id = trade_offers.trade_id
+    GROUP BY 
+        trade_offers.trade_id;"""
+    if team_id:
+        query += " WHERE sending_team_id = %s OR receiving_team_id = %s"
+        params.extend([team_id, team_id])
+
+    db.execute(query, params)
+
+    return db.fetchall()
+
+
 @trade_bp.route("/create", methods=["POST"])
 def create_trade_offer():
     if request.method == "POST":
