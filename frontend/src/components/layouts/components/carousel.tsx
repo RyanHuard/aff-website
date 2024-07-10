@@ -2,8 +2,8 @@ import { Button } from "@/components/ui/button";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useState } from "react";
 
-const Carousel = ({ children }: any) => {
-  const [currentIndex, setCurrentIndex] = useState(0);
+const Carousel = ({ currentGame, children }: any) => {
+  const [currentIndex, setCurrentIndex] = useState(currentGame);
   const itemWidth = 176;
 
   return (
