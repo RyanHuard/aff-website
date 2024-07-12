@@ -3,6 +3,7 @@ import SocialsCard from "./components/socials-card";
 import ContentLayout from "@/components/layouts/wrapper/content-layout";
 import HomeLayout from "./components/home-layout";
 import StatLeadersCard from "./components/stat-leaders/stat-leaders";
+import RecentTradesCard from "./components/recent-trades-card";
 
 const Header = () => {
   return (
@@ -28,6 +29,7 @@ const Home = () => {
 
             <div className="col-span-3 space-y-6">
               <CreateAPlayerCard />
+              <RecentTradesCard />
               {/* <StandingsCard /> */}
               <SocialsCard />
             </div>

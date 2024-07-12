@@ -10,6 +10,18 @@ export default function Ticker() {
   const [currentGame, setCurrentGame] = useState<number>(0);
   const gamesQuery = useSchedule();
 
+  let games: GameDetails[] = gamesQuery?.data ?? [];
+
+  useEffect(() => {
+    for (let game of games) {
+      if (game.home_team_score === null) {
+        setCurrentGame(game.game_id - 219);
+      } else {
+        setCurrentGame(49);
+      }
+    }
+  }, [gamesQuery]);
+
   if (gamesQuery.isLoading) {
     return (
       <div className="flex h-24 w-full items-center justify-center bg-slate-50">
@@ -17,19 +29,6 @@ export default function Ticker() {
       </div>
     );
   }
-
-  let games: GameDetails[] = gamesQuery?.data ?? [];
-
-  useEffect(() => {
-    for (let game of games) {
-      if (game.home_team_score === null) {
-        setCurrentGame(game.game_id-219);
-      } 
-      else {
-        setCurrentGame(49);
-      }
-    }
-}, [gamesQuery])
 
   return (
     <Carousel currentGame={currentGame}>

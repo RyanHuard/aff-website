@@ -12,6 +12,7 @@ trade_bp = Blueprint("trades", __name__, url_prefix="/api/trades")
 @trade_bp.route("", methods=["GET"])
 def get_trade_offers():
     team_id = request.args.get("team-id")
+    limit = request.args.get("limit")  # for recent trades
     db = get_db()
 
     params = []
@@ -25,18 +26,35 @@ def get_trade_offers():
             'draft_pick_id', trade_offer_details.draft_pick_id,
             'direction', trade_offer_details.direction
         )
-        ) AS details
+        ) AS details,
+    sending_team.team_logo AS sending_team_logo,
+    sending_team.team_name AS sending_team_name,
+    receiving_team.team_logo AS receiving_team_logo,
+    receiving_team.team_name AS receiving_team_name
     FROM 
         trade_offers 
     JOIN 
         trade_offer_details 
     ON 
         trade_offer_details.trade_id = trade_offers.trade_id
-    GROUP BY 
-        trade_offers.trade_id;"""
+    JOIN 
+    teams AS sending_team
+    ON 
+        sending_team.team_id = trade_offers.sending_team_id
+    JOIN 
+        teams AS receiving_team
+    ON 
+        receiving_team.team_id = trade_offers.receiving_team_id
+    WHERE trade_offers.status = 'accepted'
+   """
     if team_id:
-        query += " WHERE sending_team_id = %s OR receiving_team_id = %s"
+        query += " AND sending_team_id = %s OR receiving_team_id = %s"
         params.extend([team_id, team_id])
+
+    query += " GROUP BY trade_offers.trade_id, sending_team.team_logo, sending_team.team_name, receiving_team.team_logo, receiving_team.team_name ORDER BY trade_offers.trade_id DESC"
+
+    if limit:
+        query += " LIMIT 5"
 
     db.execute(query, params)
 
