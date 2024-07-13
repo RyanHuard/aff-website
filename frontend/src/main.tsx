@@ -66,7 +66,11 @@ const router = createBrowserRouter([
       {
         path: "/players/:name",
         element: <Player />,
-      }
+      },
+      {
+        path: "/trades",
+        element: <Trades />,
+      },
     ],
   },
 ]);

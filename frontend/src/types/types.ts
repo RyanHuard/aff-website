@@ -2,7 +2,7 @@ type TradeOffer = {
   trade_id: number;
   season_id?: number;
   status: "accepted" | "rejected" | "pending";
-  trade_details: TradeDetail[];
+  details: TradeDetail[];
   sending_team_id: number;
   sending_team_logo: string;
   sending_team_name: string;
