@@ -20,38 +20,60 @@ def get_trade_offers():
     trade_offers.*,
     json_agg(
         json_build_object(
-            'item_type', trade_offer_details.item_type,
-            'player_first_name', trade_offer_details.player_first_name,
-            'player_last_name', trade_offer_details.player_last_name,
-            'draft_pick_id', trade_offer_details.draft_pick_id,
-            'direction', trade_offer_details.direction
-        )
-        ) AS details,
+            'item_type', details.item_type,
+            'player_first_name', details.player_first_name,
+            'player_last_name', details.player_last_name,
+            'draft_pick_id', details.draft_pick_id,
+            'draft_pick_details', CASE 
+                WHEN details.draft_pick_id IS NOT NULL THEN json_build_object(
+                    'pick_num', draft_picks.pick_num,
+                    'round_num', draft_picks.round_num,
+                    'season_id', draft_picks.season_id
+                )
+                ELSE NULL
+            END,
+            'direction', details.direction
+        ) ORDER BY details.item_type DESC
+    ) AS details,
     sending_team.team_logo AS sending_team_logo,
     sending_team.team_name AS sending_team_name,
+    sending_team.abbreviation as sending_team_abbreviation,
     receiving_team.team_logo AS receiving_team_logo,
-    receiving_team.team_name AS receiving_team_name
-    FROM 
-        trade_offers 
-    JOIN 
-        trade_offer_details 
-    ON 
-        trade_offer_details.trade_id = trade_offers.trade_id
-    JOIN 
+    receiving_team.team_name AS receiving_team_name,
+    receiving_team.abbreviation as receiving_team_abbreviation
+FROM 
+    trade_offers 
+JOIN 
+    (
+        SELECT 
+            trade_offer_details.*
+        FROM 
+            trade_offer_details
+        ORDER BY 
+            trade_offer_details.item_type
+    ) AS details
+ON 
+    details.trade_id = trade_offers.trade_id
+LEFT JOIN 
+    draft_picks
+ON 
+    details.draft_pick_id = draft_picks.draft_pick_id
+JOIN 
     teams AS sending_team
-    ON 
-        sending_team.team_id = trade_offers.sending_team_id
-    JOIN 
-        teams AS receiving_team
-    ON 
-        receiving_team.team_id = trade_offers.receiving_team_id
-    WHERE trade_offers.status = 'accepted'
+ON 
+    sending_team.team_id = trade_offers.sending_team_id
+JOIN 
+    teams AS receiving_team
+ON 
+    receiving_team.team_id = trade_offers.receiving_team_id
+WHERE 
+    trade_offers.status = 'accepted'
    """
     if team_id:
         query += " AND sending_team_id = %s OR receiving_team_id = %s"
         params.extend([team_id, team_id])
 
-    query += " GROUP BY trade_offers.trade_id, sending_team.team_logo, sending_team.team_name, receiving_team.team_logo, receiving_team.team_name ORDER BY trade_offers.trade_id DESC"
+    query += " GROUP BY trade_offers.trade_id, sending_team.team_logo, sending_team.team_name, receiving_team.team_logo, receiving_team.team_name, sending_team.abbreviation, receiving_team.abbreviation ORDER BY trade_offers.trade_id DESC"
 
     if limit:
         query += " LIMIT 5"
