@@ -12,6 +12,7 @@ trade_bp = Blueprint("trades", __name__, url_prefix="/api/trades")
 @trade_bp.route("", methods=["GET"])
 def get_trade_offers():
     team_id = request.args.get("team-id")
+    season_id = request.args.get("season-id")
     limit = request.args.get("limit")  # for recent trades
     db = get_db()
 
@@ -72,6 +73,10 @@ WHERE
     if team_id:
         query += " AND sending_team_id = %s OR receiving_team_id = %s"
         params.extend([team_id, team_id])
+
+    if season_id:
+        query += " AND trade_offers.season_id = %s"
+        params.extend([season_id])
 
     query += " GROUP BY trade_offers.trade_id, sending_team.team_logo, sending_team.team_name, receiving_team.team_logo, receiving_team.team_name, sending_team.abbreviation, receiving_team.abbreviation ORDER BY trade_offers.trade_id DESC"
 

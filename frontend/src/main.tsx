@@ -68,7 +68,7 @@ const router = createBrowserRouter([
         element: <Player />,
       },
       {
-        path: "/trades",
+        path: "/trades/:seasonId?",
         element: <Trades />,
       },
     ],
