@@ -51,7 +51,13 @@ function RecentTradesCard() {
                     {trade.receiving_team_abbreviation}
                   </span>
                 </div>
-                <div className="text-xs text-slate-600">05/0{index + 1}</div>
+                <div className="text-xs text-slate-600">
+                  {trade?.date_responded &&
+                    new Date(trade.date_responded).toLocaleDateString("en-US", {
+                      month: "2-digit",
+                      day: "2-digit",
+                    })}
+                </div>
               </AccordionTrigger>
               <AccordionContent className="flex flex-row justify-between px-6 -mb-2">
                 <div className="w-2/5 text-left">
