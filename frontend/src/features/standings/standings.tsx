@@ -12,6 +12,7 @@ import {
 import { useNavigate, useParams } from "react-router-dom";
 import ContentLayout from "@/components/layouts/wrapper/content-layout";
 import SeasonSelect from "@/components/ui/season-select";
+import { CURRENT_SEASON_ID } from "@/lib/utils";
 
 type HeaderActionsProps = {
   handleSeasonSelect: (e: string) => void;
@@ -21,10 +22,12 @@ type HeaderActionsProps = {
 export default function Standings() {
   const navigate = useNavigate();
   const { seasonId } = useParams<{ seasonId?: string }>();
-  const [selectedSeasonId, setSelectedSeasonId] = useState<string>("7");
+  const [selectedSeasonId, setSelectedSeasonId] = useState<string>(
+    CURRENT_SEASON_ID.toString()
+  );
 
   useEffect(() => {
-    setSelectedSeasonId(seasonId ?? "7");
+    setSelectedSeasonId(seasonId ?? CURRENT_SEASON_ID.toString());
   }, [seasonId]);
 
   function handleSeasonSelect(e: string) {

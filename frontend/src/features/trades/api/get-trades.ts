@@ -1,13 +1,13 @@
 import { api } from "@/lib/api";
 import { useQuery } from "@tanstack/react-query";
 
-export function getTrades(): Promise<TradeOffer[]> {
-  return api.get(`/trades`).then((res) => res.data);
+export function getTrades(seasonId: string): Promise<TradeOffer[]> {
+  return api.get(`/trades?season-id=${seasonId}`).then((res) => res.data);
 }
 
-export const useTrades = () => {
+export const useTrades = (seasonId: string) => {
   return useQuery({
-    queryKey: ["trades"],
-    queryFn: () => getTrades(),
+    queryKey: ["trades", seasonId],
+    queryFn: () => getTrades(seasonId),
   });
 };

@@ -37,9 +37,11 @@ def get_trade_offers():
         ) ORDER BY details.item_type DESC
     ) AS details,
     sending_team.team_logo AS sending_team_logo,
+    sending_team.team_location AS sending_team_location,
     sending_team.team_name AS sending_team_name,
     sending_team.abbreviation as sending_team_abbreviation,
     receiving_team.team_logo AS receiving_team_logo,
+    receiving_team.team_location AS receiving_team_location,
     receiving_team.team_name AS receiving_team_name,
     receiving_team.abbreviation as receiving_team_abbreviation
 FROM 
@@ -78,7 +80,7 @@ WHERE
         query += " AND trade_offers.season_id = %s"
         params.extend([season_id])
 
-    query += " GROUP BY trade_offers.trade_id, sending_team.team_logo, sending_team.team_name, receiving_team.team_logo, receiving_team.team_name, sending_team.abbreviation, receiving_team.abbreviation ORDER BY trade_offers.trade_id DESC"
+    query += " GROUP BY trade_offers.trade_id, sending_team.team_logo, sending_team.team_name, receiving_team.team_logo, receiving_team.team_name, sending_team.abbreviation, receiving_team.abbreviation, sending_team_location, receiving_team_location ORDER BY trade_offers.trade_id DESC"
 
     if limit:
         query += " LIMIT 5"

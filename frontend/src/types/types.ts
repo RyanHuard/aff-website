@@ -5,10 +5,12 @@ type TradeOffer = {
   details: TradeDetail[];
   sending_team_id: number;
   sending_team_logo: string;
+  sending_team_location: string;
   sending_team_name: string;
-  sending_team_abbreviation: string;;
+  sending_team_abbreviation: string;
   receiving_team_id: number;
   receiving_team_logo: string;
+  receiving_team_location: string;
   receiving_team_name: string;
   receiving_team_abbreviation: string;
   date_created?: Date;
