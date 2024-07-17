@@ -7,6 +7,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { GoTriangleRight } from "react-icons/go";
 import { Link } from "react-router-dom";
 
 function RecentTradesCard() {
@@ -14,7 +15,9 @@ function RecentTradesCard() {
   return (
     <div className="drop-shadow-md rounded-sm bg-white">
       <header className="h-12 bg-aff-blue rounded-t-sm">
-        <h1 className="px-4 py-3 font-semibold text-white">RECENT TRADES</h1>
+        <Link to="/trades" className="px-4 py-3 font-semibold text-white flex">
+          RECENT TRADES <GoTriangleRight className="my-auto" size={22} />{" "}
+        </Link>
       </header>
       <section className="flex flex-wrap justify-between p-4 pb-2">
         <Accordion
