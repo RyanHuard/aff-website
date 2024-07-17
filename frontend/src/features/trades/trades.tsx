@@ -53,11 +53,8 @@ function Trades() {
                 const formattedDate = format(date, "EEEE, MMMM d, yyyy");
 
                 return (
-                  <div
-                    key={formattedDate}
-                    className="last-of-type:pb-6 text-sm"
-                  >
-                    <h2 className="bg-slate-50font-bold border-y-2 p-2">
+                  <div key={formattedDate} className="text-sm">
+                    <h2 className="bg-slate-50 font-bold border-y-2 p-2">
                       {formattedDate}
                     </h2>
                     <div className="flex sm:text-sm justify-between p-4 text-xs gap-4">
@@ -66,7 +63,7 @@ function Trades() {
                           src={`/logos/${trade.sending_team_logo}`}
                           className="my-auto h-12 sm:h-16"
                         />
-                        <div className="font-semibold text-slate-600 ">
+                        <div className="font-semibold text-slate-600 sm:px-4">
                           {trade.sending_team_location} acquired:
                           <div className="flex flex-col font-normal">
                             {trade?.details?.map(
@@ -129,7 +126,7 @@ function Trades() {
                           src={`/logos/${trade.receiving_team_logo}`}
                           className="my-auto h-12 sm:h-16"
                         />
-                        <div className="font-semibold text-slate-600">
+                        <div className="font-semibold text-slate-600 sm:px-4">
                           {trade.receiving_team_location} acquired:
                           <div className="flex flex-col font-normal">
                             {trade?.details?.map(
