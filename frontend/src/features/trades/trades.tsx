@@ -57,7 +57,7 @@ function Trades() {
                     <h2 className="bg-slate-50 font-bold border-y-2 p-2">
                       {formattedDate}
                     </h2>
-                    <div className="flex sm:text-sm justify-between p-4 text-xs gap-4">
+                    <div className="flex sm:text-sm justify-between p-5 text-xs gap-4">
                       <div className="w-1/2 flex gap-2">
                         <img
                           src={`/logos/${trade.sending_team_logo}`}

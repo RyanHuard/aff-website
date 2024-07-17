@@ -105,7 +105,7 @@ function RecentTradesCard() {
                       (detail.item_type == "player" ? (
                         <Link
                           key={detailIndex}
-                          to={`/players/${detail.player_first_name.toLowerCase()}-${
+                          to={`/players/${detail?.player_first_name?.toLowerCase()}-${
                             detail.player_last_name?.toLowerCase
                           }`}
                           className="text-aff-orange underline flex ml-16"
