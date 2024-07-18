@@ -4,12 +4,7 @@ import {
   NavigationMenuList,
 } from "@/components/ui/navigation-menu";
 import { MdAccountBox } from "react-icons/md";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
-import React from "react";
+
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { auth, signInWithGoogle, signOutWithGoogle } from "@/firebase";

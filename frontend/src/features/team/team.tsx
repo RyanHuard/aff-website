@@ -28,7 +28,7 @@ const Team = () => {
 
   if (teamQuery.isLoading) {
     return (
-      <div className="flex h-24 w-full items-center justify-center bg-[#edeef2]">
+      <div className="flex h-24 w-full items-center justify-center bg-[#edeef2] mt-24">
         <LoadingSpinner size="lg" />
       </div>
     );

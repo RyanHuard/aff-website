@@ -8,7 +8,6 @@ import { LoadingSpinner } from "../ui/loading-spinner";
 
 function ManagerRoute() {
   const { userTeam, isLoading } = useUserTeam();
-  console.log(userTeam, isLoading);
 
   if (isLoading) {
     return (

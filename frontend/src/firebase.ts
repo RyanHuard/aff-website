@@ -1,11 +1,6 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import {
-  GoogleAuthProvider,
-  ProviderId,
-  getAuth,
-  signInWithPopup,
-} from "firebase/auth";
+import { GoogleAuthProvider, getAuth, signInWithPopup } from "firebase/auth";
 import {
   QuerySnapshot,
   collection,
@@ -39,13 +34,13 @@ export const auth = getAuth(app);
 export async function signInWithGoogle() {
   const result = await signInWithPopup(auth, provider);
   const user = result.user;
+
   if (user) {
     const team = await getUserTeam(user.uid);
     if (team) {
-    } else {
+      localStorage.setItem("teamId", team.teamId);
     }
   }
-  console.log(user);
 }
 
 export function signOutWithGoogle() {
