@@ -17,6 +17,8 @@ import Teams from "./features/teams/teams";
 import Player from "./features/player/player";
 import Home from "./features/home/home";
 import Trades from "./features/trades/trades";
+import ManagerRoute from "./components/routes/manager-route";
+import TradePortal from "./features/manager/features/trades/trade-portal";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -70,6 +72,16 @@ const router = createBrowserRouter([
       {
         path: "/trades/:seasonId?",
         element: <Trades />,
+      },
+    ],
+  },
+  {
+    path: "/manager",
+    element: <ManagerRoute />,
+    children: [
+      {
+        path: "/manager/trades",
+        element: <TradePortal />,
       },
     ],
   },

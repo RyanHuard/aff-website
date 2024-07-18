@@ -7,6 +7,7 @@ import DesktopNavbar from "./components/desktop-navbar";
 import { useEffect, useState } from "react";
 import { auth, getUserTeam } from "@/firebase";
 import { useUserTeam } from "@/hooks/use-user-team";
+import { getAuth, onAuthStateChanged, User } from "firebase/auth";
 
 function TeamLogosHeader() {
   const logos = [
@@ -36,12 +37,21 @@ function TeamLogosHeader() {
 }
 
 function NavBar() {
- const userTeam = useUserTeam();
+  const [currentUser, setCurrentUser] = useState<User | null>(null);
+  const { userTeam } = useUserTeam();
+
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      setCurrentUser(user);
+    } else {
+      setCurrentUser(user);
+    }
+  });
 
   return (
     <nav className="h-14 bg-[#013369] md:h-16">
       <MobileNavbar userTeam={userTeam} />
-      <DesktopNavbar userTeam={userTeam} currentUser={auth.currentUser} />
+      <DesktopNavbar userTeam={userTeam} currentUser={currentUser} />
     </nav>
   );
 }

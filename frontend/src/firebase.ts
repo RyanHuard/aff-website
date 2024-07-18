@@ -45,6 +45,7 @@ export async function signInWithGoogle() {
     } else {
     }
   }
+  console.log(user);
 }
 
 export function signOutWithGoogle() {

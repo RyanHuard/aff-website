@@ -22,7 +22,7 @@ const Header = ({
   const userTeam = useUserTeam();
 
   const background = { borderColor: `${team?.primary_color}` };
-  console.log(tabValue)
+
   return (
     <div className="bg-white sm:mb-12">
       <div style={background} className={`whitespace-nowrap border-b-2 pt-6`}>
@@ -58,14 +58,15 @@ const Header = ({
             </TabsList>
           </Tabs>
         </div>
-        {tabValue !== "Trades" && 
-        <div className="py-3 bg-white border-t-2 border-gray-300 xl:px-0 px-2">
-          <SeasonSelect
-            value={seasonId}
-            handleSeasonSelect={handleSeasonSelect}
-            statYearsOnly={tabValue === "Stats" ? true : false}
-          />
-        </div>}
+        {tabValue !== "Trades" && (
+          <div className="py-3 bg-white border-t-2 border-gray-300 xl:px-0 px-2">
+            <SeasonSelect
+              value={seasonId}
+              handleSeasonSelect={handleSeasonSelect}
+              statYearsOnly={tabValue === "Stats" ? true : false}
+            />
+          </div>
+        )}
       </div>
     </div>
   );
