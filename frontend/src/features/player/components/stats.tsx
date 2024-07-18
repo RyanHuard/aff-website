@@ -27,7 +27,7 @@ const Stats = ({ firstName, lastName }: StatsProps) => {
 
         if (nonEmptySeasons.length > 0) {
           return (
-            <div className="pb-6">
+            <div className="pb-6" key={index}>
               <Table
                 title={category}
                 columns={columns[index]}

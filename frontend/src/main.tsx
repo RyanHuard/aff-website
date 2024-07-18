@@ -73,15 +73,15 @@ const router = createBrowserRouter([
         path: "/trades/:seasonId?",
         element: <Trades />,
       },
-    ],
-  },
-  {
-    path: "/manager",
-    element: <ManagerRoute />,
-    children: [
       {
-        path: "/manager/trades",
-        element: <TradePortal />,
+        path: "/manager",
+        element: <ManagerRoute />,
+        children: [
+          {
+            path: "/manager/trades",
+            element: <TradePortal />,
+          },
+        ],
       },
     ],
   },

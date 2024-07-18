@@ -33,7 +33,7 @@ function StatLeader({ category, players }: StatLeaderProps) {
       <div>
         {players?.map((player, rank) => {
           return (
-            <div>
+            <div key={rank}>
               {rank + 2}. {player?.first_name} {player?.last_name}{" "}
               {player?.[statColumn]}
             </div>

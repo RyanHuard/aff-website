@@ -20,11 +20,7 @@ function RecentTradesCard() {
         </Link>
       </header>
       <section className="flex flex-wrap justify-between p-4 pb-2">
-        <Accordion
-          className="flex flex-col w-full -mt-2"
-          type="multiple"
-          collapsible
-        >
+        <Accordion className="flex flex-col w-full -mt-2" type="multiple">
           {recentTradesQuery?.data?.map((trade, index) => (
             <AccordionItem value={trade.trade_id.toString()} key={index}>
               <AccordionTrigger className="flex py-2">

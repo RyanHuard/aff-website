@@ -4,7 +4,7 @@ export const columns = [
       name: "Season",
       selector: (row: any) => parseInt(row.season_id) + 2021,
       sortable: true,
-      maxWidth: "2rem",
+      maxwidth: "2rem",
     },
     {
       name: "Team",
@@ -81,7 +81,7 @@ export const columns = [
       name: "Season",
       selector: (row: any) => parseInt(row.season_id) + 2021,
       sortable: true,
-      maxWidth: "2rem",
+      maxwidth: "2rem",
     },
     {
       name: "Team",
@@ -136,7 +136,7 @@ export const columns = [
       name: "Season",
       selector: (row: any) => parseInt(row.season_id) + 2021,
       sortable: true,
-      maxWidth: "2rem",
+      maxwidth: "2rem",
     },
     {
       name: "Team",
@@ -195,7 +195,7 @@ export const columns = [
       name: "Season",
       selector: (row: any) => parseInt(row.season_id) + 2021,
       sortable: true,
-      maxWidth: "2rem",
+      maxwidth: "2rem",
     },
     {
       name: "Team",
