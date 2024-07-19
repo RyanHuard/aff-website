@@ -38,11 +38,11 @@ def get_roster():
     season_id = request.args.get("season-id")
     team_id = request.args.get("team-id")
 
-    query = "SELECT * FROM rosters"
+    query = "SELECT * FROM rosters WHERE fname <> 'BACKUP'"
     params = []
 
     if season_id is not None:
-        query += " WHERE season_id = %s"
+        query += " AND season_id = %s"
         params.extend(season_id)
         if team_id is not None:
             query += " AND tid = %s"

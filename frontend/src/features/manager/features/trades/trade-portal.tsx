@@ -23,10 +23,12 @@ function TradePortal() {
 
   return (
     <ContentLayout>
-      {/* <TeamTraderBox
-        userTeamDetails={teamsQuery?.data?.[parseInt(userTeam.teamId)]}
-      /> */}
-      <TeamTraderBox teamDetails={teamsQuery?.data} />
+      <div className="block lg:flex gap-6">
+        <TeamTraderBox
+          userTeamDetails={teamsQuery?.data?.[parseInt(userTeam.teamId)]}
+        />
+        <TeamTraderBox teamDetails={teamsQuery?.data} />
+      </div>
     </ContentLayout>
   );
 }
