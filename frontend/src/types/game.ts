@@ -13,7 +13,9 @@ export type GameDetails = {
 
 export type TeamDetails = {
   name: string;
+  team_name: string;
   location: string;
+  team_location: string;
   logo: string;
   team_logo?: string;
   abbreviation: string;

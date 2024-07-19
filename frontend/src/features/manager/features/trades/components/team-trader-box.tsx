@@ -10,10 +10,12 @@ import {
 } from "@/components/ui/select";
 import { useRoster } from "../api/get-roster";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
-import { PlayerDetail } from "@/types/player";
+import { DraftPickDetail, PlayerDetail } from "@/types/types";
+import { useDraftPicks } from "../api/get-draft-picks";
+import { Badge } from "@/components/ui/badge";
 
 type TeamTraderBoxProps = {
-  userTeamDetails?: TeamDetails | undefined;
+  userTeamDetails?: TeamDetails;
   teamDetails?: TeamDetails[] | undefined;
 };
 
@@ -23,17 +25,29 @@ type PlayerProps = {
   handlePlayerSelect: (player: PlayerDetail) => void;
 };
 
+type DraftPickProps = {
+  draftPick: DraftPickDetail;
+  selectedDraftPicks: DraftPickDetail[];
+  handleDraftPickSelect: (draftPick: DraftPickDetail) => void;
+};
+
 function TeamTraderBox({ userTeamDetails, teamDetails }: TeamTraderBoxProps) {
   const [selectedTeamId, setSelectedTeamId] = useState<string | undefined>(
     userTeamDetails?.team_id
   );
   const [selectedPlayers, setSelectedPlayers] = useState<PlayerDetail[]>([]);
+  const [selectedDraftPicks, setSelectedDraftPicks] = useState<
+    DraftPickDetail[]
+  >([]);
+
+  const direction = !!userTeamDetails ? "to_receiving_team" : "to_sending_team";
 
   if (!teamDetails && !userTeamDetails) {
     return <></>;
   }
 
   const rosterQuery = useRoster(selectedTeamId);
+  const draftPicksQuery = useDraftPicks(selectedTeamId);
 
   function handleTeamSelect(e: string) {
     setSelectedTeamId(e);
@@ -56,8 +70,29 @@ function TeamTraderBox({ userTeamDetails, teamDetails }: TeamTraderBoxProps) {
     });
   }
 
+  function handleDraftPickSelect(draftPick: DraftPickDetail) {
+    setSelectedDraftPicks((prevDraftPicks) => {
+      // Ensure prevPlayers is an array
+      const draftPicks = prevDraftPicks ?? [];
+
+      const isSelected = draftPicks.some(
+        (p) => p.draft_pick_id === draftPick.draft_pick_id
+      );
+
+      if (isSelected) {
+        // If the player is already selected, remove them
+        return draftPicks.filter(
+          (p) => p.draft_pick_id !== draftPick.draft_pick_id
+        );
+      } else {
+        // If the player is not selected, add them
+        return [...draftPicks, draftPick];
+      }
+    });
+  }
+
   return (
-    <div className="lg:w-1/2 w-full bg-white">
+    <div className="lg:w-1/2 w-full bg-white h-full">
       {teamDetails && Array.isArray(teamDetails) ? (
         <Select onValueChange={(e) => handleTeamSelect(e)}>
           <SelectTrigger className="py-6 text-base" value={selectedTeamId}>
@@ -87,7 +122,10 @@ function TeamTraderBox({ userTeamDetails, teamDetails }: TeamTraderBoxProps) {
             <SelectValue />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value={userTeamDetails?.team_id} className="border-b">
+            <SelectItem
+              value={userTeamDetails?.team_id ?? "0"}
+              className="border-b"
+            >
               <div className="flex">
                 <img
                   className="w-7"
@@ -101,6 +139,14 @@ function TeamTraderBox({ userTeamDetails, teamDetails }: TeamTraderBoxProps) {
           </SelectContent>
         </Select>
       )}
+      <div className="border-y-2 w-full">
+        <div className="border-b p-1">
+          <h2 className="text-center text-sm text-slate-500">Outgoing</h2>
+        </div>
+        <div className="p-1">
+          <h2 className="text-center text-sm text-slate-500">Incoming</h2>
+        </div>
+      </div>
       <div>
         <Tabs defaultValue="roster" className="p-2">
           <div className="w-full border-b-2 pb-2">
@@ -116,6 +162,16 @@ function TeamTraderBox({ userTeamDetails, teamDetails }: TeamTraderBoxProps) {
                 selectedPlayers={selectedPlayers}
                 handlePlayerSelect={handlePlayerSelect}
                 key={player.pid}
+              />
+            ))}
+          </TabsContent>
+          <TabsContent value="picks">
+            {draftPicksQuery?.data?.map((draftPick) => (
+              <DraftPick
+                draftPick={draftPick}
+                selectedDraftPicks={selectedDraftPicks}
+                handleDraftPickSelect={handleDraftPickSelect}
+                key={draftPick.draft_pick_id}
               />
             ))}
           </TabsContent>
@@ -183,6 +239,38 @@ function Player({ player, selectedPlayers, handlePlayerSelect }: PlayerProps) {
           {player.strength} <span className="text-slate-500">STR</span>
         </div>
       </div>
+    </div>
+  );
+}
+
+function DraftPick({
+  draftPick,
+  selectedDraftPicks,
+  handleDraftPickSelect,
+}: DraftPickProps) {
+  const isSelected = selectedDraftPicks.some(
+    (p) => p.draft_pick_id === draftPick.draft_pick_id
+  );
+
+  return (
+    <div className="border-b first:-mt-2 flex h-[54px] items-center pl-2">
+      <div>
+        {draftPick.season_id + 2021} - Round {draftPick.round_num}{" "}
+        {draftPick.pick_num && <>(Pick {draftPick.pick_num})</>}
+      </div>
+      <button
+        onClick={() => handleDraftPickSelect(draftPick)}
+        className="px-2 text-aff-blue ml-auto"
+      >
+        <IoIosAddCircleOutline
+          className={`${isSelected ? "hidden" : "block"}`}
+          size="32"
+        />
+        <IoIosCheckmarkCircle
+          className={`${isSelected ? "block" : "hidden"}`}
+          size="32"
+        />
+      </button>
     </div>
   );
 }

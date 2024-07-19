@@ -44,33 +44,33 @@ def get_trade_offers():
     receiving_team.team_location AS receiving_team_location,
     receiving_team.team_name AS receiving_team_name,
     receiving_team.abbreviation as receiving_team_abbreviation
-FROM 
-    trade_offers 
-JOIN 
-    (
-        SELECT 
-            trade_offer_details.*
-        FROM 
-            trade_offer_details
-        ORDER BY 
-            trade_offer_details.item_type
-    ) AS details
-ON 
-    details.trade_id = trade_offers.trade_id
-LEFT JOIN 
-    draft_picks
-ON 
-    details.draft_pick_id = draft_picks.draft_pick_id
-JOIN 
-    teams AS sending_team
-ON 
-    sending_team.team_id = trade_offers.sending_team_id
-JOIN 
-    teams AS receiving_team
-ON 
-    receiving_team.team_id = trade_offers.receiving_team_id
-WHERE 
-    trade_offers.status = 'accepted'
+    FROM 
+        trade_offers 
+    JOIN 
+        (
+            SELECT 
+                trade_offer_details.*
+            FROM 
+                trade_offer_details
+            ORDER BY 
+                trade_offer_details.item_type
+        ) AS details
+    ON 
+        details.trade_id = trade_offers.trade_id
+    LEFT JOIN 
+        draft_picks
+    ON 
+        details.draft_pick_id = draft_picks.draft_pick_id
+    JOIN 
+        teams AS sending_team
+    ON 
+        sending_team.team_id = trade_offers.sending_team_id
+    JOIN 
+        teams AS receiving_team
+    ON 
+        receiving_team.team_id = trade_offers.receiving_team_id
+    WHERE 
+        trade_offers.status = 'accepted'
    """
     if team_id:
         query += " AND sending_team_id = %s OR receiving_team_id = %s"

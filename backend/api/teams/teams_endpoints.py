@@ -85,20 +85,18 @@ def get_roster():
 def get_draft_picks():
     db = get_db()
 
+    # The season id from which to get the next 3 seasons of draft picks
     season_id = request.args.get("season-id")
     team_id = request.args.get("team-id")
 
-    query = "SELECT * FROM draft_picks"
-    params = []
+    query = "SELECT * FROM draft_picks WHERE season_id >= %s AND season_id <= (%s+2)"
+    params = [season_id, season_id]
 
-    if season_id is not None:
-        query += " WHERE season_id = %s"
-        params.extend(season_id)
-        if team_id is not None:
-            query += " AND team_id = %s"
-            params.append(team_id)
+    if team_id is not None:
+        query += " AND team_id = %s"
+        params.append(team_id)
 
-    query += " ORDER BY pick_num ASC"
+    query += " ORDER BY season_id ASC, pick_num ASC"
     db.execute(query, params)
 
     draft_picks = db.fetchall()
