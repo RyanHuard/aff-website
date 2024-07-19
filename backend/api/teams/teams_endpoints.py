@@ -79,3 +79,29 @@ def get_roster():
     close_db()
 
     return rosters
+
+
+@teams_bp.route("/draft-picks")
+def get_draft_picks():
+    db = get_db()
+
+    season_id = request.args.get("season-id")
+    team_id = request.args.get("team-id")
+
+    query = "SELECT * FROM draft_picks"
+    params = []
+
+    if season_id is not None:
+        query += " WHERE season_id = %s"
+        params.extend(season_id)
+        if team_id is not None:
+            query += " AND team_id = %s"
+            params.append(team_id)
+
+    query += " ORDER BY pick_num ASC"
+    db.execute(query, params)
+
+    draft_picks = db.fetchall()
+    close_db()
+
+    return draft_picks
