@@ -3,6 +3,7 @@ import { PlayerStats } from "@/types/player";
 import { useQuery } from "@tanstack/react-query";
 
 export function getPlayerStats(firstName: string, lastName: string) {
+  console.log(firstName, lastName);
   return api
     .get(`/player-stats?first-name=${firstName}&last-name=${lastName}`)
     .then((res) => res.data);

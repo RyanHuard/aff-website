@@ -94,7 +94,7 @@ def query_season_stats(season_id=None, team_city=None, first_name=None, last_nam
 
     player_stats_query += """AND first_name <> 'BACKUP' 
     GROUP BY first_name, last_name, position, team_city, season_id,
-    teams.team_location, teams.team_name, teams.team_logo"""
+    teams.team_location, teams.team_name, teams.team_logo ORDER BY season_id ASC"""
 
     db.execute(player_stats_query, params)
     player_stats = db.fetchall()

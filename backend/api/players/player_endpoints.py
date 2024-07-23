@@ -11,13 +11,13 @@ def get_player_details(first_name, last_name):
     db = get_db()
 
     db.execute(
-        "SELECT * FROM rosters WHERE fname ILIKE %s AND lname ILIKE %s ORDER BY season_id LIMIT 1",
+        "SELECT * FROM rosters WHERE fname ILIKE %s AND lname ILIKE %s ORDER BY season_id DESC LIMIT 1",
         (first_name, last_name),
     )
 
     player_details = db.fetchone()
 
-    team_details = get_team_details_by_player(player_details)
+    team_details = get_team_details_by_player(str(player_details["tid"]))
 
     player_details["team_details"] = team_details
 
