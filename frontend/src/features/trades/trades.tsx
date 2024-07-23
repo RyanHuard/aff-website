@@ -54,7 +54,7 @@ function Trades() {
 
                 return (
                   <div key={formattedDate} className="text-sm">
-                    <h2 className="bg-slate-50 font-bold border-y-2 p-2">
+                    <h2 className="bg-slate-50 font-bold border-y-2 p-2 px-3">
                       {formattedDate}
                     </h2>
                     <div className="flex sm:text-sm justify-between p-5 text-xs gap-4">
