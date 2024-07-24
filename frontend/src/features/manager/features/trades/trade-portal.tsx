@@ -9,18 +9,15 @@ function TradePortal() {
   const { userTeam, isLoading } = useUserTeam();
 
   const teamsQuery = useTeams("team_id"); // Orders them by teamId
-
-  if (isLoading || teamsQuery.isLoading) {
-    return (
-      <div className="flex h-24 w-full items-center justify-center bg-slate-50">
-        <LoadingSpinner size="lg" />
-      </div>
-    );
-  }
+  const teams = teamsQuery?.data;
 
   if (!userTeam) {
     return <></>;
   }
+
+  const filteredTeams = teams?.filter(
+    (team) => team.team_id != userTeam.teamId
+  );
 
   return (
     <ContentLayout>
@@ -29,7 +26,7 @@ function TradePortal() {
           userTeamDetails={teamsQuery?.data?.[parseInt(userTeam.teamId)]}
         />
         <Separator className="w-[2px]" />
-        <TeamTraderBox teamDetails={teamsQuery?.data} />
+        <TeamTraderBox teamDetails={filteredTeams} />
       </div>
     </ContentLayout>
   );

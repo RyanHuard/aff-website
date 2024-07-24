@@ -51,6 +51,8 @@ function TeamTraderBox({ userTeamDetails, teamDetails }: TeamTraderBoxProps) {
 
   function handleTeamSelect(e: string) {
     setSelectedTeamId(e);
+    setSelectedPlayers([]);
+    setSelectedDraftPicks([]);
   }
 
   function handlePlayerSelect(player: PlayerDetail) {
