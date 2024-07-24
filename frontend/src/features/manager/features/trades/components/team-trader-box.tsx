@@ -1,5 +1,5 @@
 import { TeamDetails } from "@/types/game";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { IoIosAddCircleOutline, IoIosCheckmarkCircle } from "react-icons/io";
 import {
   Select,
@@ -13,10 +13,18 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { DraftPickDetail, PlayerDetail } from "@/types/types";
 import { useDraftPicks } from "../api/get-draft-picks";
 import { Badge } from "@/components/ui/badge";
+import { CURRENT_SEASON_ID, SEASON_STAGE } from "@/lib/utils";
+import IncomingAsset from "./incoming-asset";
+import { Button } from "@/components/ui/button";
 
 type TeamTraderBoxProps = {
   userTeamDetails?: TeamDetails;
   teamDetails?: TeamDetails[] | undefined;
+  handleToReceivingTeam?: any;
+  handleToSendingTeam?: any;
+  incomingAssets?: (PlayerDetail | DraftPickDetail)[];
+  outgoingAssets?: (PlayerDetail | DraftPickDetail)[];
+  handleSendTradeOffer?: any;
 };
 
 type PlayerProps = {
@@ -31,7 +39,15 @@ type DraftPickProps = {
   handleDraftPickSelect: (draftPick: DraftPickDetail) => void;
 };
 
-function TeamTraderBox({ userTeamDetails, teamDetails }: TeamTraderBoxProps) {
+function TeamTraderBox({
+  userTeamDetails,
+  teamDetails,
+  handleToReceivingTeam,
+  handleToSendingTeam,
+  incomingAssets,
+  outgoingAssets,
+  handleSendTradeOffer,
+}: TeamTraderBoxProps) {
   const [selectedTeamId, setSelectedTeamId] = useState<string | undefined>(
     userTeamDetails?.team_id
   );
@@ -39,6 +55,10 @@ function TeamTraderBox({ userTeamDetails, teamDetails }: TeamTraderBoxProps) {
   const [selectedDraftPicks, setSelectedDraftPicks] = useState<
     DraftPickDetail[]
   >([]);
+  const [rosterCap, setRosterCap] = useState<number>(0);
+  const [draftPicksCap, setDraftPicksCap] = useState<number>(0);
+
+  const [isValidTrade, setIsValidTrade] = useState<boolean>(false);
 
   const direction = !!userTeamDetails ? "to_receiving_team" : "to_sending_team";
 
@@ -93,6 +113,70 @@ function TeamTraderBox({ userTeamDetails, teamDetails }: TeamTraderBoxProps) {
     });
   }
 
+  useEffect(() => {
+    if (direction == "to_receiving_team") {
+      handleToReceivingTeam(selectedPlayers, selectedDraftPicks);
+    } else if (direction == "to_sending_team") {
+      handleToSendingTeam(selectedPlayers, selectedDraftPicks);
+    }
+  }, [selectedPlayers, selectedDraftPicks]);
+
+  useEffect(() => {
+    if (incomingAssets!.length > 0 && outgoingAssets!.length > 0) {
+      setIsValidTrade(true);
+    } else {
+      setIsValidTrade(false);
+    }
+
+    let rosterCapSpent = 0;
+    let draftPicksCapSpent = 0;
+
+    // Sum salaries of incomingAssets
+    incomingAssets?.forEach((asset) => {
+      if (asset && "salary" in asset) {
+        rosterCapSpent += asset.salary;
+      } else if (
+        asset &&
+        "round_num" in asset &&
+        asset.season_id == CURRENT_SEASON_ID &&
+        SEASON_STAGE == "preseason"
+      ) {
+        draftPicksCapSpent += 1;
+      }
+    });
+
+    // Sum salaries of incomingAssets
+    outgoingAssets?.forEach((asset) => {
+      if (asset && "salary" in asset) {
+        rosterCapSpent -= asset.salary;
+      } else if (
+        asset &&
+        "round_num" in asset &&
+        asset.season_id == CURRENT_SEASON_ID &&
+        SEASON_STAGE == "preseason"
+      ) {
+        draftPicksCapSpent -= 1;
+      }
+    });
+
+    // Sum salaries of players in rosterQuery?.data
+    rosterQuery?.data?.forEach((player) => {
+      if (player && "salary" in player) {
+        rosterCapSpent += player.salary;
+      }
+    });
+
+    draftPicksQuery?.data?.forEach((pick) => {
+      if (pick.season_id == CURRENT_SEASON_ID && SEASON_STAGE == "preseason") {
+        draftPicksCapSpent += 1;
+      }
+    });
+
+    // Update capSpent state
+    setRosterCap(rosterCapSpent);
+    setDraftPicksCap(draftPicksCapSpent);
+  }, [incomingAssets, outgoingAssets]);
+
   return (
     <div className="lg:w-1/2 w-full bg-white h-full">
       {teamDetails && Array.isArray(teamDetails) ? (
@@ -141,12 +225,36 @@ function TeamTraderBox({ userTeamDetails, teamDetails }: TeamTraderBoxProps) {
           </SelectContent>
         </Select>
       )}
-      <div className="border-y-2 w-full">
+      <div className="border-b-2 border-t w-full  h-20 flex [&>*]:pt-4 [&>*]:border-x [&>*]:px-8 text-center">
+        <div>
+          <h3 className="font-medium">$100.0M</h3>
+          <p className="text-slate-500 text-xs">Max Cap</p>
+        </div>
+        <div>
+          <h3 className="font-medium">${rosterCap + draftPicksCap}.0M</h3>
+          <p className="text-slate-500 text-xs">Cap Space</p>
+        </div>
+      </div>
+      <div className="border-b-2 w-full">
         <div className="border-b p-1">
           <h2 className="text-center text-sm text-slate-500">Outgoing</h2>
+          <div className="flex gap-4 p-2 flex-wrap">
+            {outgoingAssets?.map(
+              (asset: PlayerDetail | DraftPickDetail, index: number) => {
+                return <IncomingAsset key={index} asset={asset} />;
+              }
+            )}
+          </div>
         </div>
         <div className="p-1">
           <h2 className="text-center text-sm text-slate-500">Incoming</h2>
+          <div className="flex gap-4 p-2 flex-wrap">
+            {incomingAssets?.map(
+              (asset: PlayerDetail | DraftPickDetail, index: number) => {
+                return <IncomingAsset key={index} asset={asset} />;
+              }
+            )}
+          </div>
         </div>
       </div>
       <div>
@@ -156,6 +264,15 @@ function TeamTraderBox({ userTeamDetails, teamDetails }: TeamTraderBoxProps) {
               <TabsTrigger value="roster">Roster</TabsTrigger>
               <TabsTrigger value="picks">Picks</TabsTrigger>
             </TabsList>
+            {!!userTeamDetails && (
+              <Button
+                disabled={!isValidTrade}
+                onClick={handleSendTradeOffer}
+                className="bg-aff-blue rounded-none float-end"
+              >
+                Send Offer
+              </Button>
+            )}
           </div>
           <TabsContent value="roster">
             {rosterQuery?.data?.map((player) => (

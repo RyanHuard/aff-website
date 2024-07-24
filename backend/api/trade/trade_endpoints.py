@@ -90,7 +90,7 @@ def get_trade_offers():
     return db.fetchall()
 
 
-@trade_bp.route("/create", methods=["POST"])
+@trade_bp.route("", methods=["POST"])
 def create_trade_offer():
     if request.method == "POST":
         data = request.json

@@ -3,7 +3,7 @@ import { TeamDetails } from "@/types/game";
 import { useQuery } from "@tanstack/react-query";
 
 export function getTeams(orderBy?: string): Promise<TeamDetails[]> {
-  let options;
+  let options = "";
   if (orderBy) {
     options = `?order-by=${orderBy}`;
   }
