@@ -2,7 +2,9 @@ import { api } from "@/lib/api";
 import { useQuery } from "@tanstack/react-query";
 
 export function getTrades(seasonId: string): Promise<TradeOffer[]> {
-  return api.get(`/trades?season-id=${seasonId}`).then((res) => res.data);
+  return api
+    .get(`/trades?status=accepted&season-id=${seasonId}`)
+    .then((res) => res.data);
 }
 
 export const useTrades = (seasonId: string) => {
