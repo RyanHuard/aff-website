@@ -1,4 +1,5 @@
 import { api } from "@/lib/api";
+import { TradeOffer } from "@/types/types";
 import { useQuery } from "@tanstack/react-query";
 
 export function getTrades(seasonId: string): Promise<TradeOffer[]> {
