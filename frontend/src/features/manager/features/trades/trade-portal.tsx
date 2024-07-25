@@ -1,18 +1,13 @@
 import { useUserTeam } from "@/hooks/use-user-team";
 import TeamTraderBox from "./components/team-trader-box";
-import { LoadingSpinner } from "@/components/ui/loading-spinner";
+
 import { useTeams } from "@/features/teams/api/get-teams";
 import ContentLayout from "@/components/layouts/wrapper/content-layout";
 import { Separator } from "@/components/ui/separator";
 import { useState } from "react";
-import {
-  CreateTradeOffer,
-  DraftPickDetail,
-  PlayerDetail,
-  TradeDetail,
-} from "@/types/types";
+import { CreateTradeOffer, DraftPickDetail, PlayerDetail } from "@/types/types";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Button } from "@/components/ui/button";
+
 import { useCreateTradeOffer } from "./api/create-trade-offer";
 import { CURRENT_SEASON_ID } from "@/lib/utils";
 
