@@ -11,12 +11,15 @@ trade_bp = Blueprint("trades", __name__, url_prefix="/api/trades")
 
 @trade_bp.route("", methods=["GET"])
 def get_trade_offers():
+    status = request.args.get("status")
     team_id = request.args.get("team-id")
     season_id = request.args.get("season-id")
     limit = request.args.get("limit")  # for recent trades
+
     db = get_db()
 
-    params = []
+    params = [status]
+
     query = """SELECT 
     trade_offers.*,
     json_agg(
@@ -70,10 +73,10 @@ def get_trade_offers():
     ON 
         receiving_team.team_id = trade_offers.receiving_team_id
     WHERE 
-        trade_offers.status = 'accepted'
+        trade_offers.status = %s
    """
     if team_id:
-        query += " AND sending_team_id = %s OR receiving_team_id = %s"
+        query += " AND (sending_team_id = %s OR receiving_team_id = %s)"
         params.extend([team_id, team_id])
 
     if season_id:
