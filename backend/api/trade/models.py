@@ -1,12 +1,15 @@
-from marshmallow import Schema, fields, validate
+from marshmallow import Schema, fields, validate, INCLUDE
 
 
 class TradeDetailSchema(Schema):
+    class Meta:
+        unknown = INCLUDE
+
     item_type = fields.Str(
         validate=validate.OneOf(["player", "draft_pick"]), required=True
     )
-    player_first_name = fields.Str(required=False)
-    player_last_name = fields.Str(required=False)
+    fname = fields.Str(required=False)
+    lname = fields.Str(required=False)
     draft_pick_id = fields.Int(required=False)
     direction = fields.Str(
         validate=validate.OneOf(["to_sending_team", "to_receiving_team"]), required=True

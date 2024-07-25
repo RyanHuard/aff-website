@@ -9,6 +9,8 @@ export function useCreateTradeOffer() {
   return useMutation({
     mutationFn: createTradeOffer,
     onSuccess: (data) => {},
-    onError: (error) => {},
+    onError: (error) => {
+      console.log(error);
+    },
   });
 }

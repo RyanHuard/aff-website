@@ -5,10 +5,16 @@ import { useTeams } from "@/features/teams/api/get-teams";
 import ContentLayout from "@/components/layouts/wrapper/content-layout";
 import { Separator } from "@/components/ui/separator";
 import { useState } from "react";
-import { DraftPickDetail, PlayerDetail } from "@/types/types";
+import {
+  CreateTradeOffer,
+  DraftPickDetail,
+  PlayerDetail,
+  TradeDetail,
+} from "@/types/types";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import { useCreateTradeOffer } from "./api/create-trade-offer";
+import { CURRENT_SEASON_ID } from "@/lib/utils";
 
 function TradePortal() {
   const { userTeam, isLoading } = useUserTeam();
@@ -50,15 +56,22 @@ function TradePortal() {
   function handleSendTradeOffer() {
     toReceivingTeam.forEach((asset) => {
       asset.direction = "to_receiving_team";
+      asset.item_type = asset.fname ? "player" : "draft_pick";
     });
 
     toSendingTeam.forEach((asset) => {
       asset.direction = "to_sending_team";
+      asset.item_type = asset.fname ? "player" : "draft_pick";
     });
 
-    const tradeDetails = [...toReceivingTeam, ...toSendingTeam];
+    const tradeData: CreateTradeOffer = {
+      sending_team_id: parseInt(userTeam!.teamId),
+      receiving_team_id: toSendingTeam[0].tid ?? toSendingTeam[0].team_id,
+      season_id: CURRENT_SEASON_ID,
+      trade_details: [...toReceivingTeam, ...toSendingTeam],
+    };
 
-    createTradeOfferMutation.mutate({ data: tradeDetails });
+    createTradeOfferMutation.mutate(tradeData);
 
     setToReceivingTeam([]);
     setToSendingTeam([]);

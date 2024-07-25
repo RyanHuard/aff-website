@@ -46,8 +46,8 @@ def handle_trade_offer_create_details(trade_id, trade_details):
         direction = detail.get("direction")
 
         if item_type == "player":
-            player_first_name = detail.get("player_first_name")
-            player_last_name = detail.get("player_last_name")
+            player_first_name = detail.get("fname")
+            player_last_name = detail.get("lname")
 
             db.execute(
                 """INSERT INTO trade_offer_details 

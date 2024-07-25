@@ -17,10 +17,18 @@ export type TradeOffer = {
   date_responded?: Date;
 };
 
+export type CreateTradeOffer = {
+  sending_team_id: number;
+  receiving_team_id: number;
+  season_id: number;
+  trade_details: (PlayerDetail | DraftPickDetail)[];
+};
+
 export type TradeDetail = {
   direction: "to_receiving_team" | "to_sending_team";
   item_type: "player" | "draft_pick";
-  player_details: PlayerDetail;
+  first_name?: string;
+  last_name?: string;
   draft_pick_id?: number;
   draft_pick_details?: DraftPickDetail;
 };
@@ -30,6 +38,7 @@ export type DraftPickDetail = {
   round_num: number;
   season_id: number;
   draft_pick_id: number;
+  team_id: number;
 };
 
 export type PlayerDetail = {
