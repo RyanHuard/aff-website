@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import { auth, getUserTeam } from "@/firebase";
 import { useUserTeam } from "@/hooks/use-user-team";
 import { getAuth, onAuthStateChanged, User } from "firebase/auth";
+import { ToastContainer } from "react-toastify";
 
 function TeamLogosHeader() {
   const logos = [
@@ -62,6 +63,7 @@ export default function MainLayout() {
       <TeamLogosHeader />
       <Ticker />
       <NavBar />
+      <ToastContainer />
       <Outlet />
     </>
   );

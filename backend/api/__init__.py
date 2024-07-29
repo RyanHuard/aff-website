@@ -7,6 +7,9 @@ from firebase_admin import credentials
 
 
 def create_app(test_config=None):
+    os.environ["GRPC_VERBOSITY"] = "ERROR"
+    os.environ["GLOG_minloglevel"] = "2"
+
     app = Flask(__name__, instance_relative_config=True)
     app.config.from_mapping(DATABASE=os.environ.get("DATABASE_URL"))
 

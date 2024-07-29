@@ -11,6 +11,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useCreateTradeOffer } from "./api/create-trade-offer";
 import { CURRENT_SEASON_ID } from "@/lib/utils";
 import PendingTrades from "./components/pending-trades";
+import { useAuthToken } from "@/hooks/use-auth-token";
 
 function TradePortal() {
   const { userTeam, isLoading } = useUserTeam();
@@ -22,7 +23,9 @@ function TradePortal() {
     (PlayerDetail | DraftPickDetail)[]
   >([]);
 
-  const createTradeOfferMutation = useCreateTradeOffer();
+  const authToken = useAuthToken();
+
+  const createTradeOfferMutation = useCreateTradeOffer(authToken);
 
   const teamsQuery = useTeams("team_id"); // Orders them by teamId
   const teams = teamsQuery?.data;
@@ -67,10 +70,12 @@ function TradePortal() {
       trade_details: [...toReceivingTeam, ...toSendingTeam],
     };
 
-    createTradeOfferMutation.mutate(tradeData);
-
-    setToReceivingTeam([]);
-    setToSendingTeam([]);
+    createTradeOfferMutation.mutate(tradeData, {
+      onSuccess: () => {
+        setToReceivingTeam([]);
+        setToSendingTeam([]);
+      },
+    });
   }
 
   return (

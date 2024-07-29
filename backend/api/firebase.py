@@ -3,6 +3,8 @@ from flask import request
 from firebase_admin.auth import verify_id_token
 from firebase_admin import firestore
 
+db = firestore.client()
+
 
 # https://pradyothkukkapalli.com/tech/firebase-auth-client-and-backend/
 def get_current_user() -> str:
@@ -27,8 +29,9 @@ def get_current_user() -> str:
         return None
 
 
-def get_user_team(user) -> dict:
-    db = firestore.client()
+def get_user_team() -> dict:
+    user = get_current_user()
     user_ref = db.collection("managers").document(user)
-    team = user_ref.get()
+    team = user_ref.get().to_dict()
+
     return team

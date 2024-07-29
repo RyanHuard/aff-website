@@ -18,8 +18,7 @@ def get_trade_offers():
     limit = request.args.get("limit")  # for recent trades
 
     if status == "pending" or status == "rejected":
-        user = get_current_user()
-        team = get_user_team(user)
+        team = get_user_team()
         if not team or team.get("team_id") is not team_id:
             return jsonify({"error": "Unauthorized"}), 401
 
@@ -108,9 +107,15 @@ def create_trade_offer():
         # Validates JSON
         try:
             trade_schema = TradeSchema()
-            validated_data = trade_schema.load(data)
+            validated_data: TradeSchema = trade_schema.load(data)
         except ValidationError as e:
             return jsonify(data=data, message=e.messages), 500
+
+        user_team = get_user_team()
+        if not user_team or user_team.get("team_id") != str(
+            validated_data.get("sending_team_id")
+        ):
+            return jsonify({"error": "Unauthorized"}), 401
 
         try:
             trade_offer = handle_trade_offer_create_offer(validated_data)
@@ -134,6 +139,10 @@ def respond_to_trade_offer():
             validated_data = trade_response_schema.load(data)
         except ValidationError as e:
             return jsonify(data=data, message=e.messages), 500
+
+        user_team = get_user_team()
+        if not user_team:
+            return jsonify({"error": "Unauthorized"}), 401
 
         response = data.get("response")
 
