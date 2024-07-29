@@ -13,7 +13,7 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { DraftPickDetail, PlayerDetail } from "@/types/types";
 import { useDraftPicks } from "../api/get-draft-picks";
 import { Badge } from "@/components/ui/badge";
-import { CURRENT_SEASON_ID, SEASON_STAGE } from "@/lib/utils";
+import { CURRENT_SEASON_ID, SEASON_STAGE, TRADE_WINDOW } from "@/lib/utils";
 import IncomingAsset from "./incoming-asset";
 import { Button } from "@/components/ui/button";
 
@@ -225,14 +225,26 @@ function TeamTraderBox({
           </SelectContent>
         </Select>
       )}
-      <div className="border-b-2 border-t w-full  h-20 flex [&>*]:pt-4 [&>*]:border-x [&>*]:px-8 text-center">
-        <div>
+      <div className="border-b-2 border-t w-full h-20 flex text-center">
+        <div className="flex-1 border-x pt-4 px-8">
           <h3 className="font-medium">$100.0M</h3>
           <p className="text-slate-500 text-xs">Max Cap</p>
         </div>
-        <div>
-          <h3 className="font-medium">${rosterCap + draftPicksCap}.0M</h3>
+        <div className="flex-1 border-x pt-4 px-8">
+          <h3 className="font-medium">
+            ${100 - (rosterCap + draftPicksCap)}.0M
+          </h3>
           <p className="text-slate-500 text-xs">Cap Space</p>
+        </div>
+        <div className="flex-1 border-x pt-4 px-8">
+          <h3 className="font-medium">${rosterCap}.0M</h3>
+          <p className="text-slate-500 text-xs">Roster Cap</p>
+        </div>
+        <div className="flex-1 border-x pt-4 px-8">
+          <h3 className="font-medium">${draftPicksCap}.0M</h3>
+          <p className="text-slate-500 text-xs">
+            `{CURRENT_SEASON_ID + 21} Draft Picks
+          </p>
         </div>
       </div>
       <div className="border-b-2 w-full">
@@ -266,7 +278,7 @@ function TeamTraderBox({
             </TabsList>
             {!!userTeamDetails && (
               <Button
-                disabled={!isValidTrade}
+                disabled={!isValidTrade || TRADE_WINDOW == "closed"}
                 onClick={handleSendTradeOffer}
                 className="bg-aff-blue rounded-none float-end"
               >

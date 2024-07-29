@@ -4,12 +4,12 @@ import TeamTraderBox from "./components/team-trader-box";
 import { useTeams } from "@/features/teams/api/get-teams";
 import ContentLayout from "@/components/layouts/wrapper/content-layout";
 import { Separator } from "@/components/ui/separator";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { CreateTradeOffer, DraftPickDetail, PlayerDetail } from "@/types/types";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 import { useCreateTradeOffer } from "./api/create-trade-offer";
-import { CURRENT_SEASON_ID } from "@/lib/utils";
+import { CURRENT_SEASON_ID, TRADE_WINDOW } from "@/lib/utils";
 import PendingTrades from "./components/pending-trades";
 import { useAuthToken } from "@/hooks/use-auth-token";
 
