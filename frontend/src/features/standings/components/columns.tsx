@@ -28,9 +28,8 @@ const columns = [
       );
     },
     width: () => {
-      //   const [isSmallerThan600] = useMediaQuery("(max-width: 600px)");
-      //   return isSmallerThan600 ? "8rem" : "16rem";
-      return "16rem";
+      const isSmallerThan600 = window.matchMedia("(max-width: 600px)").matches;
+      return isSmallerThan600 ? "8rem" : "16rem";
     },
   },
   {
