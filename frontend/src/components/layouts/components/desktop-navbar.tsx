@@ -72,7 +72,12 @@ function DesktopNavbar({ userTeam, currentUser }: DesktopNavbarProps) {
                 </DropdownMenuItem>
                 <DropdownMenuItem
                   className="hover:cursor-grab"
-                  onClick={() => navigate(`/manager/trades`)}
+                  onClick={() => {
+                    navigate(`/manager/trades`);
+                    alert(
+                      "The trade window is closed. You will not be able to create any trades."
+                    );
+                  }}
                 >
                   Trades
                 </DropdownMenuItem>

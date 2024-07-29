@@ -6,4 +6,5 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 export const CURRENT_SEASON_ID = 7;
-export const SEASON_STAGE = "preseason";
+export const SEASON_STAGE = "postseason";
+export const TRADE_WINDOW = "closed";
