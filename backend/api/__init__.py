@@ -15,7 +15,7 @@ def create_app(test_config=None):
 
     CORS(app, resources={r"/*": {"origins": "*"}})
 
-    cred = credentials.Certificate("firebase-admin.json")
+    cred = credentials.Certificate(os.environ.get("FIREBASE-ADMIN"))
     firebase_admin.initialize_app(cred)
 
     from .teams.teams_endpoints import teams_bp
