@@ -15,9 +15,9 @@ def create_app(test_config=None):
 
     CORS(app, resources={r"/*": {"origins": "*"}})
 
-    cred = credentials.Certificate(json.loads(os.environ.get("FIREBASE_ADMIN")))
-    firebase_admin.initialize_app(cred)
-
+    if not firebase_admin._apps:
+        cred = credentials.Certificate(json.loads(os.environ.get("FIREBASE_ADMIN")))
+        firebase_admin.initialize_app(cred)
     from .teams.teams_endpoints import teams_bp
     from .stats.stats_endpoints import stats_bp
     from .games.games_endpoints import games_bp
