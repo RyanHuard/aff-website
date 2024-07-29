@@ -1,1 +1,1 @@
-web: gunicorn --worker-class eventlet -w 1 --pythonpath backend.api:app
+web: gunicorn --worker-class eventlet -w 1 backend.api:app

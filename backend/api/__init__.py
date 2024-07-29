@@ -42,3 +42,6 @@ def create_app(test_config=None):
     app.config["MAIL_USE_SSL"] = False
 
     return app
+
+
+app = create_app()
