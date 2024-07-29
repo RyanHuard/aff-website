@@ -1,6 +1,6 @@
 from flask import Blueprint, request
 
-from .db import get_db, close_db
+from api.db import get_db, close_db
 
 teams_bp = Blueprint("teams", __name__, url_prefix="/api/teams")
 
