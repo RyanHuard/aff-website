@@ -1,1 +1,1 @@
-web: gunicorn --worker-class eventlet -w 1 backend.api:app
+web: PYTHONPATH=backend gunicorn --worker-class eventlet -w 1 backend.api:app
