@@ -1,7 +1,7 @@
 import { api } from "@/lib/api";
 import { useMutation } from "@tanstack/react-query";
 
-export function createTradeOffer(data) {
+export function createTradeOffer(data: any) {
   return api.post("/trades", data);
 }
 
@@ -9,8 +9,6 @@ export function useCreateTradeOffer() {
   return useMutation({
     mutationFn: createTradeOffer,
     onSuccess: (data) => {},
-    onError: (error) => {
-      console.log(error);
-    },
+    onError: (error) => {},
   });
 }

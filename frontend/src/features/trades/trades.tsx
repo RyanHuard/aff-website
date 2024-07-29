@@ -53,7 +53,7 @@ function Trades() {
                 const formattedDate = format(date, "EEEE, MMMM d, yyyy");
 
                 return (
-                  <div key={formattedDate} className="text-sm">
+                  <div key={trade.trade_id} className="text-sm">
                     <h2 className="bg-slate-50 font-bold border-y-2 p-2 px-3">
                       {formattedDate}
                     </h2>
@@ -100,10 +100,7 @@ function Trades() {
                                         </span>
                                       )}
                                     </div>
-                                    <div
-                                      key={detailIndex}
-                                      className="block sm:hidden"
-                                    >
+                                    <div className="block sm:hidden">
                                       {detail.draft_pick_details?.season_id! +
                                         2021}{" "}
                                       Rd. {detail.draft_pick_details?.round_num}
@@ -160,10 +157,7 @@ function Trades() {
                                         {detail.draft_pick_details.pick_num}
                                       </span>
                                     )}
-                                    <div
-                                      key={detailIndex}
-                                      className="block sm:hidden"
-                                    >
+                                    <div className="block sm:hidden">
                                       {detail.draft_pick_details?.season_id! +
                                         2021}{" "}
                                       Rd. {detail.draft_pick_details?.round_num}

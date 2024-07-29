@@ -19,6 +19,7 @@ import Home from "./features/home/home";
 import Trades from "./features/trades/trades";
 import ManagerRoute from "./components/routes/manager-route";
 import TradePortal from "./features/manager/features/trades/trade-portal";
+import AuthTokenProvider from "./hooks/use-auth-token";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -89,11 +90,13 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <PersistQueryClientProvider
-      client={queryClient}
-      persistOptions={{ persister }}
-    >
-      <RouterProvider router={router} />
-    </PersistQueryClientProvider>
+    <AuthTokenProvider>
+      <PersistQueryClientProvider
+        client={queryClient}
+        persistOptions={{ persister }}
+      >
+        <RouterProvider router={router} />
+      </PersistQueryClientProvider>
+    </AuthTokenProvider>
   </React.StrictMode>
 );

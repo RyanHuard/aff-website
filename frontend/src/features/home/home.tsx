@@ -4,6 +4,7 @@ import ContentLayout from "@/components/layouts/wrapper/content-layout";
 import HomeLayout from "./components/home-layout";
 import StatLeadersCard from "./components/stat-leaders/stat-leaders";
 import RecentTradesCard from "./components/recent-trades-card";
+import { useAuthToken } from "@/hooks/use-auth-token";
 
 const Header = () => {
   return (
@@ -14,6 +15,8 @@ const Header = () => {
   );
 };
 const Home = () => {
+  const token = useAuthToken();
+  console.log(token);
   // Different component order for mobile vs desktop
   return (
     <>

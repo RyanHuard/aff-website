@@ -88,6 +88,8 @@ def handle_trade_offer_response(data):
 
     if response == "accepted":
         handle_trade_offer_accepted(trade_id)
+        commit_db()
+        close_db()
         return data
 
     elif response == "rejected":
@@ -99,6 +101,13 @@ def handle_trade_offer_response(data):
                 trade_id,
             ),
         )
+        commit_db()
+        close_db()
+        return data
+
+    elif response == "canceled":
+        db.execute("DELETE FROM trade_offer_details WHERE trade_id = %s", (trade_id,))
+        db.execute("DELETE FROM trade_offers WHERE trade_id = %s", (trade_id,))
         commit_db()
         close_db()
         return data

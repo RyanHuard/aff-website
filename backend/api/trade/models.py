@@ -21,3 +21,10 @@ class TradeSchema(Schema):
     receiving_team_id = fields.Int(required=True)
     season_id = fields.Int(required=True)
     trade_details = fields.List(fields.Nested(TradeDetailSchema), required=True)
+
+
+class TradeResponseSchema(Schema):
+    trade_id = fields.Int(required=True)
+    response = fields.Str(
+        validate=validate.OneOf(["accepted", "rejected", "canceled"]), required=True
+    )

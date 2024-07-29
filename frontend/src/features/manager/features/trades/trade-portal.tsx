@@ -10,6 +10,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 import { useCreateTradeOffer } from "./api/create-trade-offer";
 import { CURRENT_SEASON_ID } from "@/lib/utils";
+import PendingTrades from "./components/pending-trades";
 
 function TradePortal() {
   const { userTeam, isLoading } = useUserTeam();
@@ -99,6 +100,9 @@ function TradePortal() {
                 outgoingAssets={toSendingTeam}
               />
             </div>
+          </TabsContent>
+          <TabsContent value="pending">
+            <PendingTrades teamId={userTeam.teamId} />
           </TabsContent>
         </Tabs>
       </ContentLayout>

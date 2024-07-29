@@ -3,8 +3,9 @@ from marshmallow import ValidationError
 import psycopg2
 
 from ..db import get_db, close_db, commit_db
+from ..firebase import get_current_user, get_user_team
 from .trade_handler import handle_trade_offer_create_offer, handle_trade_offer_response
-from .models import TradeSchema
+from .models import TradeSchema, TradeResponseSchema
 
 trade_bp = Blueprint("trades", __name__, url_prefix="/api/trades")
 
@@ -15,6 +16,12 @@ def get_trade_offers():
     team_id = request.args.get("team-id")
     season_id = request.args.get("season-id")
     limit = request.args.get("limit")  # for recent trades
+
+    if status == "pending" or status == "rejected":
+        user = get_current_user()
+        team = get_user_team(user)
+        if not team or team.get("team_id") is not team_id:
+            return jsonify({"error": "Unauthorized"}), 401
 
     db = get_db()
 
@@ -122,14 +129,13 @@ def respond_to_trade_offer():
     if request.method == "PATCH":
         data = request.json
 
-        # Either "accepted" or "rejected"
-        response = data.get("response")
+        try:
+            trade_response_schema = TradeResponseSchema()
+            validated_data = trade_response_schema.load(data)
+        except ValidationError as e:
+            return jsonify(data=data, message=e.messages), 500
 
-        if response not in ["accepted", "rejected"]:
-            return (
-                jsonify(error="Invalid response. Expected 'accepted' or 'rejected'."),
-                400,
-            )
+        response = data.get("response")
 
         try:
             trade_offer_response = handle_trade_offer_response(data)
@@ -143,6 +149,8 @@ def respond_to_trade_offer():
                     jsonify(data=trade_offer_response, message="Trade offer rejected."),
                     200,
                 )
+            elif response == "canceled":
+                return jsonify(message="Trade offer canceled."), 200
 
         except psycopg2.Error as e:
             return jsonify(error=str(e)), 500
