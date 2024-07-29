@@ -119,7 +119,6 @@ def create_trade_offer():
 
         try:
             trade_offer = handle_trade_offer_create_offer(validated_data)
-
             return (
                 jsonify(data=trade_offer, message="Trade offer created successfully."),
                 201,

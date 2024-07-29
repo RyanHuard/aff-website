@@ -2,6 +2,7 @@ import psycopg2
 from datetime import datetime, timezone
 
 from ..db import get_db, close_db, commit_db, rollback_db
+from .trade_email_handler import send_trade_offer_created_email
 
 
 def handle_trade_offer_create_offer(data):
@@ -25,6 +26,7 @@ def handle_trade_offer_create_offer(data):
         data.update({"trade_id": trade_id})
 
         handle_trade_offer_create_details(trade_id, trade_details)
+        # send_trade_offer_created_email(data)
 
         commit_db()
 
