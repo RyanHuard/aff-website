@@ -14,6 +14,7 @@ import {
 import ContentLayout from "@/components/layouts/wrapper/content-layout";
 import { useNavigate, useParams } from "react-router-dom";
 import SeasonSelect from "@/components/ui/season-select";
+import { CURRENT_SEASON_ID } from "@/lib/utils";
 
 type HeaderActionsProps = {
   handleSeasonSelect: (e: string) => void;
@@ -63,12 +64,12 @@ export default function Schedule() {
   }>();
 
   const [selectedSeasonId, setSelectedSeasonId] = useState<string>(
-    seasonId ?? "7"
+    seasonId ?? CURRENT_SEASON_ID.toString()
   );
   const [selectedWeekId, setSelectedWeekId] = useState<string>(weekId ?? "1");
 
   useEffect(() => {
-    setSelectedSeasonId(seasonId ?? "7");
+    setSelectedSeasonId(seasonId ?? CURRENT_SEASON_ID.toString());
     setSelectedWeekId(weekId ?? "1");
   }, [seasonId, weekId]);
 

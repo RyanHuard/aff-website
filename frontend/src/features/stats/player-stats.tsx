@@ -8,6 +8,7 @@ import SeasonSelect from "@/components/ui/season-select";
 import { useNavigate, useParams } from "react-router-dom";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import PositionFilter from "./components/position-filter";
+import { CURRENT_SEASON_ID } from "@/lib/utils";
 
 const PlayerStats = () => {
   const navigate = useNavigate();
@@ -16,7 +17,7 @@ const PlayerStats = () => {
   }>();
 
   const [selectedSeasonId, setSelectedSeasonId] = useState<string>(
-    seasonId ?? "7"
+    seasonId ?? CURRENT_SEASON_ID.toString()
   );
   const [tabIndex, setTabIndex] = useState<number>(0);
   const [category, setCategory] = useState<string>("Passing");
@@ -34,7 +35,7 @@ const PlayerStats = () => {
   ];
 
   useEffect(() => {
-    setSelectedSeasonId(seasonId ?? "7");
+    setSelectedSeasonId(seasonId ?? CURRENT_SEASON_ID.toString());
   }, [seasonId]);
 
   const handleSeasonSelect = (e: string) => {

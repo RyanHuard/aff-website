@@ -8,10 +8,11 @@ import Header from "./components/header";
 import { LoadingSpinner } from "@/components/ui/loading-spinner";
 import Stats from "./components/stats";
 import Trades from "../trades/trades";
+import { CURRENT_SEASON_ID } from "@/lib/utils";
 
 const Team = () => {
   const [tab, setTab] = useState<string>("Schedule");
-  const [seasonId, setSeasonId] = useState("7");
+  const [seasonId, setSeasonId] = useState(CURRENT_SEASON_ID.toString());
 
   const { teamId } = useParams();
 
@@ -47,8 +48,6 @@ const Team = () => {
           <Schedule teamId={teamId ?? ""} seasonId={seasonId} />
         ) : tab == "Stats" ? (
           <Stats teamCity={team?.abbreviation ?? ""} seasonId={seasonId} />
-        ) : tab == "Trades" ? (
-          <Trades />
         ) : (
           <></>
         )}

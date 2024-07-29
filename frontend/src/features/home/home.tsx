@@ -15,8 +15,6 @@ const Header = () => {
   );
 };
 const Home = () => {
-  const token = useAuthToken();
-  console.log(token);
   // Different component order for mobile vs desktop
   return (
     <>

@@ -42,7 +42,7 @@ export default function Standings() {
         children={
           <SeasonSelect
             handleSeasonSelect={handleSeasonSelect}
-            value={seasonId ?? "7"}
+            value={seasonId ?? CURRENT_SEASON_ID.toString()}
           />
         }
       />

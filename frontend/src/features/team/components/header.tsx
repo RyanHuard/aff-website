@@ -54,7 +54,6 @@ const Header = ({
             >
               <TabsTrigger value="schedule">Schedule</TabsTrigger>
               <TabsTrigger value="stats">Stats</TabsTrigger>
-              {userTeam && <TabsTrigger value="trades">Trades</TabsTrigger>}
             </TabsList>
           </Tabs>
         </div>
