@@ -4,7 +4,6 @@ cachetools==5.4.0
 certifi==2024.7.4
 charset-normalizer==3.3.2
 click==8.1.7
-eventlet>=0.24.1
 firebase-admin==4.5.3
 Flask==2.3.3
 Flask-Cors==4.0.1

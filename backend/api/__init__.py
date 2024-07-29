@@ -1,5 +1,5 @@
 import os
-
+import json
 from flask import Flask
 from flask_cors import CORS, cross_origin
 import firebase_admin
@@ -15,7 +15,7 @@ def create_app(test_config=None):
 
     CORS(app, resources={r"/*": {"origins": "*"}})
 
-    cred = credentials.Certificate(os.getenv("FIREBASE-ADMIN"))
+    cred = credentials.Certificate(json.loads(os.environ.get("FIREBASE_ADMIN")))
     firebase_admin.initialize_app(cred)
 
     from .teams.teams_endpoints import teams_bp
