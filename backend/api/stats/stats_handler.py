@@ -170,10 +170,10 @@ def handle_stats(player_stats):
 def query_season_stat_leaders(season_id):
     db = get_db()
 
-    pass_yards_query = "SELECT first_name, last_name, position, SUM(match_pass_yards) as season_pass_yards FROM player_stats WHERE season_id = %s GROUP BY first_name, last_name, position ORDER BY season_pass_yards DESC LIMIT 5"
+    pass_yards_query = "SELECT first_name, last_name, position, ROUND(AVG(match_pass_yards), 1) as season_pass_yards FROM player_stats WHERE season_id = %s GROUP BY first_name, last_name, position ORDER BY season_pass_yards DESC LIMIT 5"
     pass_tds_query = "SELECT first_name, last_name, position, SUM(match_pass_tds) as season_pass_tds FROM player_stats WHERE season_id = %s GROUP BY first_name, last_name, position ORDER BY season_pass_tds DESC LIMIT 5"
-    rush_yards_query = "SELECT first_name, last_name, position, SUM(match_rush_yards) as season_rush_yards FROM player_stats WHERE season_id = %s GROUP BY first_name, last_name, position ORDER BY season_rush_yards DESC LIMIT 5"
-    receiving_yards_query = "SELECT first_name, last_name, position, SUM(match_receiving_yards) as season_receiving_yards FROM player_stats WHERE season_id = %s GROUP BY first_name, last_name, position ORDER BY season_receiving_yards DESC LIMIT 5"
+    rush_yards_query = "SELECT first_name, last_name, position, ROUND(AVG(match_rush_yards), 1) as season_rush_yards FROM player_stats WHERE season_id = %s GROUP BY first_name, last_name, position ORDER BY season_rush_yards DESC LIMIT 5"
+    receiving_yards_query = "SELECT first_name, last_name, position, ROUND(AVG(match_receiving_yards), 1) as season_receiving_yards FROM player_stats WHERE season_id = %s GROUP BY first_name, last_name, position ORDER BY season_receiving_yards DESC LIMIT 5"
     total_touchdowns_query = "SELECT first_name, last_name, position, (SUM(match_receiving_tds) + SUM(match_rush_tds)) as season_total_touchdowns FROM player_stats WHERE season_id = %s GROUP BY first_name, last_name, position ORDER BY season_total_touchdowns DESC LIMIT 5"
     defense_sacks_query = "SELECT first_name, last_name, position, SUM(match_defense_sacks) as season_defense_sacks FROM player_stats WHERE season_id = %s GROUP BY first_name, last_name, position ORDER BY season_defense_sacks DESC LIMIT 5"
 
