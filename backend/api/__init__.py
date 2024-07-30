@@ -56,6 +56,13 @@ def create_app(test_config=None):
     def index():
         return send_from_directory(app.static_folder, "index.html")
 
+    @app.after_request
+    def after_request(response):
+        header = response.headers
+        header["Access-Control-Allow-Origin"] = "*"
+        # Other headers can be added here if needed
+        return response
+
     return app
 
 
