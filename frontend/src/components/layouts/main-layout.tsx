@@ -14,7 +14,7 @@ function TeamLogosHeader() {
   const logos = [
     "alaracers.png",
     "farfrost.png",
-    "kencluck.png",
+    "kencluck2.png",
     "memrhythm.png",
     "okbison.png",
     "orlvoyagers.png",
