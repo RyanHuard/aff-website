@@ -10,9 +10,15 @@ def create_app(test_config=None):
     os.environ["GRPC_VERBOSITY"] = "ERROR"
     os.environ["GLOG_minloglevel"] = "2"
 
+    base_path = os.path.abspath(
+        os.path.dirname(__file__)
+    )  # Get the absolute path of the directory containing the script
+    static_folder_path = os.path.join(base_path, "../../frontend/dist")
+    static_folder_path = os.path.abspath(static_folder_path)
+
     app = Flask(
         __name__,
-        static_folder="../frontend/dist",
+        static_folder=static_folder_path,
         static_url_path="/",
         instance_relative_config=True,
     )
