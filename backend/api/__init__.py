@@ -46,8 +46,7 @@ def create_app(test_config=None):
     app.config["MAIL_USE_TLS"] = True
     app.config["MAIL_USE_SSL"] = False
 
-    app.route("/")
-
+    @app.route("/")
     def index():
         return send_from_directory(app.static_folder, "index.html")
 
