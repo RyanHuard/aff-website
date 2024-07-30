@@ -128,7 +128,10 @@ const Stats = ({ teamCity, seasonId }: StatsProps) => {
             const fallbackSrc = "/players/player_placeholder.png";
 
             return (
-              <div className="flex-shrink-0 flex-grow border border-neutral-200 px-3 py-2 text-sm ">
+              <div
+                key={index}
+                className="flex-shrink-0 flex-grow border border-neutral-200 px-3 py-2 text-sm "
+              >
                 <h1 className="font-medium">{category}</h1>
                 <Link
                   to={`/players/${playerData?.firstName
