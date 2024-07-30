@@ -15,7 +15,7 @@ const Header = ({ playerDetails }: HeaderProps) => {
   );
 
   return (
-    <div className="border-b border-aff-blue bg-white sm:pt-6 pt-4 sm:mb-12 px-6">
+    <div className="border-b border-aff-blue bg-white sm:pt-6 pt-4 sm:mb-12 md:px-6">
       <div className="m-auto max-w-7xl border-b border-neutral-300 pb-6">
         <header className="flex">
           <img
