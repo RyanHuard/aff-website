@@ -1,5 +1,4 @@
 from flask import Blueprint, request, jsonify
-from flask_cors import cross_origin
 from api.db import get_db, close_db
 from .games_handler import handle_stats, query_season_schedule, handle_schedule
 
