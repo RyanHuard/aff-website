@@ -1,6 +1,6 @@
 import os
 import json
-from flask import Flask
+from flask import Flask, send_from_directory
 from flask_cors import CORS, cross_origin
 import firebase_admin
 from firebase_admin import credentials
@@ -10,7 +10,7 @@ def create_app(test_config=None):
     os.environ["GRPC_VERBOSITY"] = "ERROR"
     os.environ["GLOG_minloglevel"] = "2"
 
-    app = Flask(__name__, instance_relative_config=True)
+    app = Flask(__name__, static_folder="../frontend/dist" instance_relative_config=True)
     app.config.from_mapping(DATABASE=os.environ.get("DATABASE_URL"))
 
     CORS(app, resources={r"/*": {"origins": "*"}})
@@ -40,6 +40,10 @@ def create_app(test_config=None):
     app.config["MAIL_PASSWORD"] = os.environ.get("EMAIL_PASSWORD")
     app.config["MAIL_USE_TLS"] = True
     app.config["MAIL_USE_SSL"] = False
+
+    app.route("/")
+    def index():
+        return send_from_directory(app.static_folder, "index.html")
 
     return app
 
