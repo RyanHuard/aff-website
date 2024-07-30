@@ -105,7 +105,7 @@ const PlayerStats = () => {
                   <TabsTrigger
                     value={name}
                     key={index}
-                    onFocus={() => handleTabChange(index)}
+                    onClick={() => handleTabChange(index)}
                   >
                     {name}
                   </TabsTrigger>

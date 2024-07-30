@@ -47,7 +47,7 @@ const Header = ({
         <div className="py-2 xl:px-0 px-2">
           <Tabs defaultValue="schedule">
             <TabsList
-              onFocus={(e) => {
+              onClick={(e) => {
                 handleTabChange(e.target.textContent!);
                 setTabValue(e.target.textContent!);
               }}
