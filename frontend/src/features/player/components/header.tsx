@@ -26,7 +26,7 @@ const Header = ({ playerDetails }: HeaderProps) => {
             }}
           />
           <div className="sm:flex px-4 md:px-8">
-            <div className="sm:w-44">
+            <div className="sm:w-46">
               <div className="text-xl md:text-3xl">
                 <div className="">{playerDetails?.fname}</div>
                 <div className="font-bold">{playerDetails?.lname}</div>

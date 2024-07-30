@@ -13,7 +13,7 @@ const Player = () => {
   let { name } = useParams() as { name: string };
 
   let firstName = name?.split("-")[0];
-  let lastName = name?.split("-")[1];
+  let lastName = name?.split("-").slice(1).join("-");
 
   const playerDetailsQuery = usePlayerDetails(firstName, lastName);
   const playerDetails = playerDetailsQuery?.data;

@@ -35,7 +35,7 @@ function StatLeader({ category, players }: StatLeaderProps) {
             </span>
           </div>
           <Link
-            to={`/players/${leader?.first_name}-${leader?.last_name}`}
+            to={`/players/${leader?.first_name.toLowerCase()}-${leader?.last_name.toLowerCase()}`}
             className="font-semibold  text-slate-800 flex"
           >
             {leader?.first_name} {leader?.last_name}{" "}
