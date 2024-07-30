@@ -7,8 +7,7 @@ from .games_handler import handle_stats, query_season_schedule, handle_schedule
 games_bp = Blueprint("games", __name__, url_prefix="/api/games")
 
 
-@cross_origin()
-@games_bp.route("/schedule/<season_id>")
+@games_bp.route("/schedule/<season_id>/")
 def get_schedule(season_id):
     team_id = request.args.get("team-id")
     schedule = query_season_schedule(season_id, team_id)

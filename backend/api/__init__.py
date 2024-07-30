@@ -25,6 +25,7 @@ def create_app(test_config=None):
     app.config.from_mapping(DATABASE=os.environ.get("DATABASE_URL"))
 
     CORS(app, resources={r"/*": {"origins": "*", "allow_headers": "*"}})
+    app.config["CORS_HEADERS"] = "Content-Type"
 
     if not firebase_admin._apps:
         cred = credentials.Certificate(json.loads(os.environ.get("FIREBASE_ADMIN")))
@@ -57,7 +58,7 @@ def create_app(test_config=None):
         return send_from_directory(app.static_folder, "index.html")
 
     @app.errorhandler(404)
-    def error():
+    def error(e):
         return send_from_directory(app.static_folder, "index.html")
 
     return app
