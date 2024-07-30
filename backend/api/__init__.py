@@ -10,7 +10,12 @@ def create_app(test_config=None):
     os.environ["GRPC_VERBOSITY"] = "ERROR"
     os.environ["GLOG_minloglevel"] = "2"
 
-    app = Flask(__name__, static_folder="../frontend/dist" instance_relative_config=True)
+    app = Flask(
+        __name__,
+        static_folder="../frontend/dist",
+        static_url_path="/",
+        instance_relative_config=True,
+    )
     app.config.from_mapping(DATABASE=os.environ.get("DATABASE_URL"))
 
     CORS(app, resources={r"/*": {"origins": "*"}})
@@ -42,6 +47,7 @@ def create_app(test_config=None):
     app.config["MAIL_USE_SSL"] = False
 
     app.route("/")
+
     def index():
         return send_from_directory(app.static_folder, "index.html")
 
