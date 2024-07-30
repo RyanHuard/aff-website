@@ -4,10 +4,9 @@ import { defineConfig } from "vite";
 
 export default defineConfig({
   server: {
-    cors: false,
     proxy: {
       "/api": {
-        target: "http://affederation.net/",
+        target: "https://affederation.net/",
         changeOrigin: true,
         secure: false,
       },
