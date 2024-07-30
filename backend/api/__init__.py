@@ -56,6 +56,10 @@ def create_app(test_config=None):
     def index():
         return send_from_directory(app.static_folder, "index.html")
 
+    @app.errorhandler(404)
+    def error():
+        return send_from_directory(app.static_folder, "index.html")
+
     return app
 
 
