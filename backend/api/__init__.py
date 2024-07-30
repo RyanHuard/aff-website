@@ -24,7 +24,7 @@ def create_app(test_config=None):
     )
     app.config.from_mapping(DATABASE=os.environ.get("DATABASE_URL"))
 
-    CORS(app, resources={r"/*": {"origins": "*"}}, origins="*")
+    CORS(app, resources={r"/*": {"origins": "*", "allow_headers": "*"}})
 
     if not firebase_admin._apps:
         cred = credentials.Certificate(json.loads(os.environ.get("FIREBASE_ADMIN")))
