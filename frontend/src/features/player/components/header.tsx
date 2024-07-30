@@ -21,6 +21,9 @@ const Header = ({ playerDetails }: HeaderProps) => {
           <img
             className="h-full w-48 md:w-56"
             src={`/players/${playerDetails?.fname}_${playerDetails?.lname}.png`}
+            onError={(e: any) => {
+              e.target.src = "/players/player_placeholder.png";
+            }}
           />
           <div className="sm:flex px-4 md:px-8">
             <div className="sm:w-44">
