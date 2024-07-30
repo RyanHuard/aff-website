@@ -19,7 +19,7 @@ def create_app(test_config=None):
     app = Flask(
         __name__,
         static_folder=static_folder_path,
-        static_url_path="/",
+        static_url_path="",
         instance_relative_config=True,
     )
     app.config.from_mapping(DATABASE=os.environ.get("DATABASE_URL"))
