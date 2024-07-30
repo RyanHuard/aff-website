@@ -17,7 +17,7 @@ const MobileNavbar = () => {
       style={{ height: "inherit" }}
     >
       <Link to="/" onClick={() => setOpenSidebar(false)}>
-        <img src={"/aff-logo.png"} className="mr-4 h-9 lg:h-10" />
+        <img src="/aff-logo.png" className="mr-4 h-9 lg:h-10" />
       </Link>
       {!openSidebar ? (
         <Button

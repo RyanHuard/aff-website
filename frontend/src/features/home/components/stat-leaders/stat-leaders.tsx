@@ -17,8 +17,8 @@ function StatLeader({ category, players }: StatLeaderProps) {
   const statColumn = "season_" + category.stat;
 
   return (
-    <div className="px-6 pt-2">
-      <h2 className="py-2 font-bold">{category.name}</h2>
+    <div className="sm:px-6 px-3 pt-1 sm:pt-2">
+      <h2 className="pt-2 font-bold">{category.name}</h2>
       <div className="flex pt-2 pb-4">
         <img
           src={`/players/${leader?.first_name}_${leader?.last_name}.png`}
@@ -117,8 +117,8 @@ function StatLeadersCard() {
   }
 
   return (
-    <Card className="grid grid-cols-2 pb-4">
-      <h1 className="py-3 px-4 bg-aff-blue col-span-2 text-white font-semibold">
+    <Card className="grid sm:grid-cols-2 grid-cols-1 pb-4">
+      <h1 className="py-3 px-4 bg-aff-blue sm:col-span-2 col-span-1 text-white font-semibold">
         AFF {CURRENT_SEASON_ID + 2021} LEADERS
       </h1>
       {categories.map((category: any, index: number) => {

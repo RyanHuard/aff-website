@@ -45,7 +45,9 @@ const Home = () => {
           <HomeLayout>
             {/* <ArticleCard />
             <JoinCommunity /> */}
+
             <CreateAPlayerCard />
+            <StatLeadersCard />
             {/* <StandingsCard /> */}
             <SocialsCard />
             {/* <LeagueInfoCard /> */}
