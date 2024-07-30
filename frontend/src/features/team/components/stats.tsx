@@ -16,6 +16,14 @@ const Stats = ({ teamCity, seasonId }: StatsProps) => {
   const playerStatsQuery = usePlayerStats(seasonId, teamCity);
   const playerStatsData = playerStatsQuery?.data;
 
+  if (playerStatsQuery.isLoading) {
+    return (
+      <div className="flex h-screen w-full items-center justify-center bg-[#edeef2]">
+        <LoadingSpinner size="lg" className="sm:bottom-86 relative bottom-64" />
+      </div>
+    );
+  }
+
   let teamLeaders;
 
   if (playerStatsQuery.isFetched) {
@@ -103,14 +111,6 @@ const Stats = ({ teamCity, seasonId }: StatsProps) => {
         },
       },
     ];
-  }
-
-  if (playerStatsQuery.isLoading) {
-    return (
-      <div className="flex h-screen w-full items-center justify-center bg-[#edeef2]">
-        <LoadingSpinner size="lg" className="sm:bottom-86 relative bottom-64" />
-      </div>
-    );
   }
 
   return (
