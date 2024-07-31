@@ -12,7 +12,14 @@ const Stats = ({ firstName, lastName }: StatsProps) => {
   const playerStatsQuery = usePlayerStats(firstName, lastName);
   const playerStats = playerStatsQuery?.data;
 
-  const categories = ["Passing", "Rushing", "Receiving", "Defense"];
+  const categories = [
+    "Passing",
+    "Rushing",
+    "Receiving",
+    "Defense",
+    "Kicking",
+    "Punting",
+  ];
 
   return (
     <div className="h-[500px]">

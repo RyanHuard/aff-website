@@ -240,8 +240,139 @@ export const columns = [
       sortable: true,
     },
   ],
+  /* Kicking */ [
+    {
+      name: "Season",
+      selector: (row: any) => parseInt(row.season_id) + 2021,
+      sortable: true,
+      maxwidth: "2rem",
+    },
+    {
+      name: "Team",
+      selector: (row: any) => row.team,
+      cell: (row: any) => {
+        return (
+          <div className="flex">
+            <img className="w-5 mr-1" src={`/logos/${row.team.logo}`} />
+            <span className="my-auto">{row.team.abbreviation}</span>
+          </div>
+        );
+      },
+    },
+    {
+      name: "FG Made",
+      selector: (row: PlayerStats) => row.season_kick_fg_made,
+      sortable: true,
+    },
+    {
+      name: "FG Att",
+      selector: (row: PlayerStats) => row.season_kick_fg_attempts,
+      sortable: true,
+    },
+    {
+      name: "FG %",
+      selector: (row: PlayerStats) =>
+        (row.season_kick_fg_made / row.season_kick_fg_attempts) * 100,
+      sortable: true,
+      cell: (row: PlayerStats) => (
+        <div>
+          {(
+            (row.season_kick_fg_made / row.season_kick_fg_attempts) *
+            100
+          ).toFixed(1)}
+        </div>
+      ),
+    },
+    {
+      name: "FG Long",
+      selector: (row: PlayerStats) => row.season_kick_fg_long,
+      sortable: true,
+    },
+    {
+      name: "XP Made",
+      selector: (row: PlayerStats) => row.season_kick_xp_made,
+      sortable: true,
+    },
+    {
+      name: "XP Att",
+      selector: (row: PlayerStats) => row.season_kick_xp_attempts,
+      sortable: true,
+    },
+    {
+      name: "XP %",
+      selector: (row: PlayerStats) =>
+        (row.season_kick_xp_made / row.season_kick_xp_attempts) * 100,
+      sortable: true,
+      cell: (row: PlayerStats) => (
+        <div>
+          {(
+            (row.season_kick_xp_made / row.season_kick_xp_attempts) *
+            100
+          ).toFixed(1)}
+        </div>
+      ),
+    },
+  ],
+  /* Punting */ [
+    {
+      name: "Season",
+      selector: (row: any) => parseInt(row.season_id) + 2021,
+      sortable: true,
+      maxwidth: "2rem",
+    },
+    {
+      name: "Team",
+      selector: (row: any) => row.team,
+      cell: (row: any) => {
+        return (
+          <div className="flex">
+            <img className="w-5 mr-1" src={`/logos/${row.team.logo}`} />
+            <span className="my-auto">{row.team.abbreviation}</span>
+          </div>
+        );
+      },
+    },
+    {
+      name: "Gross Avg",
+      selector: (row: PlayerStats) =>
+        (row.season_punt_gross_yards / row.season_punt_count).toFixed(1),
+      sortable: true,
+    },
+    {
+      name: "Net Avg",
+      selector: (row: PlayerStats) =>
+        (row.season_punt_net_yards / row.season_punt_count).toFixed(1),
+      sortable: true,
+    },
+    {
+      name: "Net Yds",
+      selector: (row: PlayerStats) => row.season_punt_net_yards,
+      sortable: true,
+    },
+    {
+      name: "Punts",
+      selector: (row: PlayerStats) => row.season_punt_count,
+      sortable: true,
+    },
+    {
+      name: "Long",
+      selector: (row: PlayerStats) => row.season_punt_long,
+      sortable: true,
+    },
+    {
+      name: "Gross Yds",
+      selector: (row: PlayerStats) => row.season_punt_gross_yards,
+      sortable: true,
+    },
+    {
+      name: "Touchbacks",
+      selector: (row: PlayerStats) => row.season_punt_touchbacks,
+      sortable: true,
+    },
+  ],
 ];
 
+import { PlayerStats } from "@/types/player";
 import { clamp, round } from "lodash";
 
 // Calculates passer rating according to NFL formula
