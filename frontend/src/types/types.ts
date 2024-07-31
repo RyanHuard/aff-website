@@ -1,3 +1,5 @@
+import { TeamDetails } from "./game";
+
 export type TradeOffer = {
   trade_id: number;
   season_id?: number;
@@ -42,6 +44,7 @@ export type DraftPickDetail = {
 };
 
 export type PlayerDetail = {
+  team_details?: TeamDetails;
   pid: number;
   tid: number;
   fname: string;

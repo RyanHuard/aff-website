@@ -1,8 +1,9 @@
 import { TeamDetails } from "@/types/game.js";
 import { calculateOverall, formatSalary } from "./helpers";
+import { PlayerDetail } from "@/types/types";
 
 type HeaderProps = {
-  playerDetails: any;
+  playerDetails: PlayerDetail;
 };
 
 const Header = ({ playerDetails }: HeaderProps) => {
