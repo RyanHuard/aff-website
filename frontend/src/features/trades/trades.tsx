@@ -144,19 +144,22 @@ function Trades() {
                                     <span> {detail.player_last_name}</span>
                                   </Link>
                                 ) : (
-                                  <div
-                                    key={detailIndex}
-                                    className="hidden sm:block"
-                                  >
-                                    {detail.draft_pick_details?.season_id! +
-                                      2021}{" "}
-                                    Round {detail.draft_pick_details?.round_num}
-                                    {detail.draft_pick_details?.pick_num && (
-                                      <span>
-                                        &nbsp;Pick{" "}
-                                        {detail.draft_pick_details.pick_num}
-                                      </span>
-                                    )}
+                                  <>
+                                    <div
+                                      key={detailIndex}
+                                      className="hidden sm:block"
+                                    >
+                                      {detail.draft_pick_details?.season_id! +
+                                        2021}{" "}
+                                      Round{" "}
+                                      {detail.draft_pick_details?.round_num}
+                                      {detail.draft_pick_details?.pick_num && (
+                                        <span>
+                                          &nbsp;Pick{" "}
+                                          {detail.draft_pick_details.pick_num}
+                                        </span>
+                                      )}
+                                    </div>
                                     <div className="block sm:hidden">
                                       {detail.draft_pick_details?.season_id! +
                                         2021}{" "}
@@ -168,7 +171,7 @@ function Trades() {
                                         </span>
                                       )}
                                     </div>
-                                  </div>
+                                  </>
                                 ))
                             )}
                           </div>
