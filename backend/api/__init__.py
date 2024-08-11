@@ -36,6 +36,7 @@ def create_app(test_config=None):
     from .standings.standings_endpoints import standings_bp
     from .players.player_endpoints import player_bp
     from .trade.trade_endpoints import trade_bp
+    from .free_agency.free_agency_endpoints import free_agency_bp
 
     app.register_blueprint(teams_bp)
     app.register_blueprint(stats_bp)
@@ -44,6 +45,7 @@ def create_app(test_config=None):
     app.register_blueprint(standings_bp)
     app.register_blueprint(player_bp)
     app.register_blueprint(trade_bp)
+    app.register_blueprint(free_agency_bp)
 
     app.config["MAIL_SERVER"] = "smtp.gmail.com"
     app.config["MAIL_PORT"] = 587

@@ -20,6 +20,8 @@ import Trades from "./features/trades/trades";
 import ManagerRoute from "./components/routes/manager-route";
 import TradePortal from "./features/manager/features/trades/trade-portal";
 import AuthTokenProvider from "./hooks/use-auth-token";
+import FreeAgency from "./features/free-agency/free-agency";
+import { ChakraProvider } from "@chakra-ui/react";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -84,19 +86,31 @@ const router = createBrowserRouter([
           },
         ],
       },
+      
     ],
   },
+  {
+    path: "/offseason",
+    children: [
+      {
+        path: "/offseason/free-agency",
+        element: <FreeAgency />
+      }
+    ]
+  }
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <AuthTokenProvider>
+      <ChakraProvider>
       <PersistQueryClientProvider
         client={queryClient}
         persistOptions={{ persister }}
       >
         <RouterProvider router={router} />
       </PersistQueryClientProvider>
+      </ChakraProvider>
     </AuthTokenProvider>
   </React.StrictMode>
 );
