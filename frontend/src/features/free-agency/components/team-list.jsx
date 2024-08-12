@@ -39,9 +39,11 @@ const TeamList = ({ finalOfferChecks, teams, handleFinalOfferCheck }) => {
         return (
           <img
             key={index}
-            className={`w-[4rem] ${opaque} pointer-events-auto`}
+            style={{ pointerEvents: "all"}}
+            className={`w-[4rem] ${opaque}`}
             src={`/assets/logos/${offerTeam?.team_logo}`}
             onClick={() => {
+              console.log("test")
               if (localStorage.getItem("teamId") == 2) {
                 const fakeEvent = {
                   target: {
