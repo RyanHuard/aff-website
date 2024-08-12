@@ -36,24 +36,26 @@ const TeamList = ({ finalOfferChecks, teams, handleFinalOfferCheck }) => {
           opaque = "opacity-100";
         }
 
+        function imageClick() {
+          console.log("test")
+          if (localStorage.getItem("teamId") == 2) {
+            const fakeEvent = {
+              target: {
+                checked: true, // Simulate the checkbox being checked or unchecked
+              },
+            };
+   
+            handleFinalOfferCheck(fakeEvent);
+          }
+        }
+
         return (
           <img
             key={index}
             style={{ pointerEvents: "all"}}
             className={`w-[4rem] ${opaque}`}
             src={`/assets/logos/${offerTeam?.team_logo}`}
-            onClick={() => {
-              console.log("test")
-              if (localStorage.getItem("teamId") == 2) {
-                const fakeEvent = {
-                  target: {
-                    checked: true, // Simulate the checkbox being checked or unchecked
-                  },
-                };
-       
-                handleFinalOfferCheck(fakeEvent);
-              }
-            }}
+            onClick={imageClick}
           />
         );
       })}
