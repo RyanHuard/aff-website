@@ -129,7 +129,7 @@ def if_all_final_offers():
             if not v["isChecked"]:
                 all_final_offers = False
 
-
+    all_final_offers = True
     if all_final_offers and offers == temp_offers:
         winner = choose_winner()
         emit("winner", winner, broadcast=True)
