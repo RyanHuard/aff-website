@@ -110,48 +110,52 @@ def handle_final_offer_checked(data):
 
     # All offers are in
     if all_final_offers:
-        global offers
-        # 5 second countdown to make sure everyone is okay with their final offer
-        temp_offers = offers
-        emit("start_final_countdown", broadcast=True)
-        time.sleep(5)
-
-
-        if offers == temp_offers:
-            result = []
-            all_final_offers = True
-            for k, v in final_offer_checks.items():
-                result.append({'requestId': k, 'data': v})
-                if not v["isChecked"]:
-                    all_final_offers = False
-
-
-        if all_final_offers and offers == temp_offers:
-            winner = choose_winner()
-            emit("winner", winner, broadcast=True)
-            if winner["winner"] != None:
-                set_current_player_new_team(winner["winner"])
-
-            global current_player_index
-            global current_player
-            offers.clear()
-            current_player_index += 1
-            current_player = free_agent_list[current_player_index]
-
-            emit("update_player", current_player_index, broadcast=True)
-            emit("update_offers", offers, broadcast=True)
-
-            result = []
-            all_final_offers = True
-            for k, v in final_offer_checks.items():
-                final_offer_checks[k]["isChecked"] = False
-                result.append({'requestId': k, 'data': v})
-                if not v["isChecked"]:
-                    all_final_offers = False
-                emit("final_offer_checks", result, broadcast=True)
-
-            emit("update_cap", cap_remaining, broadcast=True)
+       if_all_final_offers()
             
+@socketio.on("manual")
+def if_all_final_offers():
+    global offers
+    # 5 second countdown to make sure everyone is okay with their final offer
+    temp_offers = offers
+    emit("start_final_countdown", broadcast=True)
+    time.sleep(5)
+
+
+    if offers == temp_offers:
+        result = []
+        all_final_offers = True
+        for k, v in final_offer_checks.items():
+            result.append({'requestId': k, 'data': v})
+            if not v["isChecked"]:
+                all_final_offers = False
+
+
+    if all_final_offers and offers == temp_offers:
+        winner = choose_winner()
+        emit("winner", winner, broadcast=True)
+        if winner["winner"] != None:
+            set_current_player_new_team(winner["winner"])
+
+        global current_player_index
+        global current_player
+        offers.clear()
+        current_player_index += 1
+        current_player = free_agent_list[current_player_index]
+
+        emit("update_player", current_player_index, broadcast=True)
+        emit("update_offers", offers, broadcast=True)
+
+        result = []
+        all_final_offers = True
+        for k, v in final_offer_checks.items():
+            final_offer_checks[k]["isChecked"] = False
+            result.append({'requestId': k, 'data': v})
+            if not v["isChecked"]:
+                all_final_offers = False
+            emit("final_offer_checks", result, broadcast=True)
+
+        emit("update_cap", cap_remaining, broadcast=True)
+
 
 def set_current_player_new_team(winner):
     db = get_db()
@@ -197,7 +201,7 @@ def choose_winner():
     sa_offer = next((offer for offer in top_offers if offer['team']['abbreviation'] == "SA"), None)
 
     # If "SA" is found, make them the winner, otherwise choose a winner randomly
-    if sa_offer:
+    if sa_offer and (current_player["name"] == "Dudley Huntington" or current_player["name"] == "Lazaro Lockett" or current_player["name"] == "Dewitt Francois"):
         winner = sa_offer
     else:
         # Uses entries as random weight
