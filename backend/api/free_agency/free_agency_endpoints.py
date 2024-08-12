@@ -115,9 +115,7 @@ def handle_final_offer_checked(data):
         temp_offers = offers
         emit("start_final_countdown", broadcast=True)
         time.sleep(5)
-        print("TEMPOFFERS:", temp_offers, "OFFERS", offers, "\n\n")
-        
-        
+
 
         if offers == temp_offers:
             result = []
