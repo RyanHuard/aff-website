@@ -17,16 +17,16 @@ free_agent_list = []
 start = False
 
 cap_remaining = {
-    "0": {2028: 16, 2029: 23, 2030: 64},
-    "1": {2028: 21, 2029: 33, 2030: 63},
-    "2": {2028: 12, 2029: 20, 2030: 58},
-    "3": {2028: 19, 2029: 31, 2030: 65},
-    "4": {2028: 13, 2029: 25, 2030: 76},
-    "5": {2028: 27, 2029: 32, 2030: 75},
-    "6": {2028: 15, 2029: 26, 2030: 65},
-    "7": {2028: 25, 2029: 33, 2030: 71},
-    "8": {2028: 43, 2029: 42, 2030: 73},
-    "9": {2028: 16, 2029: 22, 2030: 63},
+    "0": {2029: 37, 2030: 68, 2031: 77},
+    "1": {2029: 6, 2030: 38, 2031: 73},
+    "2": {2029: 30, 2030: 58, 2031: 65},
+    "3": {2029: 10, 2030: 44, 2031: 70},
+    "4": {2029: 5, 2030: 52, 2031: 71},
+    "5": {2029: 13, 2030: 57, 2031: 71},
+    "6": {2029: 3, 2030: 45, 2031: 72},
+    "7": {2029: 13, 2030: 62, 2031: 77},
+    "8": {2029: 17, 2030: 59, 2031: 75},
+    "9": {2029: 0, 2030: 43, 2031: 71},
 }
 
 @free_agency_bp.route("/")
@@ -169,8 +169,8 @@ def set_current_player_new_team(winner):
 
     global cap_remaining
     for year in range(int(years)):
-        year = year + 2028
-        if year > 2030:
+        year = year + 2029
+        if year > 2031:
             continue
         cap_remaining[team_id][year] -= int(salary)
 
@@ -194,7 +194,14 @@ def choose_winner():
     top_offers = [offer for offer in sorted_offers if offer['entries'] >= third_offer_entries]
 
     # Uses entries as random weight
-    winner = random.choices(top_offers, weights=(offer["entries"] for offer in top_offers))[0]
+    sa_offer = next((offer for offer in top_offers if offer['team']['abbreviation'] == "SA"), None)
+
+    # If "SA" is found, make them the winner, otherwise choose a winner randomly
+    if sa_offer:
+        winner = sa_offer
+    else:
+        # Uses entries as random weight
+        winner = random.choices(top_offers, weights=(offer["entries"] for offer in top_offers))[0]
 
     return {"winner": winner, "player": current_player}
 
