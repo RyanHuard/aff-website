@@ -59,7 +59,7 @@ const List = ({ freeAgents, teams, currentPlayerIndex }) => {
                 <td>
                   {newPlayerTeam && (
                     <img
-                      src={`/assets/logos/${newPlayerTeam?.team_logo}`}
+                      src={`/logos/${newPlayerTeam?.team_logo}`}
                       alt={`${player?.new_team} Logo`}
                       width="30"
                     />

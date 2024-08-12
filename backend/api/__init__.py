@@ -4,7 +4,9 @@ from flask import Flask, send_from_directory
 from flask_cors import CORS, cross_origin
 import firebase_admin
 from firebase_admin import credentials
+from flask_socketio import SocketIO
 
+socketio = SocketIO(cors_allowed_origins="*")
 
 def create_app(test_config=None):
     os.environ["GRPC_VERBOSITY"] = "ERROR"
@@ -72,8 +74,13 @@ def create_app(test_config=None):
             "Access-Control-Allow-Methods", "GET,PUT,POST,DELETE,OPTIONS"
         )
         return response
+    
+    socketio.init_app(app)
 
     return app
 
 
 app = create_app()
+
+if __name__ == "__main__":
+    socketio.run(app)

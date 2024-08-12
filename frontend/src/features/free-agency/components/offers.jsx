@@ -22,7 +22,7 @@ const Offers = ({ offers, teams }) => {
           >
             <div className="flex h-full">
               <img
-                src={`/assets/logos/${offer?.team.team_logo}`}
+                src={`/logos/${offer?.team.team_logo}`}
                 alt={`${offer.former_team} Logo`}
                 className="m-1"
               />

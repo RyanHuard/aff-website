@@ -15,6 +15,7 @@ import { useTeams } from "../teams/api/get-teams";
 import { Button } from "@/components/ui/button";
 
 let socket;
+const URL = process.env.NODE_ENV == "production" ? undefined : "http://127.0.0.1:5000"
 export default function FreeAgency() {
   const [start, setStart] = useState(false);
   const [capRemaining, setCapRemaining] = useState([]);
@@ -39,7 +40,8 @@ export default function FreeAgency() {
   let freeAgents = freeAgentsQuery?.data;
   let currentPlayer = freeAgents?.[currentPlayerIndex];
 
-  const teams = useTeams();
+  const teamsQuery = useTeams();
+  const teams = teamsQuery?.data;
 
   const calculateEntries = (offer) => {
     const progression = [3, 2.5, 2, 1.5, 1];
@@ -62,7 +64,7 @@ export default function FreeAgency() {
   };
 
   useEffect(() => {
-    socket = io({ transports: ["websocket"] });
+    socket = io(URL, { transports: ["websocket"] });
 
     socket.on("start", (data) => {
       setStart(data);
@@ -160,7 +162,8 @@ export default function FreeAgency() {
     socket.emit("send_offer", offer);
   };
 
-  const handleSubmitOffer = () => {
+  const handleSubmitOffer = (e) => {
+    e.preventDefault();
     if (!finalOfferIsChecked) {
       console.log(inputOffer)
     if (/^\d+\/[1-5]$/.test(inputOffer)) {
@@ -203,15 +206,16 @@ export default function FreeAgency() {
         <h1 className="text-center text-2xl font-bold text-gray-100">
           AMERICAN FOOTBALL FEDERATION FREE AGENCY 2028
         </h1>
+        <div>{socket?.connected}</div>
       </div>
       {start || localStorage.getItem("teamId") == "2" ? (
         <div className="flex h-[89.3vh] justify-center gap-2 p-2 pt-44 md:flex-row md:justify-around md:gap-8 md:p-8">
           <List
             freeAgents={freeAgents}
-            teams={teams?.data}
+            teams={teams}
             currentPlayerIndex={currentPlayerIndex}
           />
-          <Offers offers={offers} teams={teams?.data} />
+          <Offers offers={offers} teams={teams} />
           <div className="flex flex-col gap-8">
             <CurrentPlayer
               currentPlayer={freeAgents?.[currentPlayerIndex]}
@@ -234,7 +238,7 @@ export default function FreeAgency() {
               <Button onClick={() => socket.emit("start")}>Start</Button>
             )}
 
-            <TeamList finalOfferChecks={finalOfferChecks} teams={teams?.data} />
+            <TeamList finalOfferChecks={finalOfferChecks} teams={teams} />
           </div>
         </div>
       ) : (

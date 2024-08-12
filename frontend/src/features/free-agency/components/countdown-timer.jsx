@@ -30,10 +30,10 @@ const CountdownTimer = ({ winner }) => {
                 <img
                   width="90px"
                   className="mx-auto pb-4"
-                  src={`assets/logos/${winningTeam.team_logo}`}
+                  src={`/logos/${winningTeam.team_logo}`}
                 />
               </div>{" "}
-              {player[0]} signs with the {winningTeam.team_location}{" "}
+              {player.name} signs with the {winningTeam.team_location}{" "}
               {winningTeam.team_name}. <br />${salary}
               ,000,000 / {length} years
             </div>

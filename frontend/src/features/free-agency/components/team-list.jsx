@@ -19,7 +19,7 @@ const TeamList = ({ finalOfferChecks, teams }) => {
           <img
             key={index}
             className={`w-[4rem] ${opaque}`}
-            src={`/assets/logos/${offerTeam?.team_logo}`}
+            src={`/logos/${offerTeam?.team_logo}`}
           />
         );
       })}
