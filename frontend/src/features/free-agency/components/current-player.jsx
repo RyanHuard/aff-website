@@ -35,7 +35,7 @@ const CurrentPlayer = ({
     }
     }
   }
-  curr
+
   
   return (
     <div className="h-fit max-w-[30rem] lg:w-[30rem] bg-white drop-shadow-md">
