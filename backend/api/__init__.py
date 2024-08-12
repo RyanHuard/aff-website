@@ -49,12 +49,12 @@ def create_app(test_config=None):
     app.register_blueprint(trade_bp)
     app.register_blueprint(free_agency_bp)
 
-    # app.config["MAIL_SERVER"] = "smtp.gmail.com"
-    # app.config["MAIL_PORT"] = 587
-    # app.config["MAIL_USERNAME"] = "affederationheadquarters@gmail.com"
-    # app.config["MAIL_PASSWORD"] = os.environ.get("EMAIL_PASSWORD")
-    # app.config["MAIL_USE_TLS"] = True
-    # app.config["MAIL_USE_SSL"] = False
+    app.config["MAIL_SERVER"] = "smtp.gmail.com"
+    app.config["MAIL_PORT"] = 587
+    app.config["MAIL_USERNAME"] = "affederationheadquarters@gmail.com"
+    app.config["MAIL_PASSWORD"] = os.environ.get("EMAIL_PASSWORD")
+    app.config["MAIL_USE_TLS"] = True
+    app.config["MAIL_USE_SSL"] = False
 
     @app.route("/")
     def index():
