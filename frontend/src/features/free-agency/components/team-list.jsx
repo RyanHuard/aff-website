@@ -39,7 +39,7 @@ const TeamList = ({ finalOfferChecks, teams, handleFinalOfferCheck }) => {
         return (
           <img
             key={index}
-            className={`w-[4rem] ${opaque}`}
+            className={`w-[4rem] ${opaque} pointer-events-auto`}
             src={`/assets/logos/${offerTeam?.team_logo}`}
             onClick={() => {
               if (localStorage.getItem("teamId") == 2) {
@@ -48,7 +48,7 @@ const TeamList = ({ finalOfferChecks, teams, handleFinalOfferCheck }) => {
                     checked: true, // Simulate the checkbox being checked or unchecked
                   },
                 };
-        
+       
                 handleFinalOfferCheck(fakeEvent);
               }
             }}
