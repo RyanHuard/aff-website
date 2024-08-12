@@ -110,10 +110,10 @@ def handle_final_offer_checked(data):
 
     # All offers are in
     if all_final_offers:
-       if_all_final_offers()
+       if_all_final_offers(False)
             
 @socketio.on("manual")
-def if_all_final_offers():
+def if_all_final_offers(force=True):
     global offers
     # 5 second countdown to make sure everyone is okay with their final offer
     temp_offers = offers
@@ -129,7 +129,9 @@ def if_all_final_offers():
             if not v["isChecked"]:
                 all_final_offers = False
 
-    all_final_offers = True
+    if force:
+        all_final_offers = True
+        
     if all_final_offers and offers == temp_offers:
         winner = choose_winner()
         emit("winner", winner, broadcast=True)
