@@ -27,14 +27,15 @@ const CurrentPlayer = ({
   if (userOfferLength) {
     for (let i = 0; i < userOfferLength; i++) {
       if (i < 3) {
-      let updatedCap = parseInt(capRemaining[2028 + i] - parseInt(userOfferSalary));
+      let updatedCap = parseInt(capRemaining[2029 + i] - parseInt(userOfferSalary));
       updatedCapRemaining = {
         ...updatedCapRemaining,
-        [2028 + i]: updatedCap,
+        [2029 + i]: updatedCap,
       };
     }
     }
   }
+  curr
   
   return (
     <div className="h-fit max-w-[30rem] lg:w-[30rem] bg-white drop-shadow-md">

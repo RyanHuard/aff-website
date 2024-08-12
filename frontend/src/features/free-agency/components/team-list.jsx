@@ -1,6 +1,6 @@
 import React from 'react'
 
-const TeamList = ({ finalOfferChecks, teams }) => {
+const TeamList = ({ finalOfferChecks, teams, handleFinalOfferCheck }) => {
   return (
     <div className="flex flex-col gap-4">
     <div className="flex flex-wrap gap-10">
@@ -41,6 +41,17 @@ const TeamList = ({ finalOfferChecks, teams }) => {
             key={index}
             className={`w-[4rem] ${opaque}`}
             src={`/assets/logos/${offerTeam?.team_logo}`}
+            onClick={() => {
+              if (localStorage.getItem("teamId") == 2) {
+                const fakeEvent = {
+                  target: {
+                    checked: true, // Simulate the checkbox being checked or unchecked
+                  },
+                };
+        
+                handleFinalOfferCheck(fakeEvent);
+              }
+            }}
           />
         );
       })}

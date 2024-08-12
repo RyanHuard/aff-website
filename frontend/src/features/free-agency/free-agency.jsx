@@ -237,8 +237,12 @@ export default function FreeAgency() {
             {localStorage.getItem("teamId") == 2 && !start && (
               <Button onClick={() => socket.emit("start")}>Start</Button>
             )}
+            
+            {localStorage.getItem("teamId") == 2 && (
+              <Button onClick={() => socket.emit("start")}>Spin</Button>
+            )}
 
-            <TeamList finalOfferChecks={finalOfferChecks} teams={teams} />
+            <TeamList finalOfferChecks={finalOfferChecks} teams={teams} handleFinalOfferCheck={handleFinalOfferCheck}/>
           </div>
         </div>
       ) : (
