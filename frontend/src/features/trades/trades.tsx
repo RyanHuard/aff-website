@@ -64,13 +64,7 @@ function Trades() {
                           className="my-auto h-12 sm:h-16"
                         />
                         <div className="font-semibold text-slate-600 sm:px-4">
-                          <span className="hidden sm:block">
-                            {trade.sending_team_location}
-                          </span>{" "}
-                          <span className="block">
-                            {trade.sending_team_abbreviation}
-                          </span>{" "}
-                          acquired:
+                          <span>{trade.sending_team_location}</span> acquired:
                           <div className="flex flex-col font-normal">
                             {trade?.details?.map(
                               (detail, detailIndex) =>
