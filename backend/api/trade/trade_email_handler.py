@@ -24,7 +24,12 @@ def format_trade_details(trade_details, sending_team_name, receiving_team_name):
             )
         elif detail["item_type"] == "draft_pick":
             print(detail)
-            player_info = f"{detail['season_id'] + 2021} Round {detail['round_num']}"
+            db.execute(
+                "SELECT * FROM draft_picks WHERE draft_pick_id = %s",
+                (detail["draft_pick_id"],),
+            )
+            season = db.fetchone()["season_id"]
+            player_info = f"{season + 2021} Round {detail['round_num']}"
             if detail["pick_num"]:
                 player_info += f" Pick {detail['pick_num']}"
 
