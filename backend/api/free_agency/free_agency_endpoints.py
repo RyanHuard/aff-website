@@ -179,7 +179,7 @@ def set_current_player_new_team(winner):
         if year > 2031:
             continue
         cap_remaining[team_id][year] -= int(salary)
-
+    print('test')
     commit_db()
     close_db()
        
