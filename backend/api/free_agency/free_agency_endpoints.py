@@ -22,11 +22,11 @@ cap_remaining = {
     "2": {2029: 30, 2030: 58, 2031: 65},
     "3": {2029: 10, 2030: 44, 2031: 70},
     "4": {2029: 5, 2030: 52, 2031: 71},
-    "5": {2029: 13, 2030: 57, 2031: 71},
+    "5": {2029: 12, 2030: 57, 2031: 71},
     "6": {2029: 3, 2030: 45, 2031: 72},
     "7": {2029: 13, 2030: 62, 2031: 77},
     "8": {2029: 17, 2030: 59, 2031: 75},
-    "9": {2029: 0, 2030: 43, 2031: 71},
+    "9": {2029: 1, 2030: 43, 2031: 71},
 }
 
 @free_agency_bp.route("/")
@@ -131,7 +131,7 @@ def if_all_final_offers(force=True):
 
     if force:
         all_final_offers = True
-        
+
     if all_final_offers and offers == temp_offers:
         winner = choose_winner()
         emit("winner", winner, broadcast=True)
@@ -203,7 +203,7 @@ def choose_winner():
     sa_offer = next((offer for offer in top_offers if offer['team']['abbreviation'] == "SA"), None)
 
     # If "SA" is found, make them the winner, otherwise choose a winner randomly
-    if sa_offer and (current_player["name"] == "Dudley Huntington" or current_player["name"] == "Lazaro Lockett" or current_player["name"] == "Dewitt Francois"):
+    if sa_offer and (current_player["name"] == "Dudley Huntington" or current_player["name"] == "Lazaro Lockett" or current_player["name"] == "Dewitt Francois" ):
         winner = sa_offer
     else:
         # Uses entries as random weight
