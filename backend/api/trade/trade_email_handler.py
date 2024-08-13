@@ -44,7 +44,7 @@ def format_trade_details(trade_details, sending_team_name, receiving_team_name):
     formatted_trade = f"""{receiving_team_name} receive:
 {receiving_team}
 
-{sending_team_name} receiving:
+{sending_team_name} receive:
 {sending_team}
     """
     close_db()
