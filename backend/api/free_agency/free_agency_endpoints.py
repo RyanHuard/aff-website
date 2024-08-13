@@ -200,14 +200,7 @@ def choose_winner():
     top_offers = [offer for offer in sorted_offers if offer['entries'] >= third_offer_entries]
 
     # Uses entries as random weight
-    sa_offer = next((offer for offer in top_offers if offer['team']['abbreviation'] == "SA"), None)
-
-    # If "SA" is found, make them the winner, otherwise choose a winner randomly
-    if sa_offer and (current_player["name"] == "Dudley Huntington" or current_player["name"] == "Lazaro Lockett" or current_player["name"] == "Dewitt Francois" ):
-        winner = sa_offer
-    else:
-        # Uses entries as random weight
-        winner = random.choices(top_offers, weights=(offer["entries"] for offer in top_offers))[0]
+    winner = random.choices(top_offers, weights=(offer["entries"] for offer in top_offers))[0]
 
     return {"winner": winner, "player": current_player}
 
