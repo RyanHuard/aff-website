@@ -1,1 +1,1 @@
-web: PYTHONPATH=backend backend.api:app
+web: backend.api:app
