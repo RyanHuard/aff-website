@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const calculateWeek = (gameId: number) => {
-  let seasonStartGameId = 219;
+  let seasonStartGameId = 279;
   return Math.ceil((gameId + 1 - seasonStartGameId) / 5);
 };
 
@@ -38,8 +38,8 @@ const Game = ({ game }: any) => {
               {game.away_team_score}
             </span>
             <span className="my-auto ml-10 text-xs text-neutral-600">
-              ({game.away_team.current_season.wins}-
-              {game.away_team.current_season.loss})
+              ({game.away_team.current_season.wins ?? 0}-
+              {game.away_team.current_season.loss ?? 0})
             </span>
           </span>
           <span className="flex">
@@ -59,8 +59,8 @@ const Game = ({ game }: any) => {
               {game.home_team_score}
             </span>
             <span className="my-auto ml-10 text-xs text-neutral-600">
-              ({game.home_team.current_season.wins}-
-              {game.home_team.current_season.loss})
+              ({game.home_team.current_season.wins ?? 0}-
+              {game.home_team.current_season.loss ?? 0})
             </span>
           </span>
           <span className="ml-1 text-xs">

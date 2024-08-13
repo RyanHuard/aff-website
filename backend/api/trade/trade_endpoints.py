@@ -1,6 +1,7 @@
 from flask import Blueprint, request, jsonify
 from marshmallow import ValidationError
 import psycopg2
+from flask_cors import cross_origin
 
 from ..db import get_db, close_db, commit_db
 from ..firebase import get_current_user, get_user_team

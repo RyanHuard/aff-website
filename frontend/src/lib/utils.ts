@@ -5,6 +5,6 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-export const CURRENT_SEASON_ID = 7;
-export const SEASON_STAGE = "postseason";
-export const TRADE_WINDOW = "closed";
+export const CURRENT_SEASON_ID = 8;
+export const SEASON_STAGE = "preseason";
+export const TRADE_WINDOW: "open" | "closed" = "open";

@@ -4,9 +4,10 @@ from flask import Flask, send_from_directory
 from flask_cors import CORS, cross_origin
 import firebase_admin
 from firebase_admin import credentials
-from flask_socketio import SocketIO
 
-socketio = SocketIO(cors_allowed_origins="*")
+# from flask_socketio import SocketIO
+
+# socketio = SocketIO(cors_allowed_origins="*")
 
 
 def create_app(test_config=None):
@@ -42,7 +43,7 @@ def create_app(test_config=None):
     from .trade.trade_endpoints import trade_bp
     from .records.records_endpoints import records_bp
 
-    from .free_agency.free_agency_endpoints import free_agency_bp
+    # from .free_agency.free_agency_endpoints import free_agency_bp
 
     app.register_blueprint(teams_bp)
     app.register_blueprint(stats_bp)
@@ -52,7 +53,7 @@ def create_app(test_config=None):
     app.register_blueprint(player_bp)
     app.register_blueprint(trade_bp)
     app.register_blueprint(records_bp)
-    app.register_blueprint(free_agency_bp)
+    # app.register_blueprint(free_agency_bp)
 
     app.config["MAIL_SERVER"] = "smtp.gmail.com"
     app.config["MAIL_PORT"] = 587
@@ -76,11 +77,11 @@ def create_app(test_config=None):
             "Access-Control-Allow-Headers", "Content-Type,Authorization"
         )
         response.headers.add(
-            "Access-Control-Allow-Methods", "GET,PUT,POST,DELETE,OPTIONS"
+            "Access-Control-Allow-Methods", "GET,PUT,POST,PATCH,DELETE,OPTIONS"
         )
         return response
 
-    socketio.init_app(app)
+    # socketio.init_app(app)
 
     return app
 

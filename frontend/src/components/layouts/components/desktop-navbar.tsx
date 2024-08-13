@@ -15,6 +15,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { TRADE_WINDOW } from "@/lib/utils";
 
 type DesktopNavbarProps = {
   userTeam: any | null;
@@ -74,9 +75,11 @@ function DesktopNavbar({ userTeam, currentUser }: DesktopNavbarProps) {
                   className="hover:cursor-grab"
                   onClick={() => {
                     navigate(`/manager/trades`);
-                    alert(
-                      "The trade window is closed. You will not be able to create any trades."
-                    );
+                    if (TRADE_WINDOW == "closed") {
+                      alert(
+                        "The trade window is closed. You will not be able to create any trades."
+                      );
+                    }
                   }}
                 >
                   Trades

@@ -9,8 +9,8 @@ export default function Game({ ...game }) {
     >
       <div className="flex w-64 items-center justify-end">
         <span className="hidden px-1 sm:block">
-          ({game?.away_team?.current_season?.wins}-
-          {game?.away_team?.current_season?.loss})
+          ({game?.away_team?.current_season?.wins ?? 0}-
+          {game?.away_team?.current_season?.loss ?? 0})
         </span>
         <span className="hidden px-1 text-lg sm:block">
           {game?.away_team?.name}
@@ -37,8 +37,8 @@ export default function Game({ ...game }) {
 
       <div className="flex  w-64 flex-row-reverse items-center justify-end">
         <span className="hidden px-1 sm:block">
-          ({game?.home_team?.current_season.wins}-
-          {game?.home_team?.current_season.loss})
+          ({game?.home_team?.current_season.wins ?? 0}-
+          {game?.home_team?.current_season.loss ?? 0})
         </span>
         <span className="hidden px-1 text-lg sm:block">
           {game?.home_team?.name}

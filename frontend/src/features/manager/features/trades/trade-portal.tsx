@@ -30,7 +30,7 @@ function TradePortal() {
   const teamsQuery = useTeams("team_id"); // Orders them by teamId
   const teams = teamsQuery?.data;
 
-  if (!userTeam) {
+  if (isLoading) {
     return <></>;
   }
 

@@ -2,7 +2,11 @@ import psycopg2
 from datetime import datetime, timezone
 
 from ..db import get_db, close_db, commit_db, rollback_db
-from .trade_email_handler import send_trade_offer_created_email
+from .trade_email_handler import (
+    send_trade_offer_created_email,
+    send_trade_offer_rejected_email,
+    send_trade_offer_accepted_email,
+)
 
 
 def handle_trade_offer_create_offer(data):
@@ -26,10 +30,9 @@ def handle_trade_offer_create_offer(data):
         data.update({"trade_id": trade_id})
 
         handle_trade_offer_create_details(trade_id, trade_details)
-        # send_trade_offer_created_email(data)
 
         commit_db()
-
+        send_trade_offer_created_email(data)
         return data
 
     except psycopg2.Error as e:
@@ -95,14 +98,7 @@ def handle_trade_offer_response(data):
         return data
 
     elif response == "rejected":
-        timestamp = datetime.now(timezone.utc)
-        db.execute(
-            "UPDATE trade_offers SET status = 'rejected', date_responded = %s WHERE trade_id = %s",
-            (
-                timestamp,
-                trade_id,
-            ),
-        )
+        handle_trade_offer_rejected(trade_id)
         commit_db()
         close_db()
         return data
@@ -113,6 +109,22 @@ def handle_trade_offer_response(data):
         commit_db()
         close_db()
         return data
+
+
+def handle_trade_offer_rejected(trade_id):
+    db = get_db()
+    timestamp = datetime.now(timezone.utc)
+    db.execute(
+        "UPDATE trade_offers SET status = 'rejected', date_responded = %s WHERE trade_id = %s RETURNING *",
+        (
+            timestamp,
+            trade_id,
+        ),
+    )
+    commit_db()
+    trade = db.fetchone()
+    send_trade_offer_rejected_email(trade_id)
+    close_db()
 
 
 def handle_trade_offer_accepted(trade_id):
@@ -135,6 +147,8 @@ def handle_trade_offer_accepted(trade_id):
 
     db.execute("SELECT * FROM trade_offer_details WHERE trade_id = %s", (trade_id,))
     trade_details = db.fetchall()
+
+    send_trade_offer_accepted_email(trade_id)
 
     for detail in trade_details:
         item_type = detail.get("item_type")

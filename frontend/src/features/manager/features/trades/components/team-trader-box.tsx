@@ -225,25 +225,25 @@ function TeamTraderBox({
           </SelectContent>
         </Select>
       )}
-      <div className="border-b-2 border-t w-full h-20 flex text-center">
-        <div className="flex-1 border-x pt-4 px-8">
+      <div className="border-b-2 border-t w-full h-20 flex text-center *:flex-1 *:border-x *:pt-4 *:px-2 *:md:px-8 overflow-x-auto overflow-y-clip">
+        <div className="">
           <h3 className="font-medium">$100.0M</h3>
           <p className="text-slate-500 text-xs">Max Cap</p>
         </div>
-        <div className="flex-1 border-x pt-4 px-8">
+        <div className="">
           <h3 className="font-medium">
             ${100 - (rosterCap + draftPicksCap)}.0M
           </h3>
           <p className="text-slate-500 text-xs">Cap Space</p>
         </div>
-        <div className="flex-1 border-x pt-4 px-8">
+        <div className="">
           <h3 className="font-medium">${rosterCap}.0M</h3>
           <p className="text-slate-500 text-xs">Roster Cap</p>
         </div>
-        <div className="flex-1 border-x pt-4 px-8">
+        <div className="">
           <h3 className="font-medium">${draftPicksCap}.0M</h3>
           <p className="text-slate-500 text-xs">
-            `{CURRENT_SEASON_ID + 21} Draft Picks
+            '{CURRENT_SEASON_ID + 21} Draft Picks
           </p>
         </div>
       </div>

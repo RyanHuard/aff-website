@@ -72,7 +72,7 @@ function StatLeader({ category, players }: StatLeaderProps) {
 }
 
 function StatLeadersCard() {
-  const statsQuery = useStatLeaders(CURRENT_SEASON_ID.toString());
+  const statsQuery = useStatLeaders((CURRENT_SEASON_ID - 1).toString());
   const statsData = statsQuery?.data;
 
   const categories = [
@@ -119,7 +119,7 @@ function StatLeadersCard() {
   return (
     <Card className="grid sm:grid-cols-2 grid-cols-1 pb-4">
       <h1 className="py-3 px-4 bg-aff-blue sm:col-span-2 col-span-1 text-white font-semibold">
-        AFF {CURRENT_SEASON_ID + 2021} LEADERS
+        AFF {CURRENT_SEASON_ID - 1 + 2021} LEADERS
       </h1>
       {categories.map((category: any, index: number) => {
         return (
