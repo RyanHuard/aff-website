@@ -32,9 +32,9 @@ def format_trade_details(trade_details, sending_team_name, receiving_team_name):
             season = dp["season_id"]
             round_num = dp["round_num"]
             pick_num = dp["pick_num"]
-            player_info = f"{season + 2021} Round {pick_num}"
+            player_info = f"{season + 2021} Round {round_num}"
             if pick_num:
-                player_info += f" Pick {player_info}"
+                player_info += f" Pick {pick_num}"
 
         if detail["direction"] == "to_sending_team":
             sending_team += "        - " + player_info + "\n"
