@@ -124,7 +124,6 @@ def handle_trade_offer_rejected(trade_id):
     commit_db()
     trade = db.fetchone()
     send_trade_offer_rejected_email(trade_id)
-    close_db()
 
 
 def handle_trade_offer_accepted(trade_id):
@@ -185,6 +184,5 @@ def handle_trade_offer_accepted(trade_id):
             )
 
     commit_db()
-    close_db()
 
     return None
