@@ -28,10 +28,13 @@ def format_trade_details(trade_details, sending_team_name, receiving_team_name):
                 "SELECT * FROM draft_picks WHERE draft_pick_id = %s",
                 (detail["draft_pick_id"],),
             )
-            season = db.fetchone()["season_id"]
-            player_info = f"{season + 2021} Round {detail['round_num']}"
-            if detail["pick_num"]:
-                player_info += f" Pick {detail['pick_num']}"
+            dp = db.fetchone()
+            season = dp["season_id"]
+            round_num = dp["round_num"]
+            pick_num = dp["pick_num"]
+            player_info = f"{season + 2021} Round {pick_num}"
+            if pick_num:
+                player_info += f" Pick {player_info}"
 
         if detail["direction"] == "to_sending_team":
             sending_team += "        - " + player_info + "\n"
