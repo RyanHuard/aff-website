@@ -90,13 +90,13 @@ const router = createBrowserRouter([
     ],
   },
   {
-    path: "/offseason",
-    children: [
-      {
-        path: "/offseason/free-agency",
-        element: <FreeAgency />
-      }
-    ]
+    // path: "/offseason",
+    // children: [
+    //   {
+    //     path: "/offseason/free-agency",
+    //     element: <FreeAgency />
+    //   }
+    // ]
   }
 ]);
 
