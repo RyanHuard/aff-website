@@ -147,8 +147,6 @@ def handle_trade_offer_accepted(trade_id):
     db.execute("SELECT * FROM trade_offer_details WHERE trade_id = %s", (trade_id,))
     trade_details = db.fetchall()
 
-    send_trade_offer_accepted_email(trade_id)
-
     for detail in trade_details:
         item_type = detail.get("item_type")
         direction = detail.get("direction")
@@ -170,6 +168,7 @@ def handle_trade_offer_accepted(trade_id):
                     season_id,
                 ),
             )
+            commit_db()
 
         elif item_type == "draft_pick":
             draft_pick_id = detail.get("draft_pick_id")
@@ -182,7 +181,7 @@ def handle_trade_offer_accepted(trade_id):
                     season_id,
                 ),
             )
-
-    commit_db()
-
+            commit_db()
+    send_trade_offer_accepted_email(trade_id)
+        
     return None

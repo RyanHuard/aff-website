@@ -47,7 +47,7 @@ def format_trade_details(trade_details, sending_team_name, receiving_team_name):
 {sending_team_name} receive:
 {sending_team}
     """
-    close_db()
+
     return formatted_trade
 
 
@@ -142,7 +142,6 @@ Here are the details of the trade:
 {formatted_trade_details}
 """
     mail.send(msg)
-    close_db()
     return "Message sent"
 
 
@@ -170,8 +169,6 @@ def get_trade_details(trade_id):
 
     db.execute("SELECT * FROM trade_offer_details WHERE trade_id = %s", (trade_id,))
     trade_details = db.fetchall()
-
-    close_db()
 
     return {
         "sending_team": sending_team_name,
