@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { usePendingTrades } from "../api/get-pending-trades";
 import { format } from "date-fns";
 import { Link } from "react-router-dom";
@@ -16,6 +16,9 @@ function PendingTrades({ teamId }: PendingTradesProps) {
 
   const pendingTradesQuery = usePendingTrades(teamId, authToken);
   const responseToTradeMutation = useRespondToTradeOffer();
+
+  const isLoading = responseToTradeMutation.isPending;
+  
 
   function handleTradeResponse(
     tradeId: number,
@@ -154,6 +157,7 @@ function PendingTrades({ teamId }: PendingTradesProps) {
                     <Button
                       size="sm"
                       className="rounded-none bg-green-600 hover:bg-green-800"
+                      disabled={isLoading}
                       onClick={(e) =>
                         handleTradeResponse(trade.trade_id, "accepted")
                       }
@@ -163,6 +167,7 @@ function PendingTrades({ teamId }: PendingTradesProps) {
                     <Button
                       size="sm"
                       className="rounded-none bg-red-600 hover:bg-red-800"
+                      disabled={isLoading}
                       onClick={(e) =>
                         handleTradeResponse(trade.trade_id, "rejected")
                       }
@@ -174,6 +179,7 @@ function PendingTrades({ teamId }: PendingTradesProps) {
                   <Button
                     size="sm"
                     className="rounded-none  bg-red-600 hover:bg-red-800"
+                    disabled={isLoading}
                     onClick={(e) =>
                       handleTradeResponse(trade.trade_id, "canceled")
                     }
