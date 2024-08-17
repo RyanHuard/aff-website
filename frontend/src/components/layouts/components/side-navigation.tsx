@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const SideNavigation = ({ setOpenSidebar }) => {
-  const navbarRoutes = ["Standings", "Schedule", "Stats", "Teams"];
+  const navbarRoutes = ["Standings", "Schedule", "Stats", "Teams", "Trades"];
   return (
     <>
       <div

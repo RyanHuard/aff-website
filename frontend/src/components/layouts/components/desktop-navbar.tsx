@@ -25,7 +25,7 @@ type DesktopNavbarProps = {
 function DesktopNavbar({ userTeam, currentUser }: DesktopNavbarProps) {
   const navigate = useNavigate();
 
-  const navbarRoutes = ["Standings", "Schedule", "Stats", "Teams"];
+  const navbarRoutes = ["Standings", "Schedule", "Stats", "Teams", "Trades"];
 
   return (
     <div className="max-w-full bg-aff-blue h-16 2xl:px-16 px-6 hidden md:block">
