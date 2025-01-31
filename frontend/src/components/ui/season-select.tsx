@@ -35,6 +35,7 @@ export default function SeasonSelect({
         <SelectItem value="6">2027</SelectItem>
         <SelectItem value="7">2028</SelectItem>
         <SelectItem value="8">2029</SelectItem>
+        <SelectItem value="9">2030</SelectItem>
       </SelectContent>
     </Select>
   );

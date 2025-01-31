@@ -13,6 +13,7 @@ import { ToastContainer } from "react-toastify";
 function TeamLogosHeader() {
   const logos = [
     "alaracers.png",
+    "aff-logo.png",
     "farfrost.png",
     "kencluck2.png",
     "memrhythm.png",
@@ -22,9 +23,10 @@ function TeamLogosHeader() {
     "shrsteamboats.png",
     "scseacows.png",
     "stlknights.png",
+    "virfounders.png"
   ];
 
-  const ids = [0, 6, 4, 1, 5, 7, 2, 8, 9, 3];
+  const ids = [0, 10, 6, 4, 1, 5, 7, 2, 8, 9, 3, 11];
 
   return (
     <div className="bg-black h-14 justify-center gap-6 md:flex hidden ">

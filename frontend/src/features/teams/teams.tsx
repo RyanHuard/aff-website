@@ -12,6 +12,7 @@ const Teams = () => {
 
   const homeTowns = [
     "Birmingham, AL",
+    "El Paso, TX",
     "Fargo, ND",
     "Louisville, KY",
     "Memphis, TN",
@@ -21,10 +22,12 @@ const Teams = () => {
     "Shreveport, LA",
     "Charleston, SC",
     "St. Louis, MO",
+    "Richmond, VA"
   ];
 
   const managers = [
     "Colby Garrett",
+    "Daniel Craddock",
     "Andrew Munie",
     "Tucker James",
     "Hutch Dunavant",
@@ -34,6 +37,7 @@ const Teams = () => {
     "Jackson Baird",
     "Graydon Cowgill",
     "Griffon Kipper",
+    "Caleb Dyess"
   ];
 
   return (
