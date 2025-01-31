@@ -20,6 +20,7 @@ import Trades from "./features/trades/trades";
 import ManagerRoute from "./components/routes/manager-route";
 import TradePortal from "./features/manager/features/trades/trade-portal";
 import AuthTokenProvider from "./hooks/use-auth-token";
+import FreeAgency from "./features/free-agency/free-agency";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -87,13 +88,13 @@ const router = createBrowserRouter([
     ],
   },
   {
-    // path: "/offseason",
-    // children: [
-    //   {
-    //     path: "/offseason/free-agency",
-    //     element: <FreeAgency />
-    //   }
-    // ]
+    path: "/offseason",
+    children: [
+      {
+        path: "/offseason/free-agency",
+        element: <FreeAgency />
+      }
+    ]
   },
 ]);
 

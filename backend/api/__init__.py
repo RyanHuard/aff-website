@@ -4,7 +4,9 @@ from flask import Flask, send_from_directory
 from flask_cors import CORS, cross_origin
 import firebase_admin
 from firebase_admin import credentials
+from flask_socketio import SocketIO
 
+socketio = SocketIO(cors_allowed_origins="*")
 
 def create_app(test_config=None):
     os.environ["GRPC_VERBOSITY"] = "ERROR"
@@ -24,7 +26,7 @@ def create_app(test_config=None):
     )
     app.config.from_mapping(DATABASE=os.environ.get("DATABASE_URL"))
 
-    CORS(app, resources={r"/api/*": {"origins": "https://www.affederation.net"}})
+    CORS(app, resources={r"/api/*": {"origins": "*"}})
 
     if not firebase_admin._apps:
         cred = credentials.Certificate(json.loads(os.environ.get("FIREBASE_ADMIN")))
@@ -39,7 +41,7 @@ def create_app(test_config=None):
     from .trade.trade_endpoints import trade_bp
     from .records.records_endpoints import records_bp
 
-    # from .free_agency.free_agency_endpoints import free_agency_bp
+    from .free_agency.free_agency_endpoints import free_agency_bp
 
     app.register_blueprint(teams_bp)
     app.register_blueprint(stats_bp)
@@ -49,7 +51,7 @@ def create_app(test_config=None):
     app.register_blueprint(player_bp)
     app.register_blueprint(trade_bp)
     app.register_blueprint(records_bp)
-    # app.register_blueprint(free_agency_bp)
+    app.register_blueprint(free_agency_bp)
 
     app.config["MAIL_SERVER"] = "smtp.gmail.com"
     app.config["MAIL_PORT"] = 587
@@ -76,6 +78,8 @@ def create_app(test_config=None):
             "Access-Control-Allow-Methods", "GET,PUT,POST,PATCH,DELETE,OPTIONS"
         )
         return response
+    
+    socketio.init_app(app)
 
     return app
 
