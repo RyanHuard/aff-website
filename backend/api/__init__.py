@@ -1,5 +1,3 @@
-from gevent import monkey
-monkey.patch_all()
 import os
 import json
 from flask import Flask, send_from_directory
