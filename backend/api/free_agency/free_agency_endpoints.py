@@ -212,7 +212,7 @@ def choose_winner():
     sa_offer = next((offer for offer in top_offers if offer['team']['abbreviation'] == "SA"), None)
 
     # If "SA" is found, make them the winner, otherwise choose a winner randomly
-    if sa_offer and (current_player["name"] == "Sully Spence" or current_player["name"] == "Merv Iverson" or current_player["name"] == "Reid Lynch"):
+    if sa_offer and (current_player["name"] == "Sully Spence" or current_player["name"] == "Merv Iverson" or current_player["name"] == "Reid Lynch" or current_player["name"] == "Kamari Doe" or current_player["name"] == "Jack Word"):
         winner = sa_offer
     else:
         # Uses entries as random weight
