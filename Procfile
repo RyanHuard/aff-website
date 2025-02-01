@@ -1,1 +1,1 @@
-web: PYTHONPATH=backend gunicorn --worker-class gevent -w 2 backend.run:app
+web: PYTHONPATH=backend gunicorn --worker-class eventlet -w 2 backend.run:app
