@@ -67,27 +67,27 @@ def handle_connect():
 
 @socketio.on("disconnect")
 def handle_disconnect():
-    global final_offer_checks
+    # global final_offer_checks
 
-    if request.sid not in final_offer_checks:
-        return  # If the socket is not in the dictionary or disconnected, exit early
+    # if request.sid not in final_offer_checks:
+    #     return  # If the socket is not in the dictionary or disconnected, exit early
 
-    leaving_id = final_offer_checks[request.sid]["team_id"]
+    # leaving_id = final_offer_checks[request.sid]["team_id"]
     
-    # Safe removal using a list comprehension
-    final_offer_checks = {
-        k: v for k, v in final_offer_checks.items()
-        if not (k == request.sid or v["team_id"] == leaving_id)
-    }
+    # # Safe removal using a list comprehension
+    # final_offer_checks = {
+    #     k: v for k, v in final_offer_checks.items()
+    #     if not (k == request.sid or v["team_id"] == leaving_id)
+    # }
 
-    # Construct result
-    result = [{'requestId': k, 'data': v} for k, v in final_offer_checks.items()]
+    # # Construct result
+    # result = [{'requestId': k, 'data': v} for k, v in final_offer_checks.items()]
 
-    # Emit updated final_offer_checks
-    emit("final_offer_checks", result, broadcast=True)
+    # # Emit updated final_offer_checks
+    # emit("final_offer_checks", result, broadcast=True)
 
-    # Optionally, print for debugging
-    print(f"Client {request.sid} disconnected, updated final_offer_checks: {final_offer_checks}")
+    # # Optionally, print for debugging
+    # print(f"Client {request.sid} disconnected, updated final_offer_checks: {final_offer_checks}")
     disconnect()
 
 
