@@ -13,7 +13,7 @@ Flask-Cors==4.0.1
 flask-firebase-admin==0.2.4
 Flask-Mail==0.10.0
 Flask-SocketIO==5.3.6
-gevent==1.4
+gevent>=1.4.0
 google-api-core==1.34.1
 google-api-python-client==2.137.0
 google-auth==2.32.0
