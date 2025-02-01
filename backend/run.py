@@ -1,5 +1,6 @@
 from api import create_app, socketio
 import os
+import eventlet
 
 app = create_app()
 
