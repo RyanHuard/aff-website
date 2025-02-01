@@ -69,8 +69,8 @@ def handle_connect():
 def handle_disconnect():
     global final_offer_checks
 
-    if request.sid not in final_offer_checks:
-        return  # Avoid KeyError if SID is missing
+    if request.sid not in final_offer_checks or not socketio.server.manager.get_socket(request.sid):
+        return  # If the socket is not in the dictionary or disconnected, exit early
 
     leaving_id = final_offer_checks[request.sid]["team_id"]
     
