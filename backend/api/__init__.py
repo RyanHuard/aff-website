@@ -27,6 +27,7 @@ def create_app(test_config=None):
     app.config.from_mapping(DATABASE=os.environ.get("DATABASE_URL"))
 
     CORS(app, resources={r"/api/*": {"origins": "*"}})
+    socketio.init_app(app)
 
     if not firebase_admin._apps:
         cred = credentials.Certificate(json.loads(os.environ.get("FIREBASE_ADMIN")))
@@ -79,7 +80,7 @@ def create_app(test_config=None):
         )
         return response
     
-    socketio.init_app(app)
+    
 
     return app
 
