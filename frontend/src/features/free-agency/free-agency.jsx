@@ -13,6 +13,7 @@ import TeamList from "./components/team-list";
 import CountdownTimer from "./components/countdown-timer";
 import { useTeams } from "../teams/api/get-teams";
 import { Button } from "@/components/ui/button";
+import { useDisclosure } from "@chakra-ui/react";
 
 let socket;
 const URL = process.env.NODE_ENV == "production" ? undefined : "http://127.0.0.1:5000"
@@ -35,6 +36,8 @@ export default function FreeAgency() {
 
   const [finalOfferCountdown, setFinalOfferCountdown] = useState(false);
   const [countdownSeconds, setCountdownSeconds] = useState(0);
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
 
   let freeAgentsQuery = useFreeAgents(currentPlayerIndex);
   let freeAgents = freeAgentsQuery?.data;
@@ -107,6 +110,7 @@ export default function FreeAgency() {
       setUserOffer();
       setWinner(winner);
       if (winner.winner) {
+        onOpen();
         setWinnerModal(true);
       }
     });
@@ -143,6 +147,7 @@ export default function FreeAgency() {
       // Check if countdown is not already active
       if (prevCountdownSeconds === 0) {
         setFinalOfferCountdown(true); // Assuming you want to indicate that the countdown is now active
+       
         return 5;
       }
       return prevCountdownSeconds;
@@ -159,8 +164,11 @@ export default function FreeAgency() {
       entries: calculateEntries(inputOffer),
       team: userTeam,
     };
+    console.log(offer);
+    
     socket.emit("send_offer", offer);
   };
+
 
   const handleSubmitOffer = (e) => {
     e.preventDefault();
@@ -190,14 +198,11 @@ export default function FreeAgency() {
     });
   };
 
-  const handleWinnerModalClose = () => {
-    setWinnerModal(false);
-  };
 
   return (
-    <div className="min-h-[900px] bg-[#edeef2]">
-      <Modal size="2xl" isOpen={winnerModal} onClose={handleWinnerModalClose}>
-        <ModalOverlay />
+    <div className="min-h-[900px] bg-[#edeef2] w-full h-full">
+      <Modal size="2xl" isOpen={isOpen} onClose={onClose} closeOnOverlayClick={true}>
+        <ModalOverlay className="w-full h-full" onClick={onClose} />
         <ModalContent>
           <CountdownTimer winner={winner} />
         </ModalContent>
@@ -216,7 +221,7 @@ export default function FreeAgency() {
             currentPlayerIndex={currentPlayerIndex}
           />
           <Offers offers={offers} teams={teams} />
-          <div className="flex flex-col gap-8">
+          <div className="flex flex-col gap-4">
             <CurrentPlayer
               currentPlayer={freeAgents?.[currentPlayerIndex]}
               capRemaining={capRemaining}

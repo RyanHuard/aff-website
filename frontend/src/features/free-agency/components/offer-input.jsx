@@ -25,17 +25,16 @@ const OfferInput = ({
 
   const handleKeyPress = (event) => {
     if (event.key === 'Enter') {
-      event.preventDefault();
-      handleSubmitOffer();
+      handleSubmitOffer(event);
     }
   };
 
   return (
     <FormControl>
-      <FormLabel>Offer</FormLabel>
+      <FormLabel >Offer</FormLabel>
       <Input
         bg="white"
-        mb="4"
+        mb="1rem"
         rounded="0"
         className="drop-shadow-md"
         placeholder="$/years (e.g. 4/3)"
@@ -44,7 +43,7 @@ const OfferInput = ({
         onKeyDown={handleKeyPress} />
       <div className="flex gap-4 font-semibold">
         <form onSubmit={handleSubmitOffer}>
-        <Button height="2.25rem" type="submit">
+        <Button className="h-9" type="submit">
           Submit
         </Button>
         </form>

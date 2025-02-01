@@ -2,8 +2,8 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const calculateWeek = (gameId: number) => {
-  let seasonStartGameId = 279;
-  return Math.ceil((gameId + 1 - seasonStartGameId) / 5);
+  let seasonStartGameId = 339;
+  return Math.ceil((gameId + 1 - seasonStartGameId) / 6);
 };
 
 const Game = ({ game }: any) => {

@@ -16,7 +16,7 @@ const Offers = ({ offers, teams }) => {
         return (
           <div
             key={index}
-            className={`h-[10%] border-b border-gray-600 px-4 ${
+            className={`h-[8.34%] border-b border-gray-600 px-4 ${
               isThirdIndex && "border-b-2 !border-black"
             } ${isFirstThreeElements ? " bg-green-300" : "bg-red-200"}`}
           >
@@ -24,7 +24,7 @@ const Offers = ({ offers, teams }) => {
               <img
                 src={`/logos/${offer?.team.team_logo}`}
                 alt={`${offer.former_team} Logo`}
-                className="m-1"
+                className="m-[6px]"
               />
               <span className="my-auto ml-4 font-semibold">
                 {formattedOffer}

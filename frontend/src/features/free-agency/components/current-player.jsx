@@ -27,10 +27,10 @@ const CurrentPlayer = ({
   if (userOfferLength) {
     for (let i = 0; i < userOfferLength; i++) {
       if (i < 3) {
-      let updatedCap = parseInt(capRemaining[2029 + i] - parseInt(userOfferSalary));
+      let updatedCap = parseInt(capRemaining[2030 + i] - parseInt(userOfferSalary));
       updatedCapRemaining = {
         ...updatedCapRemaining,
-        [2029 + i]: updatedCap,
+        [2030 + i]: updatedCap,
       };
     }
     }
@@ -91,7 +91,7 @@ const CurrentPlayer = ({
               <div className="pt-2">
                 <span className="font-bold">Cap remaining:</span>
                 <ul className="">
-                  {Object.entries(updatedCapRemaining).map(
+                  {Object.entries(updatedCapRemaining)?.map(
                     ([year, amount], index) => {
                       return (
                         <li key={index}>

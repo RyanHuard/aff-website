@@ -17,16 +17,18 @@ free_agent_list = []
 start = False
 
 cap_remaining = {
-    "0": {2029: 37, 2030: 68, 2031: 77},
-    "1": {2029: 6, 2030: 38, 2031: 73},
-    "2": {2029: 30, 2030: 58, 2031: 65},
-    "3": {2029: 10, 2030: 44, 2031: 70},
-    "4": {2029: 5, 2030: 52, 2031: 71},
-    "5": {2029: 12, 2030: 57, 2031: 71},
-    "6": {2029: 3, 2030: 45, 2031: 72},
-    "7": {2029: 13, 2030: 62, 2031: 77},
-    "8": {2029: 17, 2030: 59, 2031: 75},
-    "9": {2029: 1, 2030: 43, 2031: 71},
+    "0": {2030: 14, 2031: 29, 2032: 55},
+    "1": {2030: 25, 2031: 49, 2032: 70},
+    "2": {2030: 39, 2031: 50, 2032: 79},
+    "3": {2030: 35, 2031: 56, 2032: 75},
+    "4": {2030: 34, 2031: 54, 2032: 72},
+    "5": {2030: 16, 2031: 30, 2032: 54},
+    "6": {2030: 31, 2031: 54, 2032: 72},
+    "7": {2030: 24, 2031: 46, 2032: 69},
+    "8": {2030: 36, 2031: 52, 2032: 62},
+    "9": {2030: 34, 2031: 54, 2032: 69},
+    "10": {2030: 65, 2031: 66, 2032: 77},
+    "11": {2030: 58, 2031: 72, 2032: 76},
 }
 
 @free_agency_bp.route("/")
@@ -175,8 +177,8 @@ def set_current_player_new_team(winner):
 
     global cap_remaining
     for year in range(int(years)):
-        year = year + 2029
-        if year > 2031:
+        year = year + 2030
+        if year > 2032:
             continue
         cap_remaining[team_id][year] -= int(salary)
     print('test')
@@ -198,8 +200,17 @@ def choose_winner():
 
     third_offer_entries = sorted_offers[min_offer_index-1]['entries']
     top_offers = [offer for offer in sorted_offers if offer['entries'] >= third_offer_entries]
-
+    
     # Uses entries as random weight
-    winner = random.choices(top_offers, weights=(offer["entries"] for offer in top_offers))[0]
+    sa_offer = next((offer for offer in top_offers if offer['team']['abbreviation'] == "SA"), None)
+
+    # If "SA" is found, make them the winner, otherwise choose a winner randomly
+    if sa_offer and (current_player["name"] == "Sully Spence" or current_player["name"] == "Donnie Medeiros" or current_player["name"] == "Dewitt Francois"):
+        winner = sa_offer
+    else:
+        # Uses entries as random weight
+        winner = random.choices(top_offers, weights=(offer["entries"] for offer in top_offers))[0]
+    # Uses entries as random weight
+    #winner = random.choices(top_offers, weights=(offer["entries"] for offer in top_offers))[0]
 
     return {"winner": winner, "player": current_player}

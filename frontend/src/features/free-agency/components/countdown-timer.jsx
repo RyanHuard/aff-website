@@ -20,7 +20,7 @@ const CountdownTimer = ({ winner }) => {
   }, [count]);
 
   return (
-    <div className="h-96 rounded bg-white">
+    <div className="h-96 rounded bg-white w-1/3 mx-auto mt-8">
       <div className="p-4 text-center text-xl" style={{}}>
         {count === 0 ? (
           <div className="h-full mt-14 text-2xl">

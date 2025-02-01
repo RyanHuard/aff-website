@@ -3,8 +3,8 @@ import React from 'react'
 const TeamList = ({ finalOfferChecks, teams, handleFinalOfferCheck }) => {
   return (
     <div className="flex flex-col gap-4">
-    <div className="flex flex-wrap gap-10">
-      {finalOfferChecks?.slice(0, 5).map((offer, index) => {
+    <div className="flex flex-wrap gap-4">
+      {finalOfferChecks?.slice(0, 6).map((offer, index) => {
         const offerTeam = teams?.find(
           (team) => team.team_id == offer.data?.team_id
         );
@@ -25,8 +25,8 @@ const TeamList = ({ finalOfferChecks, teams, handleFinalOfferCheck }) => {
         );
       })}
     </div>
-    <div className="flex flex-wrap gap-10">
-      {finalOfferChecks?.slice(5, 10).map((offer, index) => {
+    <div className="flex flex-wrap gap-4">
+      {finalOfferChecks?.slice(6, 12).map((offer, index) => {
         const offerTeam = teams?.find(
           (team) => team.team_id == offer.data?.team_id
         );

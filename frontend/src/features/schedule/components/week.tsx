@@ -13,7 +13,10 @@ export default function Week({ schedule, seasonIdString, weekId }: WeekProps) {
   let seasonId = parseInt(seasonIdString);
   let gamesPerWeek = 5;
 
-  if (seasonId >= 6) {
+  if (seasonId >= 9) {
+    gamesPerWeek = 6;
+  }
+  else if (seasonId >= 6) {
     gamesPerWeek = 5;
   } else if (seasonId >= 3) {
     gamesPerWeek = 3;
