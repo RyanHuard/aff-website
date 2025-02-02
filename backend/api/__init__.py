@@ -42,7 +42,7 @@ def create_app(test_config=None):
     from .trade.trade_endpoints import trade_bp
     from .records.records_endpoints import records_bp
 
-    from .free_agency.free_agency_endpoints import free_agency_bp
+   # from .free_agency.free_agency_endpoints import free_agency_bp
 
     app.register_blueprint(teams_bp)
     app.register_blueprint(stats_bp)
