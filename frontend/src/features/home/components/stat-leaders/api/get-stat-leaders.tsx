@@ -8,6 +8,6 @@ export function getStatLeaders(seasonId: string) {
 export const useStatLeaders = (seasonId: string) => {
   return useQuery({
     queryKey: ["player-stats", seasonId],
-    queryFn: () => getStatLeaders(seasonId-1),
+    queryFn: () => getStatLeaders(seasonId),
   });
 };
