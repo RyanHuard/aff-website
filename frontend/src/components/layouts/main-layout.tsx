@@ -13,7 +13,7 @@ import { ToastContainer } from "react-toastify";
 function TeamLogosHeader() {
   const logos = [
     "alaracers.png",
-    "aff-logo.png",
+    "epcalaveras.png",
     "farfrost.png",
     "kencluck2.png",
     "memrhythm.png",
